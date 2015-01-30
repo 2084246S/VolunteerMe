@@ -1,0 +1,49 @@
+2 user personas:
+	- Volunteers: people who want to volunteer.
+	- Organisers: people who want volunteers.
+
+Volunteer Requirements:
+	- Browse volunteering opportunities
+		- Search and Filter
+		- Save searches
+	- Apply for Job opportunities
+	- Store their details
+		- Email (compulsory)
+		- Name
+		- Times available
+		- Contact Number
+
+Organiser Requirements:
+	- Post volunteer opportunities
+		- Edit/Delete
+	- View replies
+		- Collect contact details
+	- Show notification of replies
+	- Mass contact tools (?)
+	
+Main page:
+	- Login box
+	- Registration buttons:
+		- Register as Organiser
+		- Register as Volunteer
+	- List:
+		- Latest opportunities posted
+		- Things ending in <24 hours
+		- Categories of opportunities
+	- (Blatant rip-off of InternFinder demo app)
+
+Registration page:
+	//TODO discuss registration pages
+
+Search Page:
+	//TODO discuss search pages
+
+User page (Volunteer):
+	- "you might like these opportunities..."
+		- Based on previous/saved searches
+	- notifications
+	- Add/ Edit details (?)
+	
+User page (Organiser):
+	- Post/ Edit/ Delete opportunities
+	- Notifications
