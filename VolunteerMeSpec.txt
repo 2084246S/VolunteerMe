@@ -30,12 +30,18 @@ Main page:
 		- Latest opportunities posted
 		- Things ending in <24 hours
 		- Categories of opportunities
-	- (Blatant rip-off of InternFinder demo app)
+	
 
 Registration page:
-	//TODO discuss registration pages
+	- not necessary 
+	- can do one time volunteering off of op[ertunities.	
+//TODO discuss registration pages
 
 Search Page:
+	- use google maps ?
+	- categories
+	- location finder
+	- 
 	//TODO discuss search pages
 
 User page (Volunteer):
