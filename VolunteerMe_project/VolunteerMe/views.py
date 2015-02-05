@@ -1,5 +1,32 @@
 from django.shortcuts import render
+<<<<<<< HEAD
 from django.shortcuts import render
 from django.http import HttpResponse
 from VolunteerMe.models import Volunteer,Organiser,Opportunities,Search
 from VolunteerMe.forms import VolunteerForm,OrganiserForm
+=======
+from VolunteerMe.models import Category, Opportunity
+from datetime import datetime
+
+
+# Create your views here.
+def index(request):
+    # Make new context dictionary
+    context_dict = dict()
+
+    # Generate category list
+    category_list = Category.objects.order_by('+job_name')
+    context_dict['categories'] = category_list
+
+    # generate "new Opportunities" list
+    new_opportunities_list = Opportunity.objects.order_by('-start_date')[:5]
+    context_dict['new_opportunities'] = new_opportunities_list
+
+    # generate "ending soon" list
+    ending_soon_list = Opportunity.objects.order_by('+end_date').filter(
+        end_date__range=(datetime().now(), )
+    )[:5]
+    context_dict['ending_soon'] = ending_soon_list
+
+    return render(request, 'VolunteerMe/index.html', context_dict)
+>>>>>>> b38101f82fc67e7f9b338db2afb57dd41d43cf63
