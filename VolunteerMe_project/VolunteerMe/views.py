@@ -1,10 +1,10 @@
 from django.shortcuts import render
-<<<<<<< HEAD
+
 from django.shortcuts import render
 from django.http import HttpResponse
 from VolunteerMe.models import Volunteer,Organiser,Opportunities,Search
 from VolunteerMe.forms import VolunteerForm,OrganiserForm
-=======
+
 from VolunteerMe.models import Category, Opportunity
 from datetime import datetime
 
@@ -29,4 +29,4 @@ def index(request):
     context_dict['ending_soon'] = ending_soon_list
 
     return render(request, 'VolunteerMe/index.html', context_dict)
->>>>>>> b38101f82fc67e7f9b338db2afb57dd41d43cf63
+

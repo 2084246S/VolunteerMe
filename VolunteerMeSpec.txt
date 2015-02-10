@@ -35,14 +35,13 @@ Main page:
 Registration page:
 	- not necessary 
 	- can do one time volunteering off of op[ertunities.	
-//TODO discuss registration pages
+
 
 Search Page:
 	- use google maps ?
 	- categories
 	- location finder
 	- 
-	//TODO discuss search pages
 
 User page (Volunteer):
 	- "you might like these opportunities..."
@@ -53,3 +52,13 @@ User page (Volunteer):
 User page (Organiser):
 	- Post/ Edit/ Delete opportunities
 	- Notifications
+
+
+URL - potentially?
+VolunteerMe.com/home – home page
+VolunteerMe.com/volunteer-register - register page for volunteers
+VolunteerMe.com/organiser-register - register page for organisers
+VolunteerMe.com/login - login page 
+VolunteerMe.com/volunteer – volunteer profile page
+VolunteerMe.com/organiser – organiser profile page
+
