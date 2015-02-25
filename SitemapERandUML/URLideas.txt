@@ -1,0 +1,11 @@
+www.volunteerme.com/
+www.volunteerme.com/search
+www.volunteerme.com/login
+www.volunteerme.com/dashboard
+www.volunteerme.com/volunteer/<volunteer>
+www.volunteerme.com/volunteer/register
+www.volunteerme.com/organiser/register
+www.volunteerme.com/organiser/<organiser>
+www.volunteerme.com/organiser/<organiser>/<oportunities>
+www.volunteerme.com/organiser/manage-oportunities
+www.volunteerme.com/organiser/create-oportunities
