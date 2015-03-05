@@ -23,49 +23,54 @@
             <a href="{% url 'add_profile' %}">Edit Profile</a>
             {% endblock %}
 
+        </div
+    </div>
+</div>
+
+{% block body_block %}
+<div class="row placeholders">
+    <div class="col-xs-12 col-sm-6 placeholder">
+        <div class="hero-unit">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <a href="{%url 'applied_opportunities'%}">Opportunities applied for</a>
+                </div>
+            </div>
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <div>
-                {% block body_block %}{% endblock %}
+    </div>
+
+
+
+    <div class="col-xs-12 col-sm-6 placeholder">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <a href="{%url 'replied_opportunities'%}">replies to applications</a>
             </div>
         </div>
     </div>
 </div>
 
-{% block body_block %}
-<div class="hero-unit">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <a href="{%url 'applied_opportunities'%}">Opportunities applied for</a>
-        </div>
-    </div>
-
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <a href="{%url 'replied_opportunities'%}">replies to applications</a>
-        </div>
-    </div>
 
 
-    <div class="panel">
-        {% if opportunities_list %}
-        <div class="panel-heading">
-            <h3 class="panel-title">10 opportunities you may like..</h3>
-            <!-- Display search opportunitiess in an ordered list -->
-            <div class="panel-body">
-                <div class="list-group">
-                    {% for opportunities in opportunities_list %}
-                    <div class="list-group-item">
-                        <h4 class="list-group-item-heading"><a href="{{ opportunities.link }}">{{ opportunities.title }}</a></h4>
-                        <p class="list-group-item-text">{{ opportunities.summary }}</p>
-                    </div>
-                    {% endfor %}
+<div class="panel">
+    {% if opportunities_list %}
+    <div class="panel-heading">
+        <h3 class="panel-title">10 opportunities you may like..</h3>
+        <!-- Display search opportunitiess in an ordered list -->
+        <div class="panel-body">
+            <div class="list-group">
+                {% for opportunities in opportunities_list %}
+                <div class="list-group-item">
+                    <h4 class="list-group-item-heading"><a href="{{ opportunities.link }}">{{ opportunities.title }}</a></h4>
+                    <p class="list-group-item-text">{{ opportunities.summary }}</p>
                 </div>
+                {% endfor %}
             </div>
-            {% endif %}
         </div>
         {% endif %}
     </div>
+    {% endif %}
+</div>
 </div>
 
 {%endblock%}
