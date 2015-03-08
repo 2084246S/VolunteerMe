@@ -1,4 +1,4 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
 
 <div class="container-fluid">
     <div class="row">
@@ -33,7 +33,7 @@
         <div class="col-xs-12 col-sm-6 placeholder">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <a href="{%url 'applied_opportunities'%}">Make a new oppertunity</a>
+                    <a href="{%url 'new_opportunities'%}">Make a new oppertunity</a>
                 </div>
             </div>
         </div>
@@ -54,7 +54,7 @@
         {% if opportunities_list %}
         <div class="panel-heading">
             <h3 class="panel-title">your most recent advertisments</h3>
-            <h2><a href = "{%%}">view all</a></h2>
+            <h2><a href = "{url ''}">view all</a></h2>
             <!-- Display search opportunitiess in an ordered list -->
             <div class="panel-body">
                 <div class="list-group">
@@ -74,7 +74,7 @@
             </div>
             {% endif %}
         </div>
-        {% endif %}
+
     </div>
 </div>
 

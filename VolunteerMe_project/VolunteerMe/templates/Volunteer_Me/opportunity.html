@@ -1,0 +1,57 @@
+{%extends 'base.html'%}
+{% load staticfiles %}
+
+{% block title %}{{ opportunity_name }}{% endblock %}
+
+{% block body_block %}
+    {% if authenticated %}
+        <li><a href="{url ''}">Apply now</a></li>
+    {% endif %}
+
+    <h1>{{ opportunity_name }}</h1>
+    <li><a href="{url ''}">{{ company_name}}</a></li>
+
+
+    <h2>When</h2>
+    {% if opportunity.time %}
+        <h1>{{time}} from {{start_date}} </h1>
+    {%endif%}
+    {% if opportunity.end_date  %}
+    <h2>Till</h2>]
+    <h1>{{ end_date}}</h1>
+    {% endif %}
+
+    <h2>About this opportunity</h2>
+    <h1>{{ description}}</h1>
+    <h1>preferred skills</h1>
+    <h1>{{optional}}</h1>
+
+    <h2>Location</h2>
+    <h1>{{location}}</h1>
+    #put a map in somehow
+
+
+
+
+
+
+    <div class="panel">
+        <div class="panel-heading">
+            <h3 class="panel-title">Apply Now</h3>
+            <div class="panel-body">
+                <form id="profile_form" method="post" action="/VolunteerMe/apply/"
+                      enctype="multipart/form-data">
+
+                    {% csrf_token %}
+
+
+                    {{ volunteer_form.as_p }}
+
+
+                    <input type="submit" name="submit" value="Apply now"/>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

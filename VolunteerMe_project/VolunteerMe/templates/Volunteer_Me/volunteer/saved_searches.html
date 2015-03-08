@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+
+            {% block side_block %}
+            {% if userprofile.picture %}
+            <img src="{{ userprofile.picture.url }}"/>
+            {% endif %}
+
+            <h2>{{ user.username }}</h2>
+
+            <h2> Address: {{user.address}}</h2>
+            <h2>{%user.town%}</h2>
+            <h2>{%user.county%}</h2>
+            <h2>{%user.post_code%}</h2>
+            <h2>{%postcode%}</h2>
+
+            <h2>phone number(s):{{user.phone_number}}</h2>
+
+            <p>Email address: {{ user.email }}</p>
+            <a href="{% url 'add_profile' %}">Edit Profile</a>
+            {% endblock %}
+
+        </div
+    </div>
+</div>
+
+{% block body_block %}
+    {% if saved_searches %}
+        {% for search in saved_searches %}
+            <li><a href="{url''}">{{ saved.name }}</a></li>
+        {% endfor %}
+    {% else %}
+        <h1> There are no saved searches</h1>
+    {% endif %}
+{% endblock %}

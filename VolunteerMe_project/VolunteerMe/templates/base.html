@@ -30,7 +30,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/rango/">Rango</a>
+            <a class="navbar-brand" href="/VolunteerMe/">VolunteerMe</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -43,7 +43,7 @@
                 {% else %}
                 <li><a heref="{%url 'organiser_profile' %}">My Dashboard</a></li>
                 {%endif %}
-                <li><a href="{% url 'auth_logout' %}?next=/rango/">Sign Out</a></li>
+                <li><a href="{% url 'auth_logout' %}?next=/VolunteerMe/">Sign Out</a></li>
                 {% else %}
                 <li><a href="{% url 'auth_login' %}">Login</a></li>
 

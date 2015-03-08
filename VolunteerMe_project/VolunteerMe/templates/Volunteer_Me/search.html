@@ -1,0 +1,22 @@
+{%extend 'base.html'%}
+{% block side_block %}
+
+
+ {% if categories %}
+                {% for category in categories %}
+                <li><a href="">{{ category.slug }}</a></li>
+                {% endfor %}
+                {% endif %}
+
+{% endblock %}
+
+{% block body_block %}
+    {% if opportunites %}
+    {% for opportunity in opportunites %}
+        <li><a href="{url''}">{{opportunity.name}}</a></li>
+        <h1>{{opportunity.summary}}</h1>
+    {% endfor %}
+        {% else %}
+        <h1> there are no current opportunities</h1>
+    {% endif %}
+{%endblock%}
