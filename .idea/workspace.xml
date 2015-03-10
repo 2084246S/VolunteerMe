@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f914b6e-33cf-4511-b33a-df062ce8b43e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/index.html" afterPath="$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/organiser/edit_opportunity.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/volunteer/volunteer_replies.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/organiser/organiser_profile.html" afterPath="$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/organiser/organiser_profile.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/search.html" afterPath="$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/search.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/volunteer/volunteer_profile.html" afterPath="$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/volunteer/volunteer_profile.html" />
+      <change type="MOVED" beforePath="H:\Workspace\code\VolunteerMe\VolunteerMe_project\VolunteerMe\templates\Volunteer_Me\organiser\edit_oppertunity.html" afterPath="$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/organiser/organiser_replies.html" />
     </list>
     <ignored path="VolunteerMe.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,16 +29,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.076923" vertical-offset="612" max-vertical-offset="1241">
-              <caret line="56" column="87" selection-start-line="56" selection-start-column="87" selection-end-line="56" selection-end-column="87" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="search.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/search.html">
           <provider selected="true" editor-type-id="text-editor">
@@ -48,10 +39,40 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="edit_oppertunity.html" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/organiser/edit_oppertunity.html">
+      <file leaf-file-name="organiser_profile.html" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/organiser/organiser_profile.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="565">
+            <state vertical-scroll-proportion="0.6754967" vertical-offset="408" max-vertical-offset="1462">
+              <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="edit_opportunity.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/organiser/edit_opportunity.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-1.3076923" vertical-offset="0" max-vertical-offset="136">
+              <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="volunteer_replies.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/volunteer/volunteer_replies.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="102">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="organiser_replies.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/organiser/organiser_replies.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="102">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
@@ -72,17 +93,18 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/index.html" />
+        <option value="$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/search.html" />
+        <option value="$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/organiser/edit_oppertunity.html" />
         <option value="$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/volunteer/volunteer_profile.html" />
         <option value="$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/organiser/organiser_profile.html" />
-        <option value="$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/search.html" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="650" />
-    <option name="y" value="220" />
+    <option name="x" value="486" />
+    <option name="y" value="225" />
     <option name="width" value="1290" />
-    <option name="height" value="725" />
+    <option name="height" value="764" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -302,6 +324,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="FullScreen" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../twdp" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="DjangoTestsConfigurationType" factoryName="Django tests">
@@ -469,18 +492,18 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="650" y="220" width="1290" height="725" extended-state="1" />
-    <editor active="false" />
+    <frame x="486" y="225" width="1290" height="764" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24960753" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24960753" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32770744" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -520,25 +543,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/volunteer/volunteer_profile.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4884956" vertical-offset="812" max-vertical-offset="1377">
-          <caret line="64" column="94" selection-start-line="64" selection-start-column="94" selection-end-line="64" selection-end-column="94" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/organiser/opportunities.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.17345133" vertical-offset="98" max-vertical-offset="663">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/organiser/new_opportunity.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="591">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
@@ -552,18 +559,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/organiser/organiser_profile.html">
+    <entry file="file://$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/organiser/edit_opportunity.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6017699" vertical-offset="816" max-vertical-offset="1462">
-          <caret line="68" column="98" selection-start-line="68" selection-start-column="98" selection-end-line="68" selection-end-column="98" />
+        <state vertical-scroll-proportion="-1.3076923" vertical-offset="0" max-vertical-offset="136">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/volunteer/volunteer_replies.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="591">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/organiser/organiser_replies.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="591">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.076923" vertical-offset="612" max-vertical-offset="1241">
+        <state vertical-scroll-proportion="0.6920354" vertical-offset="561" max-vertical-offset="1241">
           <caret line="56" column="87" selection-start-line="56" selection-start-column="87" selection-end-line="56" selection-end-column="87" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/volunteer/volunteer_profile.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5115044" vertical-offset="0" max-vertical-offset="1360">
+          <caret line="17" column="12" selection-start-line="17" selection-start-column="12" selection-end-line="17" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/opportunity.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.15752213" vertical-offset="455" max-vertical-offset="1071">
+          <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -576,10 +615,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/organiser/edit_oppertunity.html">
+    <entry file="file://$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/organiser/new_opportunity.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="591">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/VolunteerMe_project/VolunteerMe/templates/Volunteer_Me/organiser/organiser_profile.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6754967" vertical-offset="408" max-vertical-offset="1462">
+          <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
           <folding />
         </state>
       </provider>
