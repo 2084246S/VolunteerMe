@@ -33,7 +33,7 @@
         <ul class="list-group">
             {% for new_opportunity in new_opportunities %}
             <li class="list-group-item"><a href="{% url 'category'  new_opportunity.slug %}">{{ new_opportunity.name }}</a></li>
-            <p class="list-group-item-text">{{new_opportunity.summary }}</p>
+            <p class="list-group-item-text">{{new_opportunity.summary|truncatewords:100 }}</p>
             {% endfor %}
         </ul>
         {% else %}
@@ -54,7 +54,7 @@
                 <ul class="list-group">
                     {% for ending in ending_soon %}
                     <li class="list-group-item"><a href="{{ending.url}}">{{ ending.title }}</a></li>
-                    <p class="list-group-item-text">{{ ending.summary }}</p>
+                    <p class="list-group-item-text">{{ ending.summary|truncatewords:100 }}</p>
                     {% endfor %}
                 </ul>
                 {% else %}

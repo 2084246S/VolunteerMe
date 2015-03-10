@@ -62,7 +62,7 @@
                 {% for opportunities in opportunities_list %}
                 <div class="list-group-item">
                     <h4 class="list-group-item-heading"><a href="{{ opportunities.link }}">{{ opportunities.title }}</a></h4>
-                    <p class="list-group-item-text">{{ opportunities.summary }}</p>
+                    <p class="list-group-item-text">{{ opportunities.summary|truncatewords:100 }}</p>
                 </div>
                 {% endfor %}
             </div>

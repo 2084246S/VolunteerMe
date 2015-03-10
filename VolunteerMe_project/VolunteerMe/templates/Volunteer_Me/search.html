@@ -2,21 +2,21 @@
 {% block side_block %}
 
 
- {% if categories %}
-                {% for category in categories %}
-                <li><a href="">{{ category.slug }}</a></li>
-                {% endfor %}
-                {% endif %}
+<form action="" method="get">
+    {{ filter.form.as_p}}
+    <input type = "submit"/>
+
+</form>
 
 {% endblock %}
 
 {% block body_block %}
-    {% if opportunites %}
-    {% for opportunity in opportunites %}
-        <li><a href="{url''}">{{opportunity.name}}</a></li>
-        <h1>{{opportunity.summary}}</h1>
-    {% endfor %}
-        {% else %}
-        <h1> there are no current opportunities</h1>
-    {% endif %}
+{% if filter %}
+{% for opportunity in filter %}
+<li><a href="{url''}">{{opportunity.name}}</a></li>
+<h1>{{opportunity.summary|truncatewords:100}}</h1>
+{% endfor %}
+{% else %}
+<h1> there are no current opportunities using this criteria</h1>
+{% endif %}
 {%endblock%}
