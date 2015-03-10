@@ -12,8 +12,11 @@
             <h2>{{ user.username }}</h2>
 
             <h2> Address: {{user.address}}</h2>
+
             <h2>{%user.town%}</h2>
+
             <h2>{%user.county%}</h2>
+
             <h2>{%user.post_code%}</h2>
 
             <h2>phone number(s):{{user.phone_number}}</h2>
@@ -39,7 +42,6 @@
     </div>
 
 
-
     <div class="col-xs-12 col-sm-6 placeholder">
         <div class="panel panel-primary">
             <div class="panel-heading">
@@ -48,7 +50,6 @@
         </div>
     </div>
 </div>
-
 
 
 <div class="panel">
@@ -60,7 +61,9 @@
             <div class="list-group">
                 {% for opportunities in opportunities_list %}
                 <div class="list-group-item">
-                    <h4 class="list-group-item-heading"><a href="{{ opportunities.link }}">{{ opportunities.title }}</a></h4>
+                    <h4 class="list-group-item-heading"><a href="{{ opportunities.link }}">{{ opportunities.title }}</a>
+                    </h4>
+
                     <p class="list-group-item-text">{{ opportunities.summary|truncatewords:100 }}</p>
                 </div>
                 {% endfor %}

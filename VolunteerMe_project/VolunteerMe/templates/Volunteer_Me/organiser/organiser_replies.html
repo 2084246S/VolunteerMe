@@ -1,0 +1,16 @@
+{% extends 'base.html'%}
+{% block body_block %}
+{% if opportunities %}
+{% for opportunity in opportunities%}
+<h1>{{ opportunity_name }}</h1>
+{% if opportunities.replies%}
+{% for replies in opportunities.replies %}
+# display details of applicant.
+
+
+{%endfor%}
+{%else%}
+<h2> there are no replies to this opportunity</h2>
+{%endif%}
+{%endfor%}
+{% endblock %}
