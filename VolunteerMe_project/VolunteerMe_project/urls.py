@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
-from django.contrib import admin,views
+from django.contrib import admin
+from VolunteerMe import views
 
 urlpatterns = patterns('',
     # Examples:
