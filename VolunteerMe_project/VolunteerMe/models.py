@@ -46,7 +46,7 @@ class Opportunity(models.Model):
 
 class Category(models.Model):
 
-    name = models.CharField(max_length=128, unique=True)
+    job_name = models.CharField(max_length=128, unique=True)
     slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
