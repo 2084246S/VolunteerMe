@@ -91,3 +91,7 @@ def manage_applications(request):
 
 def about(request):
     pass
+
+
+def category(request):
+    pass

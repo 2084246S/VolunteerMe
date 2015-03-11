@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils.text import slugify
 
 class Volunteer(models.Model):
     firstname = models.CharField(max_length=128)
@@ -34,12 +34,19 @@ class Organiser(models.Model):
 
 
 class Opportunity(models.Model):
-    category = models.CharField(max_length=128)
-    time = models.TimeField()
+    name = models.CharField(max_length=128, unique=True)
+    category = models.CharField(max_length=128, default="Other")
+    #time = models.TimeField()
     start_date = models.DateField()
     end_date = models.DateField()
     description = models.TextField()
-    optional = models.TextField(blank=True)
+    location = models.TextField(blank=True, default="")
+    optional = models.TextField(blank=True, default="")
+    slug = models.SlugField(unique=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(unicode(self.name))
+        super(Opportunity, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.name

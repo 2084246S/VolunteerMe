@@ -32,8 +32,7 @@
         {% if new_opportunities %}
         <ul class="list-group">
             {% for new_opportunity in new_opportunities %}
-            <li class="list-group-item"><a href="{% url 'category'  new_opportunity.slug %}">{{ new_opportunity.name
-                }}</a></li>
+            <li class="list-group-item"><a href="{% url 'category'  new_opportunity.slug %}">{{ new_opportunity.name }}</a></li>
             <p class="list-group-item-text">{{new_opportunity.summary|truncatewords:100 }}</p>
             {% endfor %}
         </ul>
