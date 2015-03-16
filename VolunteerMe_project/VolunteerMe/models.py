@@ -8,6 +8,10 @@ class Volunteer(models.Model):
     gender = models.CharField(max_length=32, choices=((1, "Male"), (2, "Female"), (3, "Other")))
     time_available = models.DateField()
     contact_number = models.CharField(max_length=15, blank=True)
+    post_code = models.CharField()
+    address = models.CharField()
+    town = models.TextField()
+
 
     def __unicode__(self):
         return self.name
@@ -28,6 +32,8 @@ class Organiser(models.Model):
     company_email = models.EmailField()
     company_number = models.IntegerField()
     company_address = models.CharField(max_length=128)
+    company_post_code = models.CharField()
+    company_town = models.TextField()
 
     def __unicode__(self):
         return self.name
@@ -36,7 +42,6 @@ class Organiser(models.Model):
 class Opportunity(models.Model):
     name = models.CharField(max_length=128, unique=True)
     category = models.CharField(max_length=128, default="Other")
-    #time = models.TimeField()
     start_date = models.DateField()
     end_date = models.DateField()
     description = models.TextField()
