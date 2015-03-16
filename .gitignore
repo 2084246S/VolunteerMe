@@ -58,3 +58,8 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# the .idea folder is just for intelliJ so I'm removing it.
+# It keeps fucking with my pulls.
+*.idea/
+# god damn this shit...
