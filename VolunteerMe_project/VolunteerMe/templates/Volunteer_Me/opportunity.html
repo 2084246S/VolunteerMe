@@ -14,11 +14,11 @@
 
 <h2>When</h2>
 {% if opportunity.time %}
-<h1>{{time}} from {{start_date}} </h1>
+<h1>{{ time }} from {{ start_date }} </h1>
 {%endif%}
 {% if opportunity.end_date  %}
 <h2>Till</h2>]
-<h1>{{ end_date}}</h1>
+<h1>{{ end_date }}</h1>
 {% endif %}
 
 <h2>About this opportunity</h2>
@@ -41,10 +41,9 @@
 
                 {% csrf_token %}
 
-
+<!-- TODO Replace with template tag
                 {{ volunteer_form.as_p }}
-
-
+-->
                 <input type="submit" name="submit" value="Apply now"/>
             </form>
         </div>

@@ -1,7 +1,10 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.utils.text import slugify
 
 class Volunteer(models.Model):
+    user = models.OneToOneField(User)
+
     firstname = models.CharField(max_length=128)
     surname = models.CharField(max_length=128)
     email = models.EmailField()
@@ -24,7 +27,8 @@ class Search(models.Model):
 
 
 class Organiser(models.Model):
-    company_name = models.CharField(max_length=128)
+    user = models.OneToOneField(User)
+    company_name = models.CharField(max_length=128, unique=True)
     company_email = models.EmailField()
     company_number = models.IntegerField()
     company_address = models.CharField(max_length=128)
@@ -36,7 +40,7 @@ class Organiser(models.Model):
 class Opportunity(models.Model):
     name = models.CharField(max_length=128, unique=True)
     category = models.CharField(max_length=128, default="Other")
-    #time = models.TimeField()
+    # time = models.TimeField()
     start_date = models.DateField()
     end_date = models.DateField()
     description = models.TextField()

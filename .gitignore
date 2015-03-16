@@ -61,5 +61,5 @@ target/
 
 # the .idea folder is just for intelliJ so I'm removing it.
 # It keeps fucking with my pulls.
-*.idea/
+*u.idea/
 # god damn this shit...
