@@ -1,16 +1,17 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django.utils.text import slugify
 
 class Volunteer(models.Model):
-    user = models.OneToOneField(User)
-
     firstname = models.CharField(max_length=128)
     surname = models.CharField(max_length=128)
     email = models.EmailField()
     gender = models.CharField(max_length=32, choices=((1, "Male"), (2, "Female"), (3, "Other")))
     time_available = models.DateField()
     contact_number = models.CharField(max_length=15, blank=True)
+    post_code = models.CharField(max_length=12)
+    address = models.CharField(max_length=128)
+    town = models.TextField()
+
 
     def __unicode__(self):
         return self.name
@@ -27,11 +28,12 @@ class Search(models.Model):
 
 
 class Organiser(models.Model):
-    user = models.OneToOneField(User)
-    company_name = models.CharField(max_length=128, unique=True)
+    company_name = models.CharField(max_length=128)
     company_email = models.EmailField()
     company_number = models.IntegerField()
     company_address = models.CharField(max_length=128)
+    company_post_code = models.CharField(max_length=12)
+    company_town = models.TextField()
 
     def __unicode__(self):
         return self.name
@@ -40,7 +42,6 @@ class Organiser(models.Model):
 class Opportunity(models.Model):
     name = models.CharField(max_length=128, unique=True)
     category = models.CharField(max_length=128, default="Other")
-    # time = models.TimeField()
     start_date = models.DateField()
     end_date = models.DateField()
     description = models.TextField()

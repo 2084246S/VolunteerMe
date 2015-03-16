@@ -7,6 +7,7 @@ from VolunteerMe.forms import VolunteerForm, OrganiserForm
 
 from VolunteerMe.models import Category, Opportunity
 from datetime import datetime
+from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -46,15 +47,67 @@ def search(request):
 
 # stub views
 def profile(request):
-    pass
+    #pass
+    u = User.objects.get(username=request.user.username)
+    context_dict = {}
+    if u.is_volunteer:
+        try:
+            up = Volunteer.objects.get(user=u)
+        except:
+            up = None
 
+        context_dict['user'] = u
+        context_dict['userprofile'] = up
+
+        return(request,'Volunteer_Me/volunteer_profile',context_dict)
+    else:
+        try:
+            up = Organiser.objects.get(user=u)
+        except:
+            up = None
+
+        context_dict['user'] = u
+        context_dict['userprofile'] = up
+        return(request,'Volunteer_Me/organiser_profile',context_dict)
 
 def register_volunteer(request):
-    pass
+    #pass
+    if request.method == 'POST':
+        profile_form = VolunteerForm(request.POST)
+        if profile_form.is_valid():
+            if request.user.is_authenticated():
+                profile = profile_form.save(commit=False)
+                user = User.objects.get(id=request.user.id)
+                profile.user = user
+                try:
+                    profile.picture = request.FILES['picture']
+                except:
+                    pass
+                profile.save()
+                return index(request)
+    else:
+        form = Volunteer(request.GET)
+    return render(request, 'rango/volunteer_register.html', {'profile_form': form})
+
 
 
 def register_organiser(request):
-    pass
+    if request.method == 'POST':
+        profile_form = OrganiserForm(request.POST)
+        if profile_form.is_valid():
+            if request.user.is_authenticated():
+                profile = profile_form.save(commit=False)
+                user = User.objects.get(id=request.user.id)
+                profile.user = user
+                try:
+                    profile.picture = request.FILES['picture']
+                except:
+                    pass
+                profile.save()
+                return index(request)
+    else:
+        form = Organiser(request.GET)
+    return render(request, 'rango/organiser_register.html', {'profile_form': form})
 
 
 def organiser(request, company_name):
