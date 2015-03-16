@@ -62,3 +62,13 @@ VolunteerMe.com/login - login page
 VolunteerMe.com/volunteer – volunteer profile page
 VolunteerMe.com/organiser – organiser profile page
 
+
+superuser created
+name = rhianna
+password = volunteerme
+
+
+
+
+
+

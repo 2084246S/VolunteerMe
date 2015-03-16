@@ -8,8 +8,8 @@ class Volunteer(models.Model):
     gender = models.CharField(max_length=32, choices=((1, "Male"), (2, "Female"), (3, "Other")))
     time_available = models.DateField()
     contact_number = models.CharField(max_length=15, blank=True)
-    post_code = models.CharField()
-    address = models.CharField()
+    post_code = models.CharField(max_length=12)
+    address = models.CharField(max_length=128)
     town = models.TextField()
 
 
@@ -32,7 +32,7 @@ class Organiser(models.Model):
     company_email = models.EmailField()
     company_number = models.IntegerField()
     company_address = models.CharField(max_length=128)
-    company_post_code = models.CharField()
+    company_post_code = models.CharField(max_length=12)
     company_town = models.TextField()
 
     def __unicode__(self):
