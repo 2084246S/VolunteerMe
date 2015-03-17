@@ -8,13 +8,13 @@ class Volunteer(models.Model):
     gender = models.CharField(max_length=32, choices=((1, "Male"), (2, "Female"), (3, "Other")))
     time_available = models.DateField()
     contact_number = models.CharField(max_length=15, blank=True)
-    post_code = models.CharField(max_length=12)
-    address = models.CharField(max_length=128)
-    town = models.TextField()
+    post_code = models.CharField(max_length=12,blank=True)
+    address = models.CharField(max_length=128,blank=True)
+    town = models.TextField(blank=True)
 
 
     def __unicode__(self):
-        return self.name
+        return self.firstname
 
 
 class Search(models.Model):
@@ -32,8 +32,8 @@ class Organiser(models.Model):
     company_email = models.EmailField()
     company_number = models.IntegerField()
     company_address = models.CharField(max_length=128)
-    company_post_code = models.CharField(max_length=12)
-    company_town = models.TextField()
+    company_post_code = models.CharField(max_length=12,blank=True)
+    company_town = models.TextField(blank=True)
 
     def __unicode__(self):
         return self.name

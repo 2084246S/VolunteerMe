@@ -164,8 +164,8 @@ def manage_opportunity(request, opportunity_id):
 
 def create_opportunity(request):
     pass
-
-
+@login_required
+@user_passes_test(is_volunteer)
 def manage_applications(request):
     pass
 
@@ -198,3 +198,6 @@ def category(request, category_name_slug):
         if opportunities:
             context_dict[]
 '''
+
+def is_volunteer():
+    return user.groups.filter(name='Volunteer').exists()
