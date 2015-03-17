@@ -5,7 +5,7 @@ from VolunteerMe import views
 
 urlpatterns = patterns('',
                        url(r'^$', views.index, name='index'),
-                       url(r'^profile/$',
+                       url(r'^profile/(?P<username>[\W\-]+)/$',
                            views.profile,
                            name='profile'),
                        url(r'^volunteer/register/$',

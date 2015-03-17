@@ -83,6 +83,7 @@ def register_volunteer(request):
                 except:
                     pass
                 profile.save()
+                user.groups.add(Group.objects.get(name='Volunteer'))
                 return index(request)
     else:
         form = Volunteer(request.GET)
@@ -103,6 +104,7 @@ def register_organiser(request):
                 except:
                     pass
                 profile.save()
+                user.groups.add(Group.objects.get(name='organiser'))
                 return index(request)
     else:
         form = Organiser(request.GET)
