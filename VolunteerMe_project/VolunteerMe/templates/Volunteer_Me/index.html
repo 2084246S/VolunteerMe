@@ -20,8 +20,21 @@
 
 
 {% block body_block %}
+
 <div class="row placeholders">
     <div class="col-xs-12 col-sm-6 placeholder">
+
+
+
+                    <div class="col-xs-12 col-sm-6 col-lg-6 pull-left">
+                        <a href="/volunteer/register/"><img src="/static/img/register_volunteer.png" class="center-block img-responsive" /></a>
+                    </div>
+
+
+                    <div class="col-xs-12 col-sm-6 col-lg-6 pull-right">
+                        <a href="organiser/register/"><img src="/static/img/register_organiser.png" class="img-responsive center-block" /></a>
+                    </div>
+
 
         <div class="panel panel-primary">
             <div class="panel-heading">
@@ -32,7 +45,7 @@
         <ul class="list-group">
             {% for new_opportunity in new_opportunities %}
             <li class="list-group-item"><a href="{% url 'opportunity'  new_opportunity_slug %}">{{ new_opportunity.name }}</a></li>
-            <p class="list-group-item-text">{{new_opportunity.summary|truncatewords:100 }}</p>
+            <p class="list-group-item-text">{{new_opportunity.summary|truncatewords:100}}</p>
             {% endfor %}
         </ul>
         {% else %}
@@ -51,7 +64,7 @@
         {% if ending_soon %}
         <ul class="list-group">
             {% for ending in ending_soon %}
-            <li class="list-group-item"><a href="{% url 'opportunity'% ending_slug}">{{ ending.title }}</a></li>
+            <li class="list-group-item"><a href="{{% url 'opportunity' ending_slug%}}">{{ ending.title }}</a></li>
             <p class="list-group-item-text">{{ ending.summary|truncatewords:100 }}</p>
             {% endfor %}
         </ul>
