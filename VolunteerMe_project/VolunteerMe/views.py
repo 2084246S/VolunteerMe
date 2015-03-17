@@ -1,11 +1,12 @@
 from django.shortcuts import render
-from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
 
-from VolunteerMe.models import Volunteer, Organiser
+from django.shortcuts import render
+from django.http import HttpResponse
+from VolunteerMe.models import Volunteer, Organiser, Search, Opportunity
 from VolunteerMe.forms import VolunteerForm, OrganiserForm
 from VolunteerMe.models import Category, Opportunity
-
+from datetime import datetime
+from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -139,24 +140,17 @@ def show_opportunity(request, username, opportunity_id):
             context['optional'] = opportunity.optional
             context['location'] = opportunity.location
 
-            if request.method == 'POST':
-                # collect application form data
-
     context['opportunity'] = opportunity
     return render(request, 'Volunteer_Me/opportunity.html')
 
-
-@login_required
 def dashboard(request):
     pass
 
 
-@login_required
 def manage_opportunities(request):
     pass
 
 
-@login_required
 def manage_opportunity(request, opportunity_id):
     opportunity = Opportunity.objects.get(id=opportunity_id)
     if opportunity:
@@ -167,21 +161,19 @@ def manage_opportunity(request, opportunity_id):
     return render(request, 'volunteer_me/organiser/edit_opportunity.html', context)
 
 
-@login_required
 def create_opportunity(request):
     pass
 
 
-@login_required
 def manage_applications(request):
     pass
 
 
-@login_required
 def manage_application(request, application_id):
     application = Opportunity.objects.get(id=application_id)
+
     if application:
-        if application.request.user
+        # do stuff
         application.save()
 
     context = {'application': application}
