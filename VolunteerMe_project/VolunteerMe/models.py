@@ -20,7 +20,7 @@ class Volunteer(models.Model):
 class Search(models.Model):
     town_or_postcode = models.CharField(max_length=128, blank=True)
     distance_from = models.IntegerField(blank=True)
-    category = models.CharField(max_length=128)
+    category = models.ForeignKey(Category)
     optional = models.CharField(max_length=128)
 
     def __unicode__(self):
@@ -67,3 +67,14 @@ class Category(models.Model):
 
     def __unicode__(self):
         return self.name
+
+class Application(models.Model):
+    volunteer = models.ForeignKey(Volunteer)
+    opportunity = models.ForeignKey(Opportunity)
+
+
+class Reply(models.Model):
+    application = models.ForeignKey(Application)
+
+    class Meta:
+        verbose_name_plural = 'Replies'
