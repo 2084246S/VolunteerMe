@@ -17,16 +17,6 @@ class Volunteer(models.Model):
         return self.firstname
 
 
-class Search(models.Model):
-    town_or_postcode = models.CharField(max_length=128, blank=True)
-    distance_from = models.IntegerField(blank=True)
-    category = models.ForeignKey(Category)
-    optional = models.CharField(max_length=128)
-
-    def __unicode__(self):
-        return self.name
-
-
 class Organiser(models.Model):
     company_name = models.CharField(max_length=128)
     company_email = models.EmailField()
@@ -64,6 +54,17 @@ class Category(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(Category, self).save(*args, **kwargs)
+
+    def __unicode__(self):
+        return self.name
+
+
+
+class Search(models.Model):
+    town_or_postcode = models.CharField(max_length=128, blank=True)
+    distance_from = models.IntegerField(blank=True)
+    category = models.ForeignKey(Category, default="")
+    optional = models.CharField(max_length=128)
 
     def __unicode__(self):
         return self.name

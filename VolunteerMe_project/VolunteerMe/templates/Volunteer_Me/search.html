@@ -11,8 +11,8 @@
 {% endblock %}
 
 {% block body_block %}
-{% if filter %}
-{% for opportunity in filter %}
+{% if result_list %}
+{% for opportunity in result_list %}
 <li><a href="{url''}">{{opportunity.name}}</a></li>
 <h1>{{opportunity.summary|truncatewords:100}}</h1>
 {% endfor %}
