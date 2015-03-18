@@ -17,6 +17,19 @@ class Volunteer(models.Model):
         return self.firstname
 
 
+class Category(models.Model):
+
+    job_name = models.CharField(max_length=128, unique=True)
+    slug = models.SlugField(unique=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Category, self).save(*args, **kwargs)
+
+    def __unicode__(self):
+        return self.name
+
+
 class Search(models.Model):
     town_or_postcode = models.CharField(max_length=128, blank=True)
     distance_from = models.IntegerField(blank=True)
@@ -42,6 +55,7 @@ class Organiser(models.Model):
 class Opportunity(models.Model):
     name = models.CharField(max_length=128, unique=True)
     category = models.CharField(max_length=128, default="Other")
+    company_name = models.CharField(max_length=128, default="TEMP")
     start_date = models.DateField()
     end_date = models.DateField()
     description = models.TextField()
@@ -56,17 +70,6 @@ class Opportunity(models.Model):
     def __unicode__(self):
         return self.name
 
-class Category(models.Model):
-
-    job_name = models.CharField(max_length=128, unique=True)
-    slug = models.SlugField(unique=True)
-
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
-        super(Category, self).save(*args, **kwargs)
-
-    def __unicode__(self):
-        return self.name
 
 class Application(models.Model):
     volunteer = models.ForeignKey(Volunteer)
