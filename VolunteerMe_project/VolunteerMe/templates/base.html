@@ -54,9 +54,9 @@
                     <h1>Signed in as {{ user.username }}!</h1>
                     {% if user.is_volunteer %}
                         <li><a heref="{%url 'volunteer_profile' %}">My Dashboard</a></li>
-                    {% else %}
-                        <li><a heref="{%url 'organiser_profile' %}">My Dashboard</a></li>
-                    {%endif %}
+{#                  {% else %}#}
+{#                        <li><a heref="{%url 'organiser_profile' %}">My Dashboard</a></li>#}
+                   {%endif %}
                     <li><a href="{% url 'auth_logout' %}?next=/VolunteerMe/">Sign Out</a></li>
                 {% else %}
                     <li><a href="{% url 'auth_login' %}">Sign In</a></li>

@@ -36,7 +36,7 @@ def search(request):
 
     if request.method == 'POST':
         query = request.POST['query'].strip()
-
+        oppertunities = Opportunity.objects.filter()
         #if query:
         #result_list = run_query(query)
 

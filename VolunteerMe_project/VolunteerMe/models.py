@@ -11,12 +11,12 @@ class UserProfile(models.Model):
     # The additional attributes we wish to include.
     TYPE_CHOICES = (('v','Volunteer'),('o','organiser'))
     type = models.CharField(max_length=1, choices=TYPE_CHOICES)
-    name =  models.CharField(max_length=128,help_text='Full Name')
-    email =  models.EmailField(help_text='Email')
-    contact_number =  models.CharField(max_length=15, help_text='Contact number')
-    post_code =  models.CharField(max_length=12,blank=True,help_text='postcode')
-    address =  models.CharField(max_length=128,blank=True,help_text='address')
-    town =  models.TextField(blank=True,help_text='Town')
+    name =  models.CharField(max_length=128,)
+    email =  models.EmailField()
+    contact_number =  models.CharField(max_length=15)
+    post_code =  models.CharField(max_length=12,blank=True)
+    address =  models.CharField(max_length=128,blank=True)
+    town =  models.CharField(max_length=128,blank=True)
     picture = models.ImageField(upload_to='profile_images', blank=True)
 
     # Override the __unicode__() method to return out something meaningful!
@@ -34,7 +34,7 @@ class Volunteer(models.Model):
 
 class Category(models.Model):
 
-    job_name = models.CharField(max_length=128, unique=True)
+    category = models.CharField(max_length=128, unique=True)
     slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
