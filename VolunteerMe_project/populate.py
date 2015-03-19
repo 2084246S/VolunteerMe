@@ -1,6 +1,6 @@
 #!python.exe
 import os
-from datetime import datetime
+from datetime import date
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'VolunteerMe_project.settings')
 
@@ -9,7 +9,7 @@ import django
 django.setup()
 
 from VolunteerMe.models import Opportunity, Organiser
-from django.contrib.auth.models import User, UserManager
+from django.contrib.auth.models import User
 
 
 categories_list = ['Administrative / Office Work', 'Advice / Information giving', 'Advocacy / Human Rights',
@@ -54,13 +54,12 @@ def populate():
         print "- {0}".format(str(o))
 
 
-def add_opportunity(organiser, name, description="", location="", start_date=datetime.now().date(),
-                    end_date=datetime.now().date()):
+def add_opportunity(organiser, name, description="", location="", start_date=date.today(), end_date=date.today()):
     o = Opportunity.objects.get_or_create(company=organiser, name=name)[0]
     o.description = description
     o.location = location
-    o.start_date = start_date
-    o.end_date = end_date
+    o.start_date = start_date.today()
+    o.end_date = end_date.today()
     o.save()
     return o
 
