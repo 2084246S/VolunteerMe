@@ -29,6 +29,8 @@ categories_list = ['Administrative / Office Work', 'Advice / Information giving'
                    'Technical Support',
                    'Tutoring / Supporting Learners', 'Volunteering for under 16s', 'Youth Work']
 
+global company_number
+company_number = 0
 
 def populate():
     o_brian = add_organiser('brian')
@@ -59,7 +61,8 @@ def add_opportunity(organiser, name, description="", location="", start_date=dat
 
 
 def add_organiser(name):
-    o = Organiser.objects.get_or_create(company_name=name)[0]
+    company_number += 1
+    o = Organiser.objects.get_or_create(company_name=name, company_number=company_number)[0]
     o.save()
     return o
 
