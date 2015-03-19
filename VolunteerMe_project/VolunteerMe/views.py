@@ -6,7 +6,7 @@ from VolunteerMe.models import Volunteer, Organiser, Search, Opportunity
 from VolunteerMe.forms import VolunteerForm, OrganiserForm
 from VolunteerMe.models import Category, Opportunity
 from datetime import datetime
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User,Group
 
 
 # Create your views here.
@@ -58,7 +58,7 @@ def profile(request):
         context_dict['user'] = u
         context_dict['userprofile'] = up
 
-        return(request,'Volunteer_Me/volunteer_profile',context_dict)
+        return(request,'Volunteer_Me/volunteer/volunteer_profile',context_dict)
     else:
         try:
             up = Organiser.objects.get(user=u)
@@ -67,7 +67,7 @@ def profile(request):
 
         context_dict['user'] = u
         context_dict['userprofile'] = up
-        return(request,'Volunteer_Me/organiser_profile',context_dict)
+        return(request,'Volunteer_Me/organiser/organiser_profile',context_dict)
 
 def register_volunteer(request):
     #pass
@@ -87,7 +87,7 @@ def register_volunteer(request):
                 return index(request)
     else:
         form = Volunteer(request.GET)
-    return render(request, 'rango/volunteer_register.html', {'profile_form': form})
+    return render(request, 'Volunteer_Me/volunteer/volunteer_register.html', {'profile_form': form})
 
 
 
@@ -108,7 +108,7 @@ def register_organiser(request):
                 return index(request)
     else:
         form = Organiser(request.GET)
-    return render(request, 'rango/organiser_register.html', {'profile_form': form})
+    return render(request, 'Volunteer_Me/organiser/organiser_register.html', {'profile_form': form})
 
 
 def organiser(request, company_name):
@@ -121,7 +121,7 @@ def organiser(request, company_name):
         # do stuff
         organiser.save()
 
-    return render(request, 'volunteer_me/organiser/organiser_profile.html', context)
+    return render(request, 'Volunteer_Me/organiser/organiser_profile.html', context)
 
 
 def show_opportunity(request, username, opportunity_id):
@@ -160,7 +160,7 @@ def manage_opportunity(request, opportunity_id):
 
         opportunity.save()
     context = {'opportunity': opportunity}
-    return render(request, 'volunteer_me/organiser/edit_opportunity.html', context)
+    return render(request, 'Volunteer_Me/organiser/edit_opportunity.html', context)
 
 
 def create_opportunity(request):
@@ -179,11 +179,11 @@ def manage_application(request, application_id):
         application.save()
 
     context = {'application': application}
-    return render(request, 'volunteer_me/volunteer/volunteer_replies.html', context)
+    return render(request, 'Volunteer_Me/volunteer/volunteer_replies.html', context)
 
 
 def about(request):
-    return render(request, 'volunteerme/about.html')
+    return render(request, 'Volunteer_Me/about.html')
 
 def get_category_list(max_results=0, starts_with=''):
         cat_list = []
@@ -205,7 +205,7 @@ def suggest_category(request):
 
         cat_list = get_category_list(8, starts_with)
 
-        return render(request, 'volunteerme/category_list.html', {'cat_list': cat_list })
+        return render(request, 'Volunteer_Me/cats.html', {'cat_list': cat_list })
 '''
 Again, not sure what this is for...
 def category(request, category_name_slug):
