@@ -8,6 +8,8 @@ urlpatterns = patterns('',
                        url(r'^profile/(?P<username>[\w\-]+)/$',
                            views.profile,
                            name='profile'),
+                       url(r'^add_profile/', views.register_organiser, name='add_profile'),
+
                        url(r'^volunteer/register/$',
                            views.register_volunteer,
                            name='volunteer_registration'),

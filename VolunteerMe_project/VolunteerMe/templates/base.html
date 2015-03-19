@@ -57,10 +57,11 @@
 {#                  {% else %}#}
 {#                        <li><a heref="{%url 'organiser_profile' %}">My Dashboard</a></li>#}
                    {%endif %}
-                    <li><a href="{% url 'auth_logout' %}?next=/VolunteerMe/">Sign Out</a></li>
+                    <li><a href="{% url 'auth_logout' %}?next=/volunteer-me/">Sign Out</a></li>
                 {% else %}
+                     <li><a href="{% url 'registration_register' %}">Register Here</a></li>
                     <li><a href="{% url 'auth_login' %}">Sign In</a></li>
-                    <li><a href="{% url 'about' %}">Register</a></li>
+                    <li><a href="{% url 'about' %}">About</a></li>
                 {% endif %}
             </ul>
         </div>
