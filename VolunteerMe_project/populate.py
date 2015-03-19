@@ -1,6 +1,6 @@
 #!python.exe
 import os
-from datetime import date
+from datetime import datetime
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'VolunteerMe_project.settings')
 
@@ -9,7 +9,8 @@ import django
 django.setup()
 
 from VolunteerMe.models import Opportunity, Organiser
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, UserManager
+
 
 categories_list = ['Administrative / Office Work', 'Advice / Information giving', 'Advocacy / Human Rights',
                    'Arts ( music/drama/crafts)', 'Befriending / Mentoring', 'Campaigning / Lobbying',
@@ -36,7 +37,7 @@ company_number = 0
 
 def populate():
     u_brian = add_user('brian123', 'brian123@test.com', 'pass123')
-    o_brian = add_organiser('brian',u_brian)
+    o_brian = add_organiser('brian', u_brian)
     add_opportunity(organiser=o_brian, name="Admin", description="Typing stuff up", location="234 Somewhere Drive")
     add_opportunity(organiser=o_brian, name="Cleaning", description="Blah, Blah, Blah, Blah Blah.........",
                     location="Just down the road")
@@ -53,7 +54,8 @@ def populate():
         print "- {0}".format(str(o))
 
 
-def add_opportunity(organiser, name, description="", location="", start_date=date.today(), end_date=date.today()):
+def add_opportunity(organiser, name, description="", location="", start_date=datetime.now().date(),
+                    end_date=datetime.now().date()):
     o = Opportunity.objects.get_or_create(company=organiser, name=name)[0]
     o.description = description
     o.location = location
@@ -72,7 +74,10 @@ def add_organiser(name, user):
 
 
 def add_user(username, email, password):
-    o = User.objects.create_user(username,email,password)
+    o = User.objects.get_or_create(username=username)[0]
+    o.email = email
+    o.password = password
+    o.save()
     return o
 
 
