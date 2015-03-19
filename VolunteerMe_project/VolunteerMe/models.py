@@ -1,7 +1,9 @@
 from django.db import models
 from django.utils.text import slugify
+from django.contrib.auth.models import User
 
 class Volunteer(models.Model):
+    user = models.OneToOneField(User)
     firstname = models.CharField(max_length=128)
     surname = models.CharField(max_length=128)
     email = models.EmailField()
@@ -14,7 +16,7 @@ class Volunteer(models.Model):
 
 
     def __unicode__(self):
-        return self.firstname
+        return self.user.username
 
 
 class Category(models.Model):
@@ -41,6 +43,7 @@ class Search(models.Model):
 
 
 class Organiser(models.Model):
+    user = models.OneToOneField(User)
     company_name = models.CharField(max_length=128, unique=True)
     company_email = models.EmailField()
     company_number = models.IntegerField()
@@ -49,7 +52,7 @@ class Organiser(models.Model):
     company_town = models.TextField(blank=True)
 
     def __unicode__(self):
-        return self.name
+        return self.user.username
 
 
 class Opportunity(models.Model):
