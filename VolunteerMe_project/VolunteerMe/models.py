@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 
 class Volunteer(models.Model):
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User,unique=True)
     firstname = models.CharField(max_length=128)
     surname = models.CharField(max_length=128)
     email = models.EmailField()
@@ -44,7 +44,7 @@ class Search(models.Model):
 
 
 class Organiser(models.Model):
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User,unique=True)
     company_name = models.CharField(max_length=128, unique=True)
     company_email = models.EmailField()
     company_number = models.IntegerField()
