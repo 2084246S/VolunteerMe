@@ -7,14 +7,13 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('VolunteerMe', '0010_search_category'),
+        ('VolunteerMe', '0001_initial'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='search',
-            name='category',
-            field=models.ForeignKey(default=b'', to='VolunteerMe.Category'),
-            preserve_default=True,
+            model_name='opportunity',
+            name='slug',
+            field=models.SlugField(),
         ),
     ]

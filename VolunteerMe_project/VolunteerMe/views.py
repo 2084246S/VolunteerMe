@@ -124,26 +124,27 @@ def organiser(request, company_name):
     return render(request, 'volunteer_me/organiser/organiser_profile.html', context)
 
 
-def show_opportunity(request, username, opportunity_id):
-    context = dict()
+def show_opportunity(request, company_name, opportunity_id):
+    #context = dict()
 
-    organiser = Organiser.objects.get(username=username)
-    opportunity = None
+    #organiser = Organiser.objects.get(company_name)
+    #opportunity = None
 
-    if organiser:
-        context['company_name'] = organiser.company_name
-        opportunity = Opportunity.objects.get(id=opportunity_id)
+    #if organiser:
+    #    context['company_name'] = organiser.company_name
+    #    opportunity = Opportunity.objects.get(id=opportunity_id)
 
-        if opportunity:
-            context['opportunity_name'] = opportunity.name
-            context['start_date'] = opportunity.start_date.__unicode__()
-            context['end_date'] = opportunity.end_date.__unicode__()
-            context['description'] = opportunity.description
-            context['optional'] = opportunity.optional
-            context['location'] = opportunity.location
+    #    if opportunity:
+    #        context['opportunity_name'] = opportunity.name
+    #        context['start_date'] = opportunity.start_date.__unicode__()
+    #        context['end_date'] = opportunity.end_date.__unicode__()
+    #        context['description'] = opportunity.description
+    #        context['optional'] = opportunity.optional
+    #        context['location'] = opportunity.location
 
-    context['opportunity'] = opportunity
-    return render(request, 'Volunteer_Me/opportunity.html')
+    #context['opportunity'] = opportunity
+    return render(request, 'Volunteer_Me/opportunity.html', {})
+
 
 def dashboard(request):
     pass
