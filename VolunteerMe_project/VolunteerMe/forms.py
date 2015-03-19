@@ -1,5 +1,6 @@
 from django import forms
 from VolunteerMe.models import Volunteer, Organiser, Search, Opportunity
+from django.contrib.auth.models import User
 
 
 class VolunteerForm(forms.ModelForm):
@@ -12,9 +13,11 @@ class VolunteerForm(forms.ModelForm):
     post_code = forms.CharField(max_length=12,blank=True)
     address = forms.CharField(max_length=128,blank=True)
     town = forms.TextField(blank=True)
+    password = forms.CharField(widget=forms.PasswordInput())
 
     class Meta:
         model = Volunteer
+        fields = ('username', 'email', 'password')
 
 
 class OrganiserForm(forms.ModelForm):
@@ -25,6 +28,8 @@ class OrganiserForm(forms.ModelForm):
     post_code = forms.CharField(max_length=12,blank=True)
     address = forms.CharField(max_length=128,blank=True)
     town = forms.TextField(blank=True)
+    password = forms.CharField(widget=forms.PasswordInput())
 
     class Meta:
         model = Organiser
+        fields = ('username', 'email', 'password')

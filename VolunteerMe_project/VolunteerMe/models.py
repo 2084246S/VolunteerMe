@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
 
+
 class Volunteer(models.Model):
     user = models.OneToOneField(User)
     firstname = models.CharField(max_length=128)
