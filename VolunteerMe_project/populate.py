@@ -23,19 +23,19 @@ categories_list = ['Administrative / Office Work', 'Advice / Information giving'
 
 def populate():
 
-    add_opportunity(name="Admin", description="Typing stuff up", location="234 Somewhere Drive")
-    add_opportunity(name="Cleaning", description="Blah, Blah, Blah, Blah Blah.........", location="Just down the road")
-    add_opportunity(name="Something Completely Different", description="You are expected to clean the surface of mars with a toothbrush.", location="Mars")
-    add_opportunity(name="Running Around Shouting at People", description="", location="The moon")
-    add_opportunity(name="Performing Open Heart Surgery", description="Please do not kill your patients.", location="Not really sure.")
-    add_opportunity(name="Blah", description="Blah", location="4 Privet Drive")
-    add_opportunity(name="Shining Spoons", description="--------------------", location="The land of cutlery")
+    add_opportunity(name="Admin", description="Typing stuff up", location="234 Somewhere Drive",category="Administrative / Office Work",company_name="AA")
+    add_opportunity(name="Cleaning", description="Blah, Blah, Blah, Blah Blah.........", location="Just down the road",category="Volunteering for under 16s")
+    add_opportunity(name="Something Completely Different", description="You are expected to clean the surface of mars with a toothbrush.", location="Mars",category="General Event support")
+    add_opportunity(name="Running Around Shouting at People", description="", location="The moon",category="Equal Opportunities / Race relations")
+    add_opportunity(name="Performing Open Heart Surgery", description="Please do not kill your patients.", location="Not really sure.",category="Medical/Physiotherapy")
+    add_opportunity(name="Blah", description="Blah", location="4 Privet Drive",category="Advice / Information giving")
+    add_opportunity(name="Shining Spoons", description="--------------------", location="The land of cutlery",category="Community / Economic Development Work")
     # Print out what we have added to the user.
     for o in Opportunity.objects.all():
         print "- {0}".format(str(o))
 
-def add_opportunity(name="", description="", location="", start_date=date.today(), end_date=date.today()):
-    o = Opportunity.objects.get_or_create(name=name, description=description, location=location, start_date=start_date, end_date=end_date)[0]
+def add_opportunity(name="", description="", location="", start_date=date.today(), end_date=date.today(), category="" ,company_name=""):
+    o = Opportunity.objects.get_or_create(name=name, description=description, location=location, start_date=start_date, end_date=end_date,category = category,company_name=company_name)[0]
     return o
 
 # Start execution here!
