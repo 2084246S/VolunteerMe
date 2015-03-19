@@ -1,43 +1,33 @@
 from django import forms
-from VolunteerMe.models import Volunteer, Organiser, Search, Opportunity
+from VolunteerMe.models import UserProfile,Volunteer, Search, Opportunity
 from django.contrib.auth.models import User
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
+<<<<<<< Updated upstream
 #    choice = forms.RadioSelect(choices=Vol.SCENERY_CHOICES, widget=forms.RadioSelect))
+=======
+
+
+>>>>>>> Stashed changes
     class Meta:
         model = User
         fields = ('username', 'password')
 
 
-class VolunteerForm(forms.ModelForm):
-    firstname = forms.CharField(max_length=128, help_text='First name')
-    surname = forms.CharField(max_length=128, help_text='Surname')
-    email = forms.EmailField(help_text='Email')
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('picture', 'name', 'email', 'post_code', 'town', 'contact_number','address','type')
+
+
+
+class VolunteerForm(forms.ModelForm,):
     gender = forms.ChoiceField(initial=None, help_text='Gender')
     time_available = forms.ChoiceField(initial=None, help_text='times available')
-    contact_number = forms.CharField(max_length=15, initial=None, help_text='Contact number')
-    #post_code = forms.CharField(max_length=12,blank=True)
-    #address = forms.CharField(max_length=128,blank=True)
-    #town = forms.TextField(blank=True)
-
 
     class Meta:
         model = Volunteer
-        fields = ('username','email', 'password')
+        fields = ('gender','time_available')
 
-
-
-
-class OrganiserForm(forms.ModelForm):
-    company_name = forms.CharField(max_length=128,help_text='Organisation Name')
-    company_email = forms.EmailField(max_length=128,help_text='Organisation Email')
-    company_number = forms.CharField(help_text='Organisation Contact number')
-    company_address = forms.CharField(help_text='Organisation address')
-    #post_code = forms.CharField(max_length=12,blank=True)
-    #address = forms.CharField(max_length=128,blank=True)
-    #town = forms.TextField(blank=True)
-
-    class Meta:
-        model = Organiser
-        fields = ('username','company_email', 'password')

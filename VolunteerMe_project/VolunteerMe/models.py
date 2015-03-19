@@ -2,22 +2,31 @@ from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
 
-class Vol(models.Model):
+
+class UserProfile(models.Model):
+    # This line is required. Links UserProfile to a User model instance.
+    user = models.OneToOneField(User)
+
+
+    # The additional attributes we wish to include.
     TYPE_CHOICES = (('v','Volunteer'),('o','organiser'))
     type = models.CharField(max_length=1, choices=TYPE_CHOICES)
+    name =  models.CharField(max_length=128,help_text='Full Name')
+    email =  models.EmailField(help_text='Email')
+    contact_number =  models.CharField(max_length=15, help_text='Contact number')
+    post_code =  models.CharField(max_length=12,blank=True,help_text='postcode')
+    address =  models.CharField(max_length=128,blank=True,help_text='address')
+    town =  models.TextField(blank=True,help_text='Town')
+    picture = models.ImageField(upload_to='profile_images', blank=True)
+
+    # Override the __unicode__() method to return out something meaningful!
+    def __unicode__(self):
+        return self.user.username
+
 
 class Volunteer(models.Model):
-    user = models.OneToOneField(User,unique=True)
-    firstname = models.CharField(max_length=128)
-    surname = models.CharField(max_length=128)
-    email = models.EmailField()
     gender = models.CharField(max_length=32, choices=((1, "Male"), (2, "Female"), (3, "Other")))
     time_available = models.DateField()
-    contact_number = models.CharField(max_length=15, blank=True)
-    post_code = models.CharField(max_length=12,blank=True)
-    address = models.CharField(max_length=128,blank=True)
-    town = models.TextField(blank=True)
-
 
     def __unicode__(self):
         return self.user.username
@@ -46,25 +55,13 @@ class Search(models.Model):
         return self.name
 
 
-class Organiser(models.Model):
-    user = models.OneToOneField(User,unique=True)
-    company_name = models.CharField(max_length=128, unique=True)
-    company_email = models.EmailField()
-    company_number = models.IntegerField()
-    company_address = models.CharField(max_length=128)
-    company_post_code = models.CharField(max_length=12,blank=True)
-    company_town = models.TextField(blank=True)
-
-    def __unicode__(self):
-        return self.user.username
-
 
 class Opportunity(models.Model):
-    name = models.CharField(max_length=128)
+    name = models.CharField(max_length=128, unique=True)
     category = models.CharField(max_length=128, default="Other")
-    company = models.ForeignKey(Organiser, default=None)
-    start_date = models.DateField(blank=True, null=True)
-    end_date = models.DateField(blank=True, null=True)
+    company = models.ForeignKey(UserProfile, default=None)
+    start_date = models.DateField(blank=True)
+    end_date = models.DateField(blank=True)
     description = models.TextField(blank=True)
     location = models.TextField(blank=True, default="")
     optional = models.TextField(blank=True, default="")

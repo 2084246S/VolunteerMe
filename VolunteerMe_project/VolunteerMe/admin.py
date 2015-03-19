@@ -1,5 +1,4 @@
 from django.contrib import admin
-from VolunteerMe.models import Volunteer,Organiser
-
+from VolunteerMe.models import Volunteer,UserProfile
 admin.site.register(Volunteer)
-admin.site.register(Organiser)
+admin.site.register(UserProfile)

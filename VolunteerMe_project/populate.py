@@ -8,7 +8,7 @@ import django
 
 django.setup()
 
-from VolunteerMe.models import Opportunity, Organiser
+from VolunteerMe.models import Opportunity,User
 from django.contrib.auth.models import User
 
 
@@ -67,7 +67,7 @@ def add_opportunity(organiser, name, description="", location="", start_date=dat
 def add_organiser(name, user):
     global company_number
     company_number += 1
-    o = Organiser.objects.get_or_create(user=user, company_name=name, company_number=company_number)[0]
+    o = User.objects.get_or_create(user=user, username=name, company_number=company_number)[0]
     o.save()
     return o
 

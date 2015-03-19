@@ -2,8 +2,8 @@ from django.shortcuts import render
 
 from django.shortcuts import render
 from django.http import HttpResponse
-from VolunteerMe.models import Volunteer, Organiser, Search, Opportunity
-from VolunteerMe.forms import VolunteerForm, OrganiserForm
+from VolunteerMe.models import Volunteer, Search, Opportunity
+from VolunteerMe.forms import VolunteerForm, UserProfileForm
 from VolunteerMe.models import Category, Opportunity
 from datetime import datetime
 from django.contrib.auth.models import User,Group
@@ -37,9 +37,8 @@ def search(request):
     if request.method == 'POST':
         query = request.POST['query'].strip()
 
-        if query:
-
-            result_list = run_query(query)
+        #if query:
+        #result_list = run_query(query)
 
     return render(request, 'Volunteer_Me/search.html', {'result_list': result_list})
 
@@ -48,6 +47,7 @@ def search(request):
 def profile(request):
     #pass
     u = User.objects.get(username=request.user.username)
+
     context_dict = {}
     if u.is_volunteer:
         try:
@@ -61,7 +61,7 @@ def profile(request):
         return(request,'Volunteer_Me/volunteer/volunteer_profile',context_dict)
     else:
         try:
-            up = Organiser.objects.get(user=u)
+            up = User.objects.get(user=u)
         except:
             up = None
 
@@ -86,14 +86,14 @@ def register_volunteer(request):
                 user.groups.add(Group.objects.get(name='Volunteer'))
                 return index(request)
     else:
-        form = Volunteer(request.GET)
+        form = VolunteerForm(request.GET)
     return render(request, 'Volunteer_Me/volunteer/volunteer_register.html', {'profile_form': form})
 
 
 
 def register_organiser(request):
     if request.method == 'POST':
-        profile_form = OrganiserForm(request.POST)
+        profile_form = UserProfileForm(request.POST)
         if profile_form.is_valid():
             if request.user.is_authenticated():
                 profile = profile_form.save(commit=False)
@@ -107,21 +107,9 @@ def register_organiser(request):
                 user.groups.add(Group.objects.get(name='organiser'))
                 return index(request)
     else:
-        form = Organiser(request.GET)
+        form = UserProfileForm(request.GET)
     return render(request, 'Volunteer_Me/organiser/organiser_register.html', {'profile_form': form})
 
-
-def organiser(request, company_name):
-    context = dict()
-
-    organiser = Organiser.objects.get(company_name=company_name)
-    context['organiser'] = organiser
-
-    if organiser:
-        # do stuff
-        organiser.save()
-
-    return render(request, 'Volunteer_Me/organiser/organiser_profile.html', context)
 
 
 def show_opportunity(request, company, opportunity_id):
@@ -187,26 +175,26 @@ def about(request):
     return render(request, 'Volunteer_Me/about.html')
 
 def get_category_list(max_results=0, starts_with=''):
-        cat_list = []
-        if starts_with:
-                cat_list = Category.objects.filter(name__istartswith=starts_with)
+    cat_list = []
+    if starts_with:
+        cat_list = Category.objects.filter(name__istartswith=starts_with)
 
-        if max_results > 0:
-                if len(cat_list) > max_results:
-                        cat_list = cat_list[:max_results]
+    if max_results > 0:
+        if len(cat_list) > max_results:
+            cat_list = cat_list[:max_results]
 
-        return cat_list
+    return cat_list
 
 def suggest_category(request):
 
-        cat_list = []
-        starts_with = ''
-        if request.method == 'GET':
-                starts_with = request.GET['suggestion']
+    cat_list = []
+    starts_with = ''
+    if request.method == 'GET':
+        starts_with = request.GET['suggestion']
 
-        cat_list = get_category_list(8, starts_with)
+    cat_list = get_category_list(8, starts_with)
 
-        return render(request, 'Volunteer_Me/cats.html', {'cat_list': cat_list })
+    return render(request, 'Volunteer_Me/cats.html', {'cat_list': cat_list })
 '''
 Again, not sure what this is for...
 def category(request, category_name_slug):
