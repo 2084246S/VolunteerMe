@@ -55,7 +55,7 @@ class Organiser(models.Model):
 class Opportunity(models.Model):
     name = models.CharField(max_length=128, unique=True)
     category = models.CharField(max_length=128, default="Other")
-    company_name = models.CharField(max_length=128, default="TEMP")
+    company = models.ForeignKey(Organiser)
     start_date = models.DateField()
     end_date = models.DateField()
     description = models.TextField()
