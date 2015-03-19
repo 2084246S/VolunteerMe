@@ -72,7 +72,7 @@ def populate():
 
 
     u_brian = add_user('brian123', 'brian123@test.com', 'pass123')
-    o_brian = add_organiser('brian', u_brian)
+    o_brian = add_organiser('brian', 'brian123', 'brian123@test.com', 'pass123')
     add_opportunity(organiser=o_brian, name="Admin", description="Typing stuff up", location="234 Somewhere Drive")
     add_opportunity(organiser=o_brian, name="Cleaning", description="Blah, Blah, Blah, Blah Blah.........",
                     location="Just down the road")
