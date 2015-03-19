@@ -48,5 +48,7 @@ urlpatterns = patterns('',
                            name='my_applications'),
                        url(r'^volunteer/my_applications/(?P<application_id>[\W\-]+/$)',
                            views.manage_application,
-                           name='my_application')
+                           name='my_application'),
+                       url(r'^suggest_category/$', views.suggest_category, name='suggest_category'),
                        )
+

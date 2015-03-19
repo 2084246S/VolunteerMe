@@ -23,15 +23,13 @@ categories_list = ['Administrative / Office Work', 'Advice / Information giving'
 
 def populate():
 
-    organiser_brian = add_organiser('brian')
-    add_opportunity(organiser=organiser_brian, name="Admin", description="Typing stuff up", location="234 Somewhere Drive")
-    add_opportunity(organiser=organiser_brian, name="Cleaning", description="Blah, Blah, Blah, Blah Blah.........", location="Just down the road")
-    add_opportunity(organiser=organiser_brian, name="Something Completely Different", description="You are expected to clean the surface of mars with a toothbrush.", location="Mars")
-    add_opportunity(organiser=organiser_brian, name="Running Around Shouting at People", description="", location="The moon")
-    add_opportunity(organiser=organiser_brian, name="Performing Open Heart Surgery", description="Please do not kill your patients.", location="Not really sure.")
-    add_opportunity(organiser=organiser_brian, name="Blah", description="Blah", location="4 Privet Drive")
-    add_opportunity(organiser=organiser_brian, name="Shining Spoons", description="--------------------", location="The land of cutlery")
-    add_opportunity(organiser=organiser_brian, name="Shining Spoons", description="--------------------", location="The land of cutlery")
+    add_opportunity(name="Admin", description="Typing stuff up", location="234 Somewhere Drive")
+    add_opportunity(name="Cleaning", description="Blah, Blah, Blah, Blah Blah.........", location="Just down the road")
+    add_opportunity(name="Something Completely Different", description="You are expected to clean the surface of mars with a toothbrush.", location="Mars")
+    add_opportunity(name="Running Around Shouting at People", description="", location="The moon")
+    add_opportunity(name="Performing Open Heart Surgery", description="Please do not kill your patients.", location="Not really sure.")
+    add_opportunity(name="Blah", description="Blah", location="4 Privet Drive")
+    add_opportunity(name="Shining Spoons", description="--------------------", location="The land of cutlery")
     # Print out what we have added to the user.
     for o in Opportunity.objects.all():
         print "- {0}".format(str(o))
