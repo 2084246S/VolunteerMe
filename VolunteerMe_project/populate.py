@@ -9,6 +9,7 @@ import django
 django.setup()
 
 from VolunteerMe.models import Opportunity, Organiser
+from django.contrib.auth.models import User
 
 categories_list = ['Administrative / Office Work', 'Advice / Information giving', 'Advocacy / Human Rights',
                    'Arts ( music/drama/crafts)', 'Befriending / Mentoring', 'Campaigning / Lobbying',
@@ -32,8 +33,10 @@ categories_list = ['Administrative / Office Work', 'Advice / Information giving'
 global company_number
 company_number = 0
 
+
 def populate():
-    o_brian = add_organiser('brian')
+    u_brian = add_user('brian123', 'brian123@test.com', 'pass123')
+    o_brian = add_organiser('brian',u_brian)
     add_opportunity(organiser=o_brian, name="Admin", description="Typing stuff up", location="234 Somewhere Drive")
     add_opportunity(organiser=o_brian, name="Cleaning", description="Blah, Blah, Blah, Blah Blah.........",
                     location="Just down the road")
@@ -60,11 +63,18 @@ def add_opportunity(organiser, name, description="", location="", start_date=dat
     return o
 
 
-def add_organiser(name):
+def add_organiser(name, user):
+    global company_number
     company_number += 1
-    o = Organiser.objects.get_or_create(company_name=name, company_number=company_number)[0]
+    o = Organiser.objects.get_or_create(user=user, company_name=name, company_number=company_number)[0]
     o.save()
     return o
+
+
+def add_user(username, email, password):
+    o = User.objects.create_user(username,email,password)
+    return o
+
 
 # Start execution here!
 if __name__ == '__main__':
