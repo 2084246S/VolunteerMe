@@ -30,26 +30,38 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/VolunteerMe/">VolunteerMe</a>
+            <a class="navbar-brand" href="/volunteer-me/">VolunteerMe</a>
         </div>
         <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-left">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Volunteers<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{% url 'search' %}">Search Opportunities</a></li>
+                        <li><a href="#">My Saved Searches</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Organisers<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Create New Opportunities</a></li>
+                        <li><a href="#">Manage My Opportunities</a></li>
+                    </ul>
+                </li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="{% url 'index' %}">Home</a></li>
-                <li><a href="{% url 'search' %}">Search</a></li>
                 {% if user.is_authenticated %}
-                <h1>Signed in as {{ user.username }}!</h1>
-                {% if user.is_volunteer %}
-                <li><a heref="{%url 'volunteer_profile' %}">My Dashboard</a></li>
+                    <h1>Signed in as {{ user.username }}!</h1>
+                    {% if user.is_volunteer %}
+                        <li><a heref="{%url 'volunteer_profile' %}">My Dashboard</a></li>
+                    {% else %}
+                        <li><a heref="{%url 'organiser_profile' %}">My Dashboard</a></li>
+                    {%endif %}
+                    <li><a href="{% url 'auth_logout' %}?next=/VolunteerMe/">Sign Out</a></li>
                 {% else %}
-                <li><a heref="{%url 'organiser_profile' %}">My Dashboard</a></li>
-                {%endif %}
-                <li><a href="{% url 'auth_logout' %}?next=/VolunteerMe/">Sign Out</a></li>
-                {% else %}
-                <li><a href="{% url 'auth_login' %}">Login</a></li>
-
+                    <li><a href="{% url 'auth_login' %}">Sign In</a></li>
+                    <li><a href="{% url 'about' %}">Register</a></li>
                 {% endif %}
-                <li><a href="{% url 'about' %}">About</a></li>
-
             </ul>
         </div>
     </div>

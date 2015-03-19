@@ -124,7 +124,7 @@ def organiser(request, company_name):
     return render(request, 'Volunteer_Me/organiser/organiser_profile.html', context)
 
 
-def show_opportunity(request, company_name, opportunity_id):
+def show_opportunity(request, company, opportunity_id):
     #context = dict()
 
     #organiser = Organiser.objects.get(company_name)
