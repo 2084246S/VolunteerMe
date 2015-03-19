@@ -2,6 +2,9 @@ from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
 
+class Vol(models.Model):
+    TYPE_CHOICES = (('v','Volunteer'),('o','organiser'))
+    type = models.CharField(max_length=1, choices=TYPE_CHOICES)
 
 class Volunteer(models.Model):
     user = models.OneToOneField(User,unique=True)
@@ -60,9 +63,9 @@ class Opportunity(models.Model):
     name = models.CharField(max_length=128, unique=True)
     category = models.CharField(max_length=128, default="Other")
     company = models.ForeignKey(Organiser, default=None)
-    start_date = models.DateField()
-    end_date = models.DateField()
-    description = models.TextField()
+    start_date = models.DateField(blank=True)
+    end_date = models.DateField(blank=True)
+    description = models.TextField(blank=True)
     location = models.TextField(blank=True, default="")
     optional = models.TextField(blank=True, default="")
 
