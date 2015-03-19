@@ -4,12 +4,8 @@ from django.contrib.auth.models import User
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
-<<<<<<< Updated upstream
-#    choice = forms.RadioSelect(choices=Vol.SCENERY_CHOICES, widget=forms.RadioSelect))
-=======
 
 
->>>>>>> Stashed changes
     class Meta:
         model = User
         fields = ('username', 'password')
