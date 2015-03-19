@@ -6,7 +6,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'VolunteerMe_project.settings')
 import django
 django.setup()
 
-from VolunteerMe.models import Opportunity
+from VolunteerMe.models import Opportunity, Organiser
 
 categories_list = ['Administrative / Office Work', 'Advice / Information giving','Advocacy / Human Rights',
                    'Arts ( music/drama/crafts)','Befriending / Mentoring','Campaigning / Lobbying','Care / Support worker',
@@ -34,9 +34,15 @@ def populate():
     for o in Opportunity.objects.all():
         print "- {0}".format(str(o))
 
-def add_opportunity(name="", description="", location="", start_date=date.today(), end_date=date.today()):
-    o = Opportunity.objects.get_or_create(name=name, description=description, location=location, start_date=start_date, end_date=end_date)[0]
+def add_opportunity( organiser, name="", description="", location="", start_date=date.today(), end_date=date.today()):
+    o = Opportunity.objects.get_or_create(organiser, name=name, description=description, location=location, start_date=start_date, end_date=end_date)[0]
+    o.save()
     return o
+
+def add_organiser(name):
+   o = Organiser.objects.get_or_create(company_name=name)[0]
+   o.save()
+   return o
 
 # Start execution here!
 if __name__ == '__main__':

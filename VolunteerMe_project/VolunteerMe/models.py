@@ -55,18 +55,12 @@ class Organiser(models.Model):
 class Opportunity(models.Model):
     name = models.CharField(max_length=128, unique=True)
     category = models.CharField(max_length=128, default="Other")
-    company_name = models.CharField(max_length=128, default="TEMP")
-    slug = models.SlugField(unique=False)
-
+    company = models.ForeignKey(Organiser, default=None)
     start_date = models.DateField()
     end_date = models.DateField()
     description = models.TextField()
     location = models.TextField(blank=True, default="")
     optional = models.TextField(blank=True, default="")
-
-    def save(self, *args, **kwargs):
-        self.slug = slugify(unicode(self.company_name))
-        super(Opportunity, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.name

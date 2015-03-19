@@ -37,12 +37,19 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(unique=True, max_length=128)),
                 ('category', models.CharField(default=b'Other', max_length=128)),
                 ('company_name', models.CharField(default=b'TEMP', max_length=128)),
+<<<<<<< HEAD
                 ('slug', models.SlugField(unique=True)),
+=======
+>>>>>>> 14144ac461c38db1b74e529022f72e303dccb2f5
                 ('start_date', models.DateField()),
                 ('end_date', models.DateField()),
                 ('description', models.TextField()),
                 ('location', models.TextField(default=b'', blank=True)),
                 ('optional', models.TextField(default=b'', blank=True)),
+<<<<<<< HEAD
+=======
+                ('slug', models.SlugField(unique=True)),
+>>>>>>> 14144ac461c38db1b74e529022f72e303dccb2f5
             ],
             options={
             },
