@@ -41,7 +41,7 @@ class Search(models.Model):
 
 
 class Organiser(models.Model):
-    company_name = models.CharField(max_length=128)
+    company_name = models.CharField(max_length=128, unique=True)
     company_email = models.EmailField()
     company_number = models.IntegerField()
     company_address = models.CharField(max_length=128)
