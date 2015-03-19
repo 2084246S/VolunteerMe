@@ -35,10 +35,10 @@ class Volunteer(models.Model):
 class Category(models.Model):
 
     category = models.CharField(max_length=128, unique=True)
-    slug = models.SlugField(unique=True)
+    #slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
+     #   self.slug = slugify(self.name)
         super(Category, self).save(*args, **kwargs)
 
     def __unicode__(self):
