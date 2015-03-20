@@ -6,7 +6,7 @@ from VolunteerMe.models import Volunteer, Search, Opportunity, Category
 from VolunteerMe.forms import VolunteerForm, UserProfileForm,OpportunityForm
 from datetime import datetime
 from django.contrib.auth.models import User,Group
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 
 
 # Create your views here.
@@ -162,6 +162,7 @@ def manage_opportunity(request, opportunity_id,username):
 
 
 @login_required
+@permission_required('VolunteerMe.add_opportunity')
 def create_opportunity(request):
     if request.method == 'POST':
         opp_form = OpportunityForm(request.POST)
