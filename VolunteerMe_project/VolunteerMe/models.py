@@ -2,29 +2,26 @@ from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
 
-
 class UserProfile(models.Model):
     # This line is required. Links UserProfile to a User model instance.
     user = models.OneToOneField(User)
-
-
     # The additional attributes we wish to include.
-    TYPE_CHOICES = (('v', 'volunteer'), ('o', 'organiser'))
+    TYPE_CHOICES = (('v','Volunteer'),('o','organiser'))
     type = models.CharField(max_length=1, choices=TYPE_CHOICES)
-    name = models.CharField(max_length=128,)
-    email = models.EmailField()
-    contact_number = models.CharField(max_length=15)
-    post_code = models.CharField(max_length=12, blank=True)
-    address = models.CharField(max_length=128, blank=True)
-    town = models.CharField(max_length=128, blank=True)
+    name = models.CharField(max_length=128,help_text='Full Name')
+    email = models.EmailField(help_text='Email')
+    contact_number = models.CharField(max_length=15, help_text='Contact number')
+    post_code = models.CharField(max_length=12,blank=True,help_text='postcode')
+    address = models.CharField(max_length=128,blank=True,help_text='address')
+    town = models.TextField(blank=True,help_text='Town')
     picture = models.ImageField(upload_to='profile_images', blank=True)
 
-    # Override the __unicode__() method to return out something meaningful!
-    def __unicode__(self):
-        return self.user.username
-
+# Override the __unicode__() method to return out something meaningful!
+def __unicode__(self):
+    return self.user.username
 
 class Volunteer(models.Model):
+
     gender = models.CharField(max_length=32, choices=((1, "Male"), (2, "Female"), (3, "Other")))
     time_available = models.DateField()
 
@@ -32,13 +29,6 @@ class Volunteer(models.Model):
         return self.user.username
 
 
-#class Organiser(models.Model):
-#    company_name = models.CharField(max_length=128, blank=True)
-#    company_number = models.IntegerField(blank=True)
-#    user = models.ForeignKey(User)
-#
-#    def __unicode__(self):
-#        return self.user.username
 
 
 class Category(models.Model):
@@ -53,7 +43,7 @@ class Category(models.Model):
         ('P', 'Disaster / emergency relief'), ('Q', 'Drivers'), ('R', 'Driving / escorting'),
         ('S', 'Equal Opportunities / Race relations'), ('T', 'Event Management'), ( 'U', 'Event Marshals'),
         ('V', 'Finance / Accountancy'), ( 'W', 'Fundraising'), ('X', 'General Event Support'),
-        ('Y', 'Homebased Volunteering'), ( 'Z', 'IT Support'), ('t','Justice / Legal assistance'),
+        ('Y', 'Homebased Volunteering'), ( 'Z', 'IT Support'), ('t', 'Justice / Legal assistance'),
         ('a', 'Landscaping/course layout/maintenance'), ('b', 'Languages / translating'),
         ('c', 'Library / Information Management'), ('d', 'Management / Business Skills'),
         ('e', 'Marketing / PR / Media'), ('f', 'Medical/Physiotherapy'), ('g', 'On line Volunteering'),
