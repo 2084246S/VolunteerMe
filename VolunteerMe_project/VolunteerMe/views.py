@@ -2,11 +2,11 @@ from django.shortcuts import render
 
 from django.shortcuts import render
 from django.http import HttpResponse
-from VolunteerMe.models import Volunteer, Search, Opportunity
-from VolunteerMe.forms import VolunteerForm, UserProfileForm,OpportuityForm
-from VolunteerMe.models import Category, Opportunity
+from VolunteerMe.models import Volunteer, Search, Opportunity, Category
+from VolunteerMe.forms import VolunteerForm, UserProfileForm,OpportunityForm
 from datetime import datetime
 from django.contrib.auth.models import User,Group
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -140,14 +140,17 @@ def show_opportunity(request, name, opportunity_id):
     return render(request, 'Volunteer_Me/opportunity.html', {})
 
 
+@login_required
 def dashboard(request):
     pass
 
 
+@login_required
 def manage_opportunities(request):
     pass
 
 
+@login_required
 def manage_opportunity(request, opportunity_id,username):
     opportunity = Opportunity.objects.get(id=opportunity_id).filter(username = username)
     if opportunity:
@@ -158,12 +161,13 @@ def manage_opportunity(request, opportunity_id,username):
     return render(request, 'Volunteer_Me/organiser/edit_opportunity.html', context)
 
 
+@login_required
 def create_opportunity(request):
     if request.method == 'POST':
-        profile_form = OpportunityForm(request.POST)
-        if profile_form.is_valid():
+        opp_form = OpportunityForm(request.POST)
+        if opp_form.is_valid():
             if request.user.is_authenticated():
-                profile = profile_form.save(commit=False)
+                profile = opp_form.save(commit=False)
                 user = User.objects.get(username=request.user.username)
                 profile.user = user
                 try:
@@ -181,10 +185,12 @@ def create_opportunity(request):
     return render(request, 'Volunteer_Me/organiser/organiser_register.html', {'profile_form': form})
 
 
+@login_required
 def manage_applications(request):
     pass
 
 
+@login_required
 def manage_application(request, application_id):
     application = Opportunity.objects.get(id=application_id)
 
@@ -210,8 +216,8 @@ def get_category_list(max_results=0, starts_with=''):
 
     return cat_list
 
-def suggest_category(request):
 
+def suggest_category(request):
     cat_list = []
     starts_with = ''
     if request.method == 'GET':
@@ -219,7 +225,7 @@ def suggest_category(request):
 
     cat_list = get_category_list(8, starts_with)
 
-    return render(request, 'Volunteer_Me/cats.html', {'cat_list': cat_list })
+    return render(request, 'Volunteer_Me/cats.html', {'cat_list': cat_list})
 
 
 
