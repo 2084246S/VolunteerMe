@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 from django.shortcuts import render
 from django.http import HttpResponse
-from VolunteerMe.models import Volunteer, Search, Opportunity, Category
+from VolunteerMe.models import Volunteer,Application, Search, Opportunity, Category
 from VolunteerMe.forms import VolunteerForm, UserProfileForm,OpportunityForm, UserProfile
 from datetime import datetime
 from django.contrib.auth.models import User,Group
@@ -162,8 +162,12 @@ def dashboard(request):
 
 
 @login_required
-def manage_opportunities(request):
-    pass
+#volunteer
+def manage_opportunities(request,opportunity_id):
+    context_dict ={}
+
+    opp = Opportunity.objects.get(id=opportunity_id)
+    applications = Application.objects.filter(opp=opp)
 
 
 @login_required
@@ -178,20 +182,17 @@ def manage_opportunity(request, opportunity_id, username):
 
 
 @login_required
-@permission_required('VolunteerMe.add_opportunity')
+#@permission_required('VolunteerMe.add_opportunity')
 def create_opportunity(request):
+    username = User.objects.get(username=request.user)
+    company = UserProfile.objects.get(name=request.user)
     if request.method == 'POST':
         opp_form = OpportunityForm(request.POST)
         if opp_form.is_valid():
             if request.user.is_authenticated():
                 profile = opp_form.save(commit=False)
-
-
-
+                profile.company=company
                 profile.save()
-
-
-
                 return index(request)
     else:
         form = OpportunityForm(request.GET)
@@ -221,7 +222,7 @@ def about(request):
 def get_job_list(max_results=0, contains=''):
     job_list = []
     if contains:
-        job_list = Opportunity.objects.filter(job_name__contains=contains)
+        job_list = Opportunity.objects.filter(oppertunity_name__contains=contains)
     else:
         job_list = Opportunity.objects.all()
     if max_results > 0:
@@ -233,28 +234,19 @@ def get_job_list(max_results=0, contains=''):
 
 def suggest_category(request):
     cat_list = []
-    starts_with = ''
+    contains = ''
     if request.method == 'GET':
-        starts_with = request.GET['suggestion']
+        contains = request.GET['suggestion']
 
-    cat_list = get_job_list(8, starts_with)
+    cat_list = get_job_list(8, contains)
 
     return render(request, 'Volunteer_Me/cats.html', {'cat_list': cat_list})
 
 
-
-def is_volunteer(user):
-    return user.groups.filter(name='volunteer').exists()
-'''
-Again, not sure what this is for...
-def category(request, category_name_slug):
-    context_dict = dict()  # Initialise context dictionary
-
-    category = Category.objects.get(category_name_slug=category_name_slug)
-
-    if category:
-        opportunities = Opportunity.objects.filter(category=category)
-
-        if opportunities:
-            context_dict[]
-'''
+from django import template
+from django.contrib.auth.models import Group
+register = template.Library()
+@register.filter(name='has_group')
+def has_group(user, group_name):
+    group = Group.objects.get(name=group_name)
+    return True if group in user.groups.all() else False

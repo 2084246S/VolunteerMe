@@ -13,7 +13,7 @@ class UserProfile(models.Model):
     contact_number = models.CharField(max_length=15, help_text='Contact number')
     post_code = models.CharField(max_length=12,blank=True,help_text='postcode')
     address = models.CharField(max_length=128,blank=True,help_text='address')
-    town = models.TextField(blank=True,help_text='Town')
+    town = models.CharField(blank=True,help_text='Town')
     picture = models.ImageField(upload_to='profile_images', blank=True)
 
 # Override the __unicode__() method to return out something meaningful!
@@ -90,7 +90,7 @@ class Opportunity(models.Model):
 
 
 class Application(models.Model):
-    volunteer = models.ForeignKey(Volunteer)
+    volunteer = models.ForeignKey(User)
     opportunity = models.ForeignKey(Opportunity)
 
 

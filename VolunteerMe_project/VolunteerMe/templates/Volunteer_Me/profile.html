@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+
+            {% block side_block %}
+            {% if userprofile.picture %}
+            <img src="{{ userprofile.picture.url }}"/>
+            {% endif %}
+
+            <h2>{{ user.username }}</h2>
+
+            <h2> Address: {{userprofile.address}}</h2>
+
+            <h2>{{ userprofile.town}}</h2>
+
+            <h2>{{userprofile.county}}</h2>
+
+            <h2>{{ userrofile.post_code}}</h2>
+
+            <h2>phone number(s):{{userprofile.phone_number}}</h2>
+
+            <p>Email address: {{ user.email }}</p>
+            <a href="{% url 'add_profile' %}">Edit Profile</a>
+            {% endblock %}
+
+        </div>
+    </div>
+</div>
+
+{% block body_block %}
+
+{% if request.user|has_group:'volunteer' %}
+
+<div class="row placeholders">
+    <div class="col-xs-12 col-sm-6 placeholder">
+        <div class="hero-unit">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <a href="{%url 'applied_opportunities'%}">Opportunities applied for</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-xs-12 col-sm-6 placeholder">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <a href="{%url 'replied_opportunities'%}">replies to applications</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="panel">
+    {% if opportunities_list %}
+    <div class="panel-heading">
+        <h3 class="panel-title">10 opportunities you may like..</h3>
+        <!-- Display search opportunitiess in an ordered list -->
+        <div class="panel-body">
+            <div class="list-group">
+                {% for opportunities in opportunities_list %}
+                <div class="list-group-item">
+                    <h4 class="list-group-item-heading"><a href="{{ opportunities.link }}">{{ opportunities.title }}</a>
+                    </h4>
+
+                    <p class="list-group-item-text">{{ opportunities.summary|truncatewords:100 }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+</div>
+</div>
+
+
+
+{% else %}
+
+    <div class="hero-unit">
+    <div class="row placeholders">
+        <div class="col-xs-12 col-sm-6 placeholder">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <a href="{%url 'new_opportunities'%}">Make a new opportunity</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 placeholder">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <a href="{%url 'replied_opportunities'%}">applications</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="panel">
+        {% if opportunities_list %}
+        <div class="panel-heading">
+            <h3 class="panel-title">your most recent advertisments</h3>
+
+            <h2><a href="{url ''}">view all</a></h2>
+            <!-- Display search opportunitiess in an ordered list -->
+            <div class="panel-body">
+                <div class="list-group">
+                    {% for opportunities in opportunities_list %}
+                    <div class="list-group-item">
+                        <h4 class="list-group-item-heading">
+                            <a href="{{ opportunities.link }}">{{ opportunities.title }}</a>
+
+
+                        </h4>
+
+                        <p class="list-group-item-text">{{ opportunities.summary|truncatewords:100 }}</p>
+
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+
+{% endif %}
+{% endblock %}
