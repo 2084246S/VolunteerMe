@@ -2,8 +2,8 @@ from django.shortcuts import render
 
 from django.shortcuts import render
 from django.http import HttpResponse
-from VolunteerMe.models import Volunteer,Application, Search, Opportunity, Category
-from VolunteerMe.forms import VolunteerForm, UserProfileForm,OpportunityForm, UserProfile
+from VolunteerMe.models import Application, Opportunity
+from VolunteerMe.forms import  UserProfileForm,OpportunityForm, UserProfile
 from datetime import datetime
 from django.contrib.auth.models import User,Group
 from django.contrib.auth.decorators import login_required, permission_required
@@ -15,15 +15,15 @@ def index(request):
     context_dict = dict()
 
     # Generate category list
-    category_list = Category.objects.order_by('job_name')
-    context_dict['categories'] = category_list
+    opp_list = Opportunity.objects.order_by('job_name')
+    context_dict['categories'] = opp_list
 
     # generate "new Opportunities" list
-    new_opportunities_list = Opportunity.objects.order_by('-start_date')[:5]
+    new_opportunities_list = Opportunity.objects.order_by('-start_date')[:10]
     context_dict['new_opportunities'] = new_opportunities_list
 
     # generate "ending soon" list
-    ending_soon_list = Opportunity.objects.order_by('end_date')[:5]
+    ending_soon_list = Opportunity.objects.order_by('-end_date')[:10]
     context_dict['ending_soon'] = ending_soon_list
 
     return render(request, 'Volunteer_Me/index.html', context_dict)
@@ -53,30 +53,6 @@ def profile(request):
     context_dict['user'] = u
     context_dict['userprofile'] = up
     return render(request,'Volunteer_Me/profile.html',context_dict)
-
-def register_volunteer(request):
-    #pass
-    if request.method == 'POST':
-        profile_form = VolunteerForm(request.POST)
-        if profile_form.is_valid():
-            if request.user.is_authenticated():
-                profile = profile_form.save(commit=False)
-                user = User.objects.get(id=request.user.id)
-                profile.user = user
-                try:
-                    profile.picture = request.FILES['picture']
-                except:
-                    pass
-
-                profile.save()
-                g =Group.objects.get(name='volunteer')
-                g.user_set.add(user)
-
-                return index(request)
-    else:
-        form = VolunteerForm(request.GET)
-    return render(request, 'Volunteer_Me/volunteer/volunteer_register.html', {'profile_form': form})
-
 
 
 def register_organiser(request):
@@ -173,7 +149,7 @@ def manage_opportunity(request, opportunity_id, username):
 @login_required
 #@permission_required('VolunteerMe.add_opportunity')
 def create_opportunity(request):
-    username = User.objects.get(username=request.user)
+    username = User.objects.get(username=request.user.username)
     company = UserProfile.objects.get(name=request.user)
     if request.method == 'POST':
         opp_form = OpportunityForm(request.POST)

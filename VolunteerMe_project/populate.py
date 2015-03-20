@@ -9,7 +9,7 @@ import django
 
 django.setup()
 
-from VolunteerMe.models import Opportunity, Category, UserProfile
+from VolunteerMe.models import Opportunity, UserProfile,Application
 
 from django.contrib.auth.models import User
 
@@ -33,9 +33,12 @@ def populate():
 
     u_brian = add_user('Brian', 'brian123', 'brian123@test.com', 'pass123')
     o_brian = add_userprofile(u_brian, type='organiser', name='Brian', email='brian123@test.com')
-    add_opportunity(organiser=o_brian, name="Admin", description="Typing stuff up", location="234 Somewhere Drive", start_date=date.today(), end_date=date.today())
+    u_ally = add_user('Ally','ally123','ally123@test.com', 'pass456')
+    v_ally = add_userprofile(u_ally,type= 'volunteer',name="Ally",email='ally123@test.com')
+    add_opportunity(organiser=o_brian, name="Admin", description="Typing stuff up",
+                    location="234 Somewhere Drive", start_date=date.today(), end_date=date.today())
 
-    add_opportunity(organiser=o_brian, name="Cleaning",type = 'Administrative / Office Work', description="Blah, Blah, Blah, Blah Blah.........",
+    add_opportunity(organiser=o_brian, name="Cleaning", description="Blah, Blah, Blah, Blah Blah.........",
                     location="Just down the road", start_date=date.today(), end_date=date.today())
     add_opportunity(organiser=o_brian, name="Something Completely Different",
                     description="You are expected to clean the surface of mars with a toothbrush.", location="Mars", start_date=date.today(), end_date=date.today())
@@ -49,9 +52,11 @@ def populate():
     for o in Opportunity.objects.all():
         print "- {0}".format(str(o))
 
+    add_application(u_ally,Opportunity.objects.get(name="Admin"))
 
-def add_opportunity(organiser, name,type, description="", location="", start_date=date.today(), end_date=date.today()):
-    o = Opportunity.objects.get_or_create(company=organiser,type=type, name=name, start_date=start_date, end_date=end_date)[0]
+
+def add_opportunity(organiser, name, description="", location="", start_date=date.today(), end_date=date.today()):
+    o = Opportunity.objects.get_or_create(company=organiser, name=name, start_date=start_date, end_date=end_date)[0]
     o.description = description
     o.location = location
     o.start_date = start_date.today()
@@ -75,6 +80,10 @@ def add_user(first_name, username, email, password):
     o.save()
     return o
 
+def add_application(volunteer,opportunity):
+    a = Application.objects.get_or_create(volunteer = volunteer,opportunity=opportunity)
+
+    return a
 
 if __name__ == '__main__':
     print "Starting VolunteerMe population script..."

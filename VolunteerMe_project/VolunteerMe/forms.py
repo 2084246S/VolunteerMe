@@ -1,5 +1,5 @@
 from django import forms
-from VolunteerMe.models import UserProfile,Volunteer, Search, Opportunity
+from VolunteerMe.models import UserProfile, Opportunity
 from django.contrib.auth.models import User
 
 class UserForm(forms.ModelForm):
@@ -18,14 +18,6 @@ class UserProfileForm(forms.ModelForm):
         fields = ('picture', 'name', 'contact_number', 'email','address','town', 'post_code','type')
 
 
-
-class VolunteerForm(forms.ModelForm,):
-    gender = forms.ChoiceField(initial=None, help_text='Gender')
-    time_available = forms.ChoiceField(initial=None, help_text='times available')
-
-    class Meta:
-        model = Volunteer
-        fields = ('gender','time_available')
 
 class OpportunityForm(forms.ModelForm):
     class Meta:
