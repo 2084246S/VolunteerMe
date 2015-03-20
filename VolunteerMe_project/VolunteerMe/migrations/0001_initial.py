@@ -25,7 +25,7 @@ class Migration(migrations.Migration):
             name='Category',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('job_name', models.CharField(unique=True, max_length=128)),
+                ('category', models.CharField(max_length=128, choices=[(b'A', b'Administrative / Office Work'), (b'B', b'Advice / Information giving'), (b'C', b'Advocacy / Human Rights)'), (b'D', b'Arts ( music/drama/crafts)'), (b'E', b'Befriending / Mentoring'), (b'F', b'Campaigning / Lobbying'), (b'G', b'Care / Support worker'), (b'H', b'Catering'), (b'I', b'Charity Event Support'), (b'J', b'Charity Shops / Retail'), (b'K', b'Committee Work'), (b'L', b'Community / Economic Development Work'), (b'M', b'Computing'), (b'N', b'Conservation / Gardening'), (b'O', b'Counselling'), (b'P', b'Disaster / emergency relief'), (b'Q', b'Drivers'), (b'R', b'Driving / escorting'), (b'S', b'Equal Opportunities / Race relations'), (b'T', b'Event Management'), (b'U', b'Event Marshals'), (b'V', b'Finance / Accountancy'), (b'W', b'Fundraising'), (b'X', b'General Event Support'), (b'Y', b'Homebased Volunteering'), (b'Z', b'IT Support'), (b't', b'Justice / Legal assistance'), (b'a', b'Landscaping/course layout/maintenance'), (b'b', b'Languages / translating'), (b'c', b'Library / Information Management'), (b'd', b'Management / Business Skills'), (b'e', b'Marketing / PR / Media'), (b'f', b'Medical/Physiotherapy'), (b'g', b'On line Volunteering'), (b'h', b'Playschemes / Childrens Clubs'), (b'i', b'Practical /DIY'), (b'j', b'Research / Policy work'), (b'k', b'Residential volunteering'), (b'l', b'Security'), (b'm', b'Short term / seasonal working'), (b'n', b'Specialist / Technical'), (b'o', b'Sports / Outdoor activities'), (b'p', b'Technical Support'), (b'q', b'Tutoring / Supporting Learners'), (b'r', b'Volunteering for under 16s'), (b's', b'Youth Work')])),
                 ('slug', models.SlugField(unique=True)),
             ],
             options={
@@ -73,16 +73,16 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name='User',
+            name='UserProfile',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('type', models.CharField(max_length=1, choices=[(b'v', b'Volunteer'), (b'o', b'organiser')])),
-                ('name', models.CharField(help_text=b'Full Name', max_length=128)),
-                ('email', models.EmailField(help_text=b'Email', max_length=75)),
-                ('contact_number', models.CharField(help_text=b'Contact number', max_length=15)),
-                ('post_code', models.CharField(help_text=b'postcode', max_length=12, blank=True)),
-                ('address', models.CharField(help_text=b'address', max_length=128, blank=True)),
-                ('town', models.TextField(help_text=b'Town', blank=True)),
+                ('type', models.CharField(max_length=1, choices=[(b'v', b'volunteer'), (b'o', b'organiser')])),
+                ('name', models.CharField(max_length=128)),
+                ('email', models.EmailField(max_length=75)),
+                ('contact_number', models.CharField(max_length=15)),
+                ('post_code', models.CharField(max_length=12, blank=True)),
+                ('address', models.CharField(max_length=128, blank=True)),
+                ('town', models.CharField(max_length=128, blank=True)),
                 ('picture', models.ImageField(upload_to=b'profile_images', blank=True)),
                 ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
             ],
@@ -104,7 +104,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='opportunity',
             name='company',
-            field=models.ForeignKey(default=None, to='VolunteerMe.User'),
+            field=models.ForeignKey(default=None, to='VolunteerMe.UserProfile'),
             preserve_default=True,
         ),
         migrations.AddField(

@@ -8,9 +8,9 @@ import django
 
 django.setup()
 
-from VolunteerMe.models import Opportunity,User,Category,UserProfile
-from django.contrib.auth.models import User
+from VolunteerMe.models import Opportunity, Category, UserProfile
 
+from django.contrib.auth.models import User
 
 
 global company_number
@@ -19,13 +19,15 @@ company_number = 0
 
 def populate():
 
-
-
-
-
-    u_brian = add_user('brian123', 'brian123@test.com', 'pass123')
-    o_brian = add_userprofile(u_brian,type='organiser',name='Brian',email= 'brian123@test.com')
+#<<<<<<< HEAD
+#    o_brian = add_user('brian', 'brian123', 'brian123@test.com', 'pass123')
+    #o_brian = add_organiser(u_brian)
+#    add_opportunity(organiser=o_brian, name="Admin", description="Typing stuff up", location="234 Somewhere Drive")
+#=======
+    u_brian = add_user('Brian', 'brian123', 'brian123@test.com', 'pass123')
+    o_brian = add_userprofile(u_brian, type='organiser', name='Brian', email='brian123@test.com')
     add_opportunity(organiser=o_brian, name="Admin", description="Typing stuff up", location="234 Somewhere Drive", start_date=date.today(), end_date=date.today())
+#>>>>>>> 7753252c2f205b69df6ee0fc5892027bad6b79d6
     add_opportunity(organiser=o_brian, name="Cleaning", description="Blah, Blah, Blah, Blah Blah.........",
                     location="Just down the road", start_date=date.today(), end_date=date.today())
     add_opportunity(organiser=o_brian, name="Something Completely Different",
@@ -42,7 +44,7 @@ def populate():
 
 
 def add_opportunity(organiser, name, description="", location="", start_date=date.today(), end_date=date.today()):
-    o = Opportunity.objects.get_or_create(company=organiser, name=name)[0]
+    o = Opportunity.objects.get_or_create(company=organiser, name=name, start_date=start_date, end_date=end_date)[0]
     o.description = description
     o.location = location
     o.start_date = start_date.today()
@@ -51,24 +53,32 @@ def add_opportunity(organiser, name, description="", location="", start_date=dat
     return o
 
 
-def add_userprofile(user,type,name,email):
+def add_userprofile(user, type, name, email):
     global company_number
     company_number += 1
-    o = UserProfile.objects.get_or_create(user=user,type=type, name=name,email=email, contact_number=company_number)[0]
+    o = UserProfile.objects.get_or_create(user=user, type=type, name=name, email=email, contact_number=company_number)[0]
     o.save()
     return o
 
 
-def add_user(username, email, password):
-    o = User.objects.get_or_create(username=username)[0]
+def add_user(first_name, username, email, password):
+    o = User.objects.get_or_create(first_name=first_name, username=username, email=email, password=password)[0]
     o.email = email
     o.password = password
     o.save()
     return o
 
-def add_cat(name):
-    c = Category.objects.get_or_create(category=name)[0]
-    return c
+#<<<<<<< HEAD#
+#
+#def add_category(name):
+#    o = Category.objects.get_or_create(category=name)[0]
+#    o.save()
+#    return o
+#=======
+#def add_cat(name):
+#    c = Category.objects.get_or_create(category=name)[0]
+#    return c
+#>>>>>>> 7753252c2f205b69df6ee0fc5892027bad6b79d6
 
 # Start execution here!
 if __name__ == '__main__':

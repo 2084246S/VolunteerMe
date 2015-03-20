@@ -11,7 +11,7 @@ class UserProfile(models.Model):
     # The additional attributes we wish to include.
     TYPE_CHOICES = (('v', 'volunteer'), ('o', 'organiser'))
     type = models.CharField(max_length=1, choices=TYPE_CHOICES)
-    name = models.CharField(max_length=128, )
+    name = models.CharField(max_length=128,)
     email = models.EmailField()
     contact_number = models.CharField(max_length=15)
     post_code = models.CharField(max_length=12, blank=True)
@@ -30,6 +30,15 @@ class Volunteer(models.Model):
 
     def __unicode__(self):
         return self.user.username
+
+
+#class Organiser(models.Model):
+#    company_name = models.CharField(max_length=128, blank=True)
+#    company_number = models.IntegerField(blank=True)
+#    user = models.ForeignKey(User)
+#
+#    def __unicode__(self):
+#        return self.user.username
 
 
 class Category(models.Model):

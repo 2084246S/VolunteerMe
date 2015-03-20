@@ -84,7 +84,8 @@ def register_volunteer(request):
                     pass
 
                 profile.save()
-                user.groups.add(Group.objects.get(name='volunteer')[0])
+                g =Group.objects.get(name='volunteer')
+                g.user_set.add(user)
 
                 return index(request)
     else:
@@ -99,14 +100,15 @@ def register_organiser(request):
         if profile_form.is_valid():
             if request.user.is_authenticated():
                 profile = profile_form.save(commit=False)
-                user = User.objects.get(id=request.user.id)
+                user = User.objects.get(username=request.user.username)
                 profile.user = user
                 try:
                     profile.picture = request.FILES['picture']
                 except:
                     pass
                 profile.save()
-                user.groups.add(Group.objects.get(name='organiser')[0])
+                g = Group.objects.get(name='organiser')
+                g.user_set.add(user)
 
 
                 return index(request)
@@ -146,8 +148,8 @@ def manage_opportunities(request):
     pass
 
 
-def manage_opportunity(request, opportunity_id):
-    opportunity = Opportunity.objects.get(id=opportunity_id)
+def manage_opportunity(request, opportunity_id,username):
+    opportunity = Opportunity.objects.get(id=opportunity_id).filter(username = username)
     if opportunity:
         # do stuff
 
