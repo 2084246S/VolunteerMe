@@ -27,3 +27,7 @@ class VolunteerForm(forms.ModelForm,):
         model = Volunteer
         fields = ('gender','time_available')
 
+class OpportunityForm(forms.ModelForm):
+    class Meta:
+        model = Opportunity
+        fields = ('name','category','company','start_date','end_date','description','location','optional')

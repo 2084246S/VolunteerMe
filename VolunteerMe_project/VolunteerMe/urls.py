@@ -14,11 +14,10 @@ urlpatterns = patterns('',
                            views.register_volunteer,
                            name='volunteer_registration'),
 
-                       #TEMP COMMENT OUT FOR DEBUGGING
                        #url(r'^organiser/(?P<company_name>[\w\-]+)/$',
                        #    views.organiser,
-                       #   name='organiser'),
-                       url(r'^organiser/(?P<company>\d+)/(?P<opportunity_id>\d+)/$',
+                       #    name='organiser'),
+                       url(r'^organiser/(?P<company>[\w\-]+)/(?P<opportunity_id>\d+)/$',
                            views.show_opportunity,
                            name='opportunity'),
                        url(r'^dashboard/$',

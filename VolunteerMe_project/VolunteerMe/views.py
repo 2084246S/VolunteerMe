@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.shortcuts import render
 from django.http import HttpResponse
 from VolunteerMe.models import Volunteer, Search, Opportunity
-from VolunteerMe.forms import VolunteerForm, UserProfileForm
+from VolunteerMe.forms import VolunteerForm, UserProfileForm,OpportuityForm
 from VolunteerMe.models import Category, Opportunity
 from datetime import datetime
 from django.contrib.auth.models import User,Group
@@ -118,25 +118,25 @@ def register_organiser(request):
 
 
 
-def show_opportunity(request, company, opportunity_id):
-    #context = dict()
+def show_opportunity(request, name, opportunity_id):
+    context = dict()
 
-    #organiser = Organiser.objects.get(company_name)
-    #opportunity = None
+    organiser = User.objects.get(name)
+    opportunity = None
 
-    #if organiser:
-    #    context['company_name'] = organiser.company_name
-    #    opportunity = Opportunity.objects.get(id=opportunity_id)
+    if organiser:
+        context['name'] = User.username
+        opportunity = Opportunity.objects.get(id=opportunity_id)
 
-    #    if opportunity:
-    #        context['opportunity_name'] = opportunity.name
-    #        context['start_date'] = opportunity.start_date.__unicode__()
-    #        context['end_date'] = opportunity.end_date.__unicode__()
-    #        context['description'] = opportunity.description
-    #        context['optional'] = opportunity.optional
-    #        context['location'] = opportunity.location
+        if opportunity:
+            context['opportunity_name'] = opportunity.name
+            context['start_date'] = opportunity.start_date.__unicode__()
+            context['end_date'] = opportunity.end_date.__unicode__()
+            context['description'] = opportunity.description
+            context['optional'] = opportunity.optional
+            context['location'] = opportunity.location
 
-    #context['opportunity'] = opportunity
+    context['opportunity'] = opportunity
     return render(request, 'Volunteer_Me/opportunity.html', {})
 
 
@@ -160,7 +160,25 @@ def manage_opportunity(request, opportunity_id,username):
 
 def create_opportunity(request):
     if request.method == 'POST':
-        opp = Opportunity
+        profile_form = OpportunityForm(request.POST)
+        if profile_form.is_valid():
+            if request.user.is_authenticated():
+                profile = profile_form.save(commit=False)
+                user = User.objects.get(username=request.user.username)
+                profile.user = user
+                try:
+                    profile.picture = request.FILES['picture']
+                except:
+                    pass
+                profile.save()
+                g = Group.objects.get(name='organiser')
+                g.user_set.add(user)
+
+
+                return index(request)
+    else:
+        form = UserProfileForm(request.GET)
+    return render(request, 'Volunteer_Me/organiser/organiser_register.html', {'profile_form': form})
 
 
 def manage_applications(request):
