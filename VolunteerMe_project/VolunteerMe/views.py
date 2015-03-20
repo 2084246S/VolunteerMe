@@ -41,29 +41,18 @@ def search(request):
 
 # stub views
 def profile(request):
-    #pass
     u = User.objects.get(username=request.user.username)
 
     context_dict = {}
-    # if u in Group.user_in_group:
-    #     try:
-    #         up = Volunteer.objects.get(user=u)
-    #     except:
-    #         up = None
-    #
-    #     context_dict['user'] = u
-    #     context_dict['userprofile'] = up
-    #
-    #     return(request,'Volunteer_Me/volunteer/volunteer_profile',context_dict)
-    # else:
+    is_volunteer = request.user.groups.filter(name='volunteer').exists()
     try:
-        up = User.objects.get(user=u)
+        up = UserProfile.objects.get(user=request.user)
     except:
         up = None
 
     context_dict['user'] = u
     context_dict['userprofile'] = up
-    return(request,'Volunteer_Me/organiser/organiser_profile',context_dict)
+    return render(request,'Volunteer_Me/profile.html',context_dict)
 
 def register_volunteer(request):
     #pass
@@ -196,7 +185,7 @@ def create_opportunity(request):
                 return index(request)
     else:
         form = OpportunityForm(request.GET)
-    return render(request, 'Volunteer_Me/organiser/opportunities.html', {'profile_form': form})
+    return render(request, 'Volunteer_Me/organiser/new_opportunity.html', {'opportunity_form': form})
 
 
 @login_required
@@ -242,11 +231,3 @@ def suggest_category(request):
 
     return render(request, 'Volunteer_Me/cats.html', {'cat_list': cat_list})
 
-
-from django import template
-from django.contrib.auth.models import Group
-register = template.Library()
-@register.filter(name='has_group')
-def has_group(user, group_name):
-    group = Group.objects.get(name=group_name)
-    return True if group in user.groups.all() else False

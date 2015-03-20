@@ -13,7 +13,7 @@ class UserProfile(models.Model):
     contact_number = models.CharField(max_length=15, help_text='Contact number')
     post_code = models.CharField(max_length=12,blank=True,help_text='postcode')
     address = models.CharField(max_length=128,blank=True,help_text='address')
-    town = models.CharField(blank=True,help_text='Town')
+    town = models.CharField(max_length=128,blank=True,help_text='Town')
     picture = models.ImageField(upload_to='profile_images', blank=True)
 
 # Override the __unicode__() method to return out something meaningful!
@@ -54,7 +54,7 @@ class Category(models.Model):
         ('p', 'Technical Support'), ('q', 'Tutoring / Supporting Learners'), ( 'r', 'Volunteering for under 16s'),
         ('s', 'Youth Work'))
 
-    category = models.CharField(max_length=128, choices=CAT_CHOICES)
+    category = models.CharField(max_length=1, choices=CAT_CHOICES)
     slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
@@ -77,7 +77,7 @@ class Search(models.Model):
 
 class Opportunity(models.Model):
     name = models.CharField(max_length=128)
-    category = models.CharField(max_length=128, default="Other")
+    category = models.ForeignKey(Category)
     company = models.ForeignKey(UserProfile, default=None)
     start_date = models.DateField(blank=True)
     end_date = models.DateField(blank=True)

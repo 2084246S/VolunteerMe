@@ -35,7 +35,7 @@ def populate():
     o_brian = add_userprofile(u_brian, type='organiser', name='Brian', email='brian123@test.com')
     add_opportunity(organiser=o_brian, name="Admin", description="Typing stuff up", location="234 Somewhere Drive", start_date=date.today(), end_date=date.today())
 
-    add_opportunity(organiser=o_brian, name="Cleaning",type = 'Administrative / Office Work' description="Blah, Blah, Blah, Blah Blah.........",
+    add_opportunity(organiser=o_brian, name="Cleaning",type = 'Administrative / Office Work', description="Blah, Blah, Blah, Blah Blah.........",
                     location="Just down the road", start_date=date.today(), end_date=date.today())
     add_opportunity(organiser=o_brian, name="Something Completely Different",
                     description="You are expected to clean the surface of mars with a toothbrush.", location="Mars", start_date=date.today(), end_date=date.today())

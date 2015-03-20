@@ -2,16 +2,16 @@
 
 
 {% block body_block %}
-<form id="profile_form" method="post" action="/volunteer-me/"
+<form id="profile_form" method="post" action="/VolunteerMe/edit_o_profile/"
       enctype="multipart/form-data">
 
     {% csrf_token %}
 
 
-    {{ opportunity_form.as_p }}
+    {{ profile_form.as_p }}
 
+    <p><a href="{% url 'password_change_form' %}">Password change</a></p>
 
-    <!-- Provide a button to click to submit the form. -->
     <input type="submit" name="submit" value="Submit"/>
 </form>
 {% endblock %}

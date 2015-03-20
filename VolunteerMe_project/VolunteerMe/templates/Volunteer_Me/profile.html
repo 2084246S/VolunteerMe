@@ -31,7 +31,7 @@
 
 {% block body_block %}
 
-{% if request.user|has_group:'volunteer' %}
+{% if is_volunteer %}
 
 <div class="row placeholders">
     <div class="col-xs-12 col-sm-6 placeholder">
@@ -82,32 +82,13 @@
 
 {% else %}
 
-    <div class="hero-unit">
-    <div class="row placeholders">
-        <div class="col-xs-12 col-sm-6 placeholder">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <a href="{%url 'new_opportunities'%}">Make a new opportunity</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xs-12 col-sm-6 placeholder">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <a href="{%url 'replied_opportunities'%}">applications</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
 
     <div class="panel">
-        {% if opportunities_list %}
+
         <div class="panel-heading">
             <h3 class="panel-title">your most recent advertisments</h3>
-
-            <h2><a href="{url ''}">view all</a></h2>
+            {% if opportunities_list %}
+            <h2><a href="{url 'manage_opportunities'}">view all</a></h2>
             <!-- Display search opportunitiess in an ordered list -->
             <div class="panel-body">
                 <div class="list-group">
@@ -115,8 +96,6 @@
                     <div class="list-group-item">
                         <h4 class="list-group-item-heading">
                             <a href="{{ opportunities.link }}">{{ opportunities.title }}</a>
-
-
                         </h4>
 
                         <p class="list-group-item-text">{{ opportunities.summary|truncatewords:100 }}</p>
@@ -124,6 +103,8 @@
                     </div>
                     {% endfor %}
                 </div>
+            {%else%}
+            <h1>No opportunities</h1>
             </div>
             {% endif %}
         </div>
