@@ -63,3 +63,6 @@ target/
 # It keeps fucking with my pulls.
 *.idea/
 # god damn this shit...
+
+# removing migrations
+volunteerMe_project/*migrations/

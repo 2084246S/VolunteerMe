@@ -159,7 +159,8 @@ def manage_opportunity(request, opportunity_id,username):
 
 
 def create_opportunity(request):
-    pass
+    if request.method == 'POST':
+        opp = Opportunity
 
 
 def manage_applications(request):
