@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.shortcuts import render
 from django.http import HttpResponse
 from VolunteerMe.models import Volunteer, Search, Opportunity, Category
-from VolunteerMe.forms import VolunteerForm, UserProfileForm,OpportunityForm
+from VolunteerMe.forms import VolunteerForm, UserProfileForm,OpportunityForm, UserProfile
 from datetime import datetime
 from django.contrib.auth.models import User,Group
 from django.contrib.auth.decorators import login_required, permission_required
@@ -113,25 +113,22 @@ def register_organiser(request):
     return render(request, 'Volunteer_Me/organiser/organiser_register.html', {'profile_form': form})
 
 
-
-def show_opportunity(request, company, opportunity_id):
+def show_opportunity(request, opportunity_id):
     context = dict()
 
-    organiser = User.objects.get(username=company)
-    opportunity = None
+    opportunity = Opportunity.objects.get(id=opportunity_id)
 
-    if organiser:
+    if opportunity:
+
+        organiser = opportunity.company.user
         context['company_name'] = organiser.first_name
 
-        opportunity = Opportunity.objects.get(id=opportunity_id)
-
-        if opportunity:
-            context['opportunity_name'] = opportunity.name
-            context['start_date'] = opportunity.start_date
-            context['end_date'] = opportunity.end_date
-            context['description'] = opportunity.description
-            context['optional'] = opportunity.optional
-            context['location'] = opportunity.location
+        context['opportunity_name'] = opportunity.name
+        context['start_date'] = opportunity.start_date
+        context['end_date'] = opportunity.end_date
+        context['description'] = opportunity.description
+        context['optional'] = opportunity.optional
+        context['location'] = opportunity.location
 
     if request.method == 'POST':
         profile_form = UserProfileForm(request.POST)
