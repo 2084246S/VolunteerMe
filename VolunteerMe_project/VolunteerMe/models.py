@@ -86,14 +86,14 @@ class Search(models.Model):
 
 
 class Opportunity(models.Model):
-    name = models.CharField(max_length=128, unique=True)
+    name = models.CharField(max_length=128)
     category = models.CharField(max_length=128, default="Other")
     company = models.ForeignKey(UserProfile, default=None)
     start_date = models.DateField(blank=True)
     end_date = models.DateField(blank=True)
     description = models.TextField(blank=True)
     location = models.TextField(blank=True, default="")
-    optional = models.TextField(blank=True, default="")
+    optional = models.TextField(blank=True, default="None")
 
     def __unicode__(self):
         return self.name

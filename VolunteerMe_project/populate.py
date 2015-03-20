@@ -1,7 +1,7 @@
 #!python.exe
 import os
 from datetime import date#
-from django.contrib.contenttypes.models import ContentType
+
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'VolunteerMe_project.settings')
 
@@ -12,7 +12,7 @@ django.setup()
 from VolunteerMe.models import Opportunity, Category, UserProfile
 
 from django.contrib.auth.models import User
-from django.contrib.auth.models import Permission
+
 from django.contrib.auth.models import Group
 
 
@@ -33,7 +33,7 @@ def populate():
 
     u_brian = add_user('Brian', 'brian123', 'brian123@test.com', 'pass123')
     o_brian = add_userprofile(u_brian, type='organiser', name='Brian', email='brian123@test.com')
-    add_opportunity(organiser=o_brian, name="Admin", description="Typing stuff up", location="234 Somewhere Drive", start_date=date.today(), end_date=date.today())
+    add_opportunity(organiser=o_brian, name="Admin", description="Typing stuff up", location="234 Somewhere Drive", start_date=date.today(), end_date=date.)
 
     add_opportunity(organiser=o_brian, name="Cleaning", description="Blah, Blah, Blah, Blah Blah.........",
                     location="Just down the road", start_date=date.today(), end_date=date.today())

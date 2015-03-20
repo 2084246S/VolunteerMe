@@ -9,7 +9,7 @@
 {% endif %}
 
 <h1>{{ opportunity_name }}</h1>
-<li><a href="{url ''}">{{ company_name}}</a></li>
+<li><a href="{url ''}">{{ name}}</a></li>
 
 
 <h2>When</h2>
@@ -22,15 +22,18 @@
 {% endif %}
 
 <h2>About this opportunity</h2>
-<h1>{{ description}}</h1>
+<h1>{{description}}</h1>
+
+
 <h1>preferred skills</h1>
 <h1>{{optional}}</h1>
-
+<br></br>
 <h2>Location</h2>
 <h1>{{location}}</h1>
+<br></br>
 #put a map in somehow
 
-
+####################################################################################################
 <div class="panel">
     <div class="panel-heading">
         <h3 class="panel-title">Apply Now</h3>
