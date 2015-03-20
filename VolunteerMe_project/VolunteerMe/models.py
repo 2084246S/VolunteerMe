@@ -9,7 +9,7 @@ class UserProfile(models.Model):
 
 
     # The additional attributes we wish to include.
-    TYPE_CHOICES = (('v','Volunteer'),('o','organiser'))
+    TYPE_CHOICES = (('v', 'volunteer'), ('o', 'organiser'))
     type = models.CharField(max_length=1, choices=TYPE_CHOICES)
     name = models.CharField(max_length=128,)
     email = models.EmailField()
@@ -42,16 +42,37 @@ class Volunteer(models.Model):
 
 
 class Category(models.Model):
+    CAT_CHOICES = (
+        ('A', 'Administrative / Office Work'), ('B', 'Advice / Information giving'), ('C', 'Advocacy / Human Rights)'),
+        ('D', 'Arts ( music/drama/crafts)'), ('E', 'Befriending / Mentoring'), ('F', 'Campaigning / Lobbying'),
+        ('G', 'Care / Support worker'), ('H', 'Catering'), ('I', 'Charity Event Support'),
+        ('J', 'Charity Shops / Retail'),
+        ('K', 'Committee Work'),
+        ('L', 'Community / Economic Development Work'), ( 'M', 'Computing'), ('N', 'Conservation / Gardening'),
+        ('O', 'Counselling'),
+        ('P', 'Disaster / emergency relief'), ('Q', 'Drivers'), ('R', 'Driving / escorting'),
+        ('S', 'Equal Opportunities / Race relations'), ('T', 'Event Management'), ( 'U', 'Event Marshals'),
+        ('V', 'Finance / Accountancy'), ( 'W', 'Fundraising'), ('X', 'General Event Support'),
+        ('Y', 'Homebased Volunteering'), ( 'Z', 'IT Support'), ('t','Justice / Legal assistance'),
+        ('a', 'Landscaping/course layout/maintenance'), ('b', 'Languages / translating'),
+        ('c', 'Library / Information Management'), ('d', 'Management / Business Skills'),
+        ('e', 'Marketing / PR / Media'), ('f', 'Medical/Physiotherapy'), ('g', 'On line Volunteering'),
+        ('h', 'Playschemes / Childrens Clubs'),
+        ('i', 'Practical /DIY'), ('j', 'Research / Policy work'), ('k', 'Residential volunteering'),
+        ('l', 'Security'),
+        ('m', 'Short term / seasonal working'), ( 'n', 'Specialist / Technical'), ('o', 'Sports / Outdoor activities'),
+        ('p', 'Technical Support'), ('q', 'Tutoring / Supporting Learners'), ( 'r', 'Volunteering for under 16s'),
+        ('s', 'Youth Work'))
 
-    category = models.CharField(max_length=128, unique=True)
-    #slug = models.SlugField(unique=True)
+    category = models.CharField(max_length=128, choices=CAT_CHOICES)
+    slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
-     #   self.slug = slugify(self.name)
+        self.slug = slugify(self.category)
         super(Category, self).save(*args, **kwargs)
 
     def __unicode__(self):
-        return self.name
+        return self.category
 
 
 class Search(models.Model):
@@ -67,7 +88,7 @@ class Search(models.Model):
 class Opportunity(models.Model):
     name = models.CharField(max_length=128, unique=True)
     category = models.CharField(max_length=128, default="Other")
-    company = models.ForeignKey(User, default=None)
+    company = models.ForeignKey(UserProfile, default=None)
     start_date = models.DateField(blank=True)
     end_date = models.DateField(blank=True)
     description = models.TextField(blank=True)

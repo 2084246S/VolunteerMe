@@ -25,7 +25,8 @@ class Migration(migrations.Migration):
             name='Category',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('category', models.CharField(unique=True, max_length=128)),
+                ('category', models.CharField(max_length=128, choices=[(b'A', b'Administrative / Office Work'), (b'B', b'Advice / Information giving'), (b'C', b'Advocacy / Human Rights)'), (b'D', b'Arts ( music/drama/crafts)'), (b'E', b'Befriending / Mentoring'), (b'F', b'Campaigning / Lobbying'), (b'G', b'Care / Support worker'), (b'H', b'Catering'), (b'I', b'Charity Event Support'), (b'J', b'Charity Shops / Retail'), (b'K', b'Committee Work'), (b'L', b'Community / Economic Development Work'), (b'M', b'Computing'), (b'N', b'Conservation / Gardening'), (b'O', b'Counselling'), (b'P', b'Disaster / emergency relief'), (b'Q', b'Drivers'), (b'R', b'Driving / escorting'), (b'S', b'Equal Opportunities / Race relations'), (b'T', b'Event Management'), (b'U', b'Event Marshals'), (b'V', b'Finance / Accountancy'), (b'W', b'Fundraising'), (b'X', b'General Event Support'), (b'Y', b'Homebased Volunteering'), (b'Z', b'IT Support'), (b't', b'Justice / Legal assistance'), (b'a', b'Landscaping/course layout/maintenance'), (b'b', b'Languages / translating'), (b'c', b'Library / Information Management'), (b'd', b'Management / Business Skills'), (b'e', b'Marketing / PR / Media'), (b'f', b'Medical/Physiotherapy'), (b'g', b'On line Volunteering'), (b'h', b'Playschemes / Childrens Clubs'), (b'i', b'Practical /DIY'), (b'j', b'Research / Policy work'), (b'k', b'Residential volunteering'), (b'l', b'Security'), (b'm', b'Short term / seasonal working'), (b'n', b'Specialist / Technical'), (b'o', b'Sports / Outdoor activities'), (b'p', b'Technical Support'), (b'q', b'Tutoring / Supporting Learners'), (b'r', b'Volunteering for under 16s'), (b's', b'Youth Work')])),
+                ('slug', models.SlugField(unique=True)),
             ],
             options={
             },
@@ -42,19 +43,6 @@ class Migration(migrations.Migration):
                 ('description', models.TextField(blank=True)),
                 ('location', models.TextField(default=b'', blank=True)),
                 ('optional', models.TextField(default=b'', blank=True)),
-                ('company', models.OneToOneField(default=None, to=settings.AUTH_USER_MODEL)),
-            ],
-            options={
-            },
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name='Organiser',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('company_name', models.CharField(max_length=128, blank=True)),
-                ('company_number', models.IntegerField(blank=True)),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
             },
@@ -88,7 +76,7 @@ class Migration(migrations.Migration):
             name='UserProfile',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('type', models.CharField(max_length=1, choices=[(b'v', b'Volunteer'), (b'o', b'organiser')])),
+                ('type', models.CharField(max_length=1, choices=[(b'v', b'volunteer'), (b'o', b'organiser')])),
                 ('name', models.CharField(max_length=128)),
                 ('email', models.EmailField(max_length=75)),
                 ('contact_number', models.CharField(max_length=15)),
@@ -112,6 +100,12 @@ class Migration(migrations.Migration):
             options={
             },
             bases=(models.Model,),
+        ),
+        migrations.AddField(
+            model_name='opportunity',
+            name='company',
+            field=models.ForeignKey(default=None, to='VolunteerMe.UserProfile'),
+            preserve_default=True,
         ),
         migrations.AddField(
             model_name='application',

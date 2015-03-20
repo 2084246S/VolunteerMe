@@ -49,25 +49,25 @@ def profile(request):
     u = User.objects.get(username=request.user.username)
 
     context_dict = {}
-    if u.is_volunteer:
-        try:
-            up = Volunteer.objects.get(user=u)
-        except:
-            up = None
+    # if u in Group.user_in_group:
+    #     try:
+    #         up = Volunteer.objects.get(user=u)
+    #     except:
+    #         up = None
+    #
+    #     context_dict['user'] = u
+    #     context_dict['userprofile'] = up
+    #
+    #     return(request,'Volunteer_Me/volunteer/volunteer_profile',context_dict)
+    # else:
+    try:
+        up = User.objects.get(user=u)
+    except:
+        up = None
 
-        context_dict['user'] = u
-        context_dict['userprofile'] = up
-
-        return(request,'Volunteer_Me/volunteer/volunteer_profile',context_dict)
-    else:
-        try:
-            up = User.objects.get(user=u)
-        except:
-            up = None
-
-        context_dict['user'] = u
-        context_dict['userprofile'] = up
-        return(request,'Volunteer_Me/organiser/organiser_profile',context_dict)
+    context_dict['user'] = u
+    context_dict['userprofile'] = up
+    return(request,'Volunteer_Me/organiser/organiser_profile',context_dict)
 
 def register_volunteer(request):
     #pass
@@ -82,8 +82,10 @@ def register_volunteer(request):
                     profile.picture = request.FILES['picture']
                 except:
                     pass
+
                 profile.save()
-                user.groups.add(Group.objects.get_or_create(name='Volunteer'))
+                user.groups.add(Group.objects.get(name='volunteer')[0])
+
                 return index(request)
     else:
         form = VolunteerForm(request.GET)
@@ -104,7 +106,9 @@ def register_organiser(request):
                 except:
                     pass
                 profile.save()
-                user.groups.add(Group.objects.get_or_create(name='organiser'))
+                user.groups.add(Group.objects.get(name='organiser')[0])
+
+
                 return index(request)
     else:
         form = UserProfileForm(request.GET)
@@ -195,6 +199,11 @@ def suggest_category(request):
     cat_list = get_category_list(8, starts_with)
 
     return render(request, 'Volunteer_Me/cats.html', {'cat_list': cat_list })
+
+
+
+def is_volunteer(user):
+    return user.groups.filter(name='volunteer').exists()
 '''
 Again, not sure what this is for...
 def category(request, category_name_slug):
