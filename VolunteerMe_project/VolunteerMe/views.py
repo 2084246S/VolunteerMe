@@ -34,11 +34,7 @@ def search(request):
 
     result_list = []
 
-    if request.method == 'POST':
-        query = request.POST['query'].strip()
-        oppertunities = Opportunity.objects.filter()
-        #if query:
-        #result_list = run_query(query)
+
 
     return render(request, 'Volunteer_Me/search.html', {'result_list': result_list})
 
@@ -191,20 +187,16 @@ def create_opportunity(request):
         if opp_form.is_valid():
             if request.user.is_authenticated():
                 profile = opp_form.save(commit=False)
-                user = User.objects.get(username=request.user.username)
+
                 profile.user = user
-                try:
-                    profile.picture = request.FILES['picture']
-                except:
-                    pass
+
                 profile.save()
-                g = Group.objects.get(name='organiser')
-                g.user_set.add(user)
+
 
 
                 return index(request)
     else:
-        form = UserProfileForm(request.GET)
+        form = OpportunityForm(request.GET)
     return render(request, 'Volunteer_Me/organiser/organiser_register.html', {'profile_form': form})
 
 
@@ -228,16 +220,17 @@ def manage_application(request, application_id):
 def about(request):
     return render(request, 'Volunteer_Me/about.html')
 
-def get_category_list(max_results=0, starts_with=''):
-    cat_list = []
-    if starts_with:
-        cat_list = Opportunity.objects.filter(name__istartswith=starts_with)
-
+def get_job_list(max_results=0, contains=''):
+    job_list = []
+    if contains:
+        job_list = Opportunity.objects.filter(job_name__contains=contains)
+    else:
+        job_list = Opportunity.objects.all()
     if max_results > 0:
-        if len(cat_list) > max_results:
-            cat_list = cat_list[:max_results]
+        if len(job_list) > max_results:
+            job_list = job_list[:max_results]
+    return job_list
 
-    return cat_list
 
 
 def suggest_category(request):
@@ -246,7 +239,7 @@ def suggest_category(request):
     if request.method == 'GET':
         starts_with = request.GET['suggestion']
 
-    cat_list = get_category_list(8, starts_with)
+    cat_list = get_job_list(8, starts_with)
 
     return render(request, 'Volunteer_Me/cats.html', {'cat_list': cat_list})
 

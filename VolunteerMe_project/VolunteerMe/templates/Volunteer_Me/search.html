@@ -3,49 +3,27 @@
 
 {% block body_block %}
 
-     <ul class="nav nav-list">
-        <li class="nav-header">Find a Category</li>
-        <form>
-            <label></label>
-            <li><input  class="search-query span10" type="text" name="suggestion" value="" id="suggestion" /></li>
-        </form>
-    </ul>
-
-    <div id="cats">
-    </div>
-
-
-
-
-
-
-
-<form class="form-inline" id="user_form" method="post" action="">
-    {% csrf_token %}
-    <!-- Display the search form elements here -->
-    <input class="form-control" type="text" size="50" name="query" value="" id="query"/>
-    <input class="btn btn-primary" type="submit" name="submit" value="Search"/>
-</form>
-
-<div class="panel">
-    {% if result_list %}
-        <div class="panel-heading">
-        <h3 class="panel-title">Results</h3>
-        <!-- Display search results in an ordered list -->
-        <div class="panel-body">
-            <div class="list-group">
-                {% for result in result_list %}
-                    <div class="list-group-item">
-                        <h4 class="list-group-item-heading"><a href="{{ result.link }}">{{ result.title }}</a></h4>
-
-                        <p class="list-group-item-text">{{ result.summary }}</p>
-                    </div>
-                {% endfor %}
-            </div>
+     <div class="row"><div class="col-lg-8"><h1> Search for placements! </h1></div></div>
+    <div class="row">
+        <div class="col-lg-7">
+            <form>
+                <input  class="form-control" type="text" name="suggestion" value="" id="suggestion" />
+            </form>
         </div>
-    {% endif %}
     </div>
-</div>
 
+
+    <hr/>
+    <div id="job_area" class="row">
+        <div class="col-lg-7">
+            <label> Please search for the volunteer name above. </label>
+        </div>
+    </div>
+
+
+
+
+
+</div>
 
 {%endblock%}

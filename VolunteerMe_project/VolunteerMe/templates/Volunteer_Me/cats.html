@@ -1,16 +1,17 @@
-{% if cats %}
-    <ul class="nav nav-sidebar">
-    {% for c in cats %}
-        <li><a href="{url'opportunity' opportunity.id }">{{opportunity.name}}</a></li>
-        <h1>{{opportunity.summary|truncatewords:100}}</h1>
 
+
+<ul class="nav nav-list">
+    {% if job_list %}
+    <table class="table table-striped">
+        <tr><th>Placement Name</th><th>Company</th></tr>
+        {% for job in job_list %}
+        <tr>
+            <td><a href="/opportunity/{{ opportunity.id }}">{{ opportunity.name }}</a> </td>
+            <h1>{{opportunity.summary|truncatewords:100}}</h1>
+        </tr>
+        {% endfor %}
+    </table>
     {% else %}
-        <h1> there are no current opportunities using this criteria</h1>
+    <li>No jobs found.</li>
     {% endif %}
-    {% endfor %}
-
-{% else %}
-    <li> <strong >There are no category present.</strong></li>
-
-    </ul>
-{% endif %}
+</ul>
