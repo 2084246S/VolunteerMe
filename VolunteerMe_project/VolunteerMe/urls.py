@@ -13,9 +13,7 @@ urlpatterns = patterns('',
                        url(r'^volunteer/register/$',
                            views.register_volunteer,
                            name='volunteer_registration'),
-                       url(r'^organiser/register/$',
-                           views.register_organiser,
-                           name='organiser_registration'),
+
                        #TEMP COMMENT OUT FOR DEBUGGING
                        #url(r'^organiser/(?P<company_name>[\w\-]+)/$',
                        #    views.organiser,
