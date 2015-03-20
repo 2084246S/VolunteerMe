@@ -2,11 +2,11 @@ from django.shortcuts import render
 
 from django.shortcuts import render
 from django.http import HttpResponse
-from VolunteerMe.models import Volunteer, Search, Opportunity
-from VolunteerMe.forms import VolunteerForm, UserProfileForm
-from VolunteerMe.models import Category, Opportunity
+from VolunteerMe.models import Volunteer, Search, Opportunity, Category
+from VolunteerMe.forms import VolunteerForm, UserProfileForm,OpportunityForm
 from datetime import datetime
 from django.contrib.auth.models import User,Group
+from django.contrib.auth.decorators import login_required, permission_required
 
 
 # Create your views here.
@@ -117,6 +117,7 @@ def register_organiser(request):
     return render(request, 'Volunteer_Me/organiser/organiser_register.html', {'profile_form': form})
 
 
+
 def show_opportunity(request, company, opportunity_id):
     context = dict()
 
@@ -125,6 +126,7 @@ def show_opportunity(request, company, opportunity_id):
 
     if organiser:
         context['company_name'] = organiser.first_name
+
         opportunity = Opportunity.objects.get(id=opportunity_id)
 
         if opportunity:
@@ -135,18 +137,43 @@ def show_opportunity(request, company, opportunity_id):
             context['optional'] = opportunity.optional
             context['location'] = opportunity.location
 
+    if request.method == 'POST':
+        profile_form = UserProfileForm(request.POST)
+        if profile_form.is_valid():
+            if request.user.is_authenticated():
+                profile = profile_form.save(commit=False)
+                user = User.objects.get(username=request.user.username)
+                profile.user = user
+                try:
+                    profile.picture = request.FILES['picture']
+                except:
+                    pass
+                profile.save()
+                g = Group.objects.get(name='organiser')
+                g.user_set.add(user)
+
+
+                return index(request)
+    else:
+        form = UserProfileForm(request.GET)
+
+    context['profile_form'] = form
     context['opportunity'] = opportunity
+
     return render(request, 'Volunteer_Me/opportunity.html', context)
 
 
+@login_required
 def dashboard(request):
     pass
 
 
+@login_required
 def manage_opportunities(request):
     pass
 
 
+@login_required
 def manage_opportunity(request, opportunity_id,username):
     opportunity = Opportunity.objects.get(id=opportunity_id).filter(username = username)
     if opportunity:
@@ -157,14 +184,37 @@ def manage_opportunity(request, opportunity_id,username):
     return render(request, 'Volunteer_Me/organiser/edit_opportunity.html', context)
 
 
+@login_required
+@permission_required('VolunteerMe.add_opportunity')
 def create_opportunity(request):
-    pass
+    if request.method == 'POST':
+        opp_form = OpportunityForm(request.POST)
+        if opp_form.is_valid():
+            if request.user.is_authenticated():
+                profile = opp_form.save(commit=False)
+                user = User.objects.get(username=request.user.username)
+                profile.user = user
+                try:
+                    profile.picture = request.FILES['picture']
+                except:
+                    pass
+                profile.save()
+                g = Group.objects.get(name='organiser')
+                g.user_set.add(user)
 
 
+                return index(request)
+    else:
+        form = UserProfileForm(request.GET)
+    return render(request, 'Volunteer_Me/organiser/organiser_register.html', {'profile_form': form})
+
+
+@login_required
 def manage_applications(request):
     pass
 
 
+@login_required
 def manage_application(request, application_id):
     application = Opportunity.objects.get(id=application_id)
 
@@ -182,7 +232,7 @@ def about(request):
 def get_category_list(max_results=0, starts_with=''):
     cat_list = []
     if starts_with:
-        cat_list = Category.objects.filter(name__istartswith=starts_with)
+        cat_list = Opportunity.objects.filter(name__istartswith=starts_with)
 
     if max_results > 0:
         if len(cat_list) > max_results:
@@ -190,8 +240,8 @@ def get_category_list(max_results=0, starts_with=''):
 
     return cat_list
 
-def suggest_category(request):
 
+def suggest_category(request):
     cat_list = []
     starts_with = ''
     if request.method == 'GET':
@@ -199,7 +249,7 @@ def suggest_category(request):
 
     cat_list = get_category_list(8, starts_with)
 
-    return render(request, 'Volunteer_Me/cats.html', {'cat_list': cat_list })
+    return render(request, 'Volunteer_Me/cats.html', {'cat_list': cat_list})
 
 
 

@@ -1,7 +1,7 @@
 #!python.exe
 import os
-from datetime import date#
-from django.contrib.contenttypes.models import ContentType
+from datetime import date
+
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'VolunteerMe_project.settings')
 
@@ -12,7 +12,7 @@ django.setup()
 from VolunteerMe.models import Opportunity, Category, UserProfile
 
 from django.contrib.auth.models import User
-from django.contrib.auth.models import Permission
+
 from django.contrib.auth.models import Group
 
 

@@ -36,13 +36,13 @@ class Migration(migrations.Migration):
             name='Opportunity',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('name', models.CharField(unique=True, max_length=128)),
+                ('name', models.CharField(max_length=128)),
                 ('category', models.CharField(default=b'Other', max_length=128)),
                 ('start_date', models.DateField(blank=True)),
                 ('end_date', models.DateField(blank=True)),
                 ('description', models.TextField(blank=True)),
                 ('location', models.TextField(default=b'', blank=True)),
-                ('optional', models.TextField(default=b'', blank=True)),
+                ('optional', models.TextField(default=b'None', blank=True)),
             ],
             options={
             },

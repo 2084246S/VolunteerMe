@@ -12,6 +12,7 @@
 <h2>Organiser</h2>
 <h4><a href="{url ''}">{{ company_name }}</a></h4>
 
+
 <!-- TODO change this to use CSS & classes -->
 <h2>When?</h2>
 <div class="panel panel-default">
@@ -41,7 +42,6 @@
     </div>
 </div>
 
-
 <h2>Location</h2>
 <div class="panel panel-default">
     <div class="panel-body">
@@ -61,9 +61,8 @@
 
                 {% csrf_token %}
 
-<!-- TODO Replace with template tag
-                {{ volunteer_form.as_p }}
--->
+                {{ profile_form.as_p }}
+
                 <input type="submit" name="submit" value="Apply now"/>
             </form>
         </div>
