@@ -169,7 +169,7 @@ def manage_opportunities(request):
 
 
 @login_required
-def manage_opportunity(request, opportunity_id,username):
+def manage_opportunity(request, opportunity_id, username):
     opportunity = Opportunity.objects.get(id=opportunity_id).filter(username = username)
     if opportunity:
         # do stuff
@@ -188,7 +188,7 @@ def create_opportunity(request):
             if request.user.is_authenticated():
                 profile = opp_form.save(commit=False)
 
-                profile.user = user
+
 
                 profile.save()
 
@@ -197,7 +197,7 @@ def create_opportunity(request):
                 return index(request)
     else:
         form = OpportunityForm(request.GET)
-    return render(request, 'Volunteer_Me/organiser/organiser_register.html', {'profile_form': form})
+    return render(request, 'Volunteer_Me/organiser/opportunities.html', {'profile_form': form})
 
 
 @login_required
