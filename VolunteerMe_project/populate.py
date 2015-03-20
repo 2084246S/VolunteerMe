@@ -19,60 +19,12 @@ company_number = 0
 
 def populate():
 
-    add_category(name = 'Administrative&Office Work')
-    add_category(name = 'Advice & Information giving')
-    add_category(name ='Advocacy & Human Rights')
-    add_category(name = 'Arts ( music&drama&crafts)')
-    add_category(name = 'Befriending & Mentoring')
-    add_category(name = 'Campaigning & Lobbying')
-    add_category(name ='Care & Support worker')
-    add_category(name ='Catering')
-    add_category(name = 'Charity Event Support')
-    add_category(name ='Charity Shops & Retail')
-    add_category(name ='Committee Work')
-    add_category(name ='Community & Economic Development Work' )
-    add_category(name ='Computing')
-    add_category(name ='Conservation & Gardening')
-    add_category(name = 'Counselling')
-    add_category(name ='Disaster & emergency relief')
-    add_category(name ='Drivers')
-    add_category(name ='Driving & escorting')
-    add_category(name = 'Equal Opportunities & Race relations')
-    add_category(name ='Event Management')
-    add_category(name ='Event Marshals')
-    add_category(name ='Finance & Accountancy')
-    add_category(name ='Fundraising')
-    add_category(name = 'General Event Support')
-    add_category(name ='Homebased Volunteering')
-    add_category(name ='IT Support')
-    add_category(name = 'Justice & Legal assistance')
-    add_category(name ='Landscaping&course layout&maintenance')
-    add_category(name = 'Languages & translating')
-    add_category(name ='Library & Information Management')
-    add_category(name ='Management & Business Skills')
-    add_category(name = 'Marketing & PR & Media')
-    add_category(name = 'Medical&Physiotherapy')
-    add_category(name ='On line Volunteering')
-    add_category(name ='Playschemes & Childrens Clubs')
-    add_category(name =  'Practical &DIY')
-    add_category(name ='Research & Policy work')
-    add_category(name = 'Residential volunteering')
-    add_category(name = 'Security')
 
-    add_category(name = 'Short term & seasonal working')
-    add_category(name ='Specialist & Technical')
-    add_category(name = 'Sports & Outdoor activities')
-
-    add_category(name ='Technical Support')
-
-    add_category(name = 'Tutoring & Supporting Learners')
-    add_category(name = 'Volunteering for under 16s')
-    add_category(name = 'Youth Work')
 
 
 
     u_brian = add_user('brian123', 'brian123@test.com', 'pass123')
-    o_brian = add_organiser('brian', 'brian123', 'brian123@test.com', 'pass123')
+    o_brian = add_userprofile('brian123',type='organiser',name='Brian',email= 'brian123@test.com')
     add_opportunity(organiser=o_brian, name="Admin", description="Typing stuff up", location="234 Somewhere Drive")
     add_opportunity(organiser=o_brian, name="Cleaning", description="Blah, Blah, Blah, Blah Blah.........",
                     location="Just down the road")
@@ -99,10 +51,10 @@ def add_opportunity(organiser, name, description="", location="", start_date=dat
     return o
 
 
-def add_organiser(name, user):
+def add_userprofile(username,type,name,email):
     global company_number
     company_number += 1
-    o = User.objects.get_or_create(user=user, username=name, company_number=company_number)[0]
+    o = User.objects.get_or_create(user=username,type=type, name=name,email=email, contact_number=company_number)[0]
     o.save()
     return o
 
@@ -114,10 +66,9 @@ def add_user(username, email, password):
     o.save()
     return o
 
-def add_category(name):
-    o = Category.objects.get_or_create(category=name)[0]
-    o.save()
-    return o
+def add_cat(name):
+    c = Category.objects.get_or_create(category=name)[0]
+    return c
 
 # Start execution here!
 if __name__ == '__main__':
