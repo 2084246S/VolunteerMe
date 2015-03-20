@@ -82,9 +82,9 @@ def register_volunteer(request):
                     profile.picture = request.FILES['picture']
                 except:
                     pass
-                g = Group.objects.get(name='volunteer')
-                g.user_set.add(user)
+
                 profile.save()
+                user.groups.add(Group.objects.get(name='volunteer')[0])
 
                 return index(request)
     else:
@@ -105,9 +105,8 @@ def register_organiser(request):
                     profile.picture = request.FILES['picture']
                 except:
                     pass
-                g = Group.objects.get(name='organiser')
-                g.user_set.add(user)
                 profile.save()
+                user.groups.add(Group.objects.get(name='organiser')[0])
 
 
                 return index(request)

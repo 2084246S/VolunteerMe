@@ -8,7 +8,7 @@ import django
 
 django.setup()
 
-from VolunteerMe.models import Opportunity,User,Category
+from VolunteerMe.models import Opportunity,User,Category,UserProfile
 from django.contrib.auth.models import User
 
 
@@ -24,18 +24,18 @@ def populate():
 
 
     u_brian = add_user('brian123', 'brian123@test.com', 'pass123')
-    o_brian = add_userprofile('brian123',type='organiser',name='Brian',email= 'brian123@test.com')
-    add_opportunity(organiser=o_brian, name="Admin", description="Typing stuff up", location="234 Somewhere Drive")
+    o_brian = add_userprofile(u_brian,type='organiser',name='Brian',email= 'brian123@test.com')
+    add_opportunity(organiser=o_brian, name="Admin", description="Typing stuff up", location="234 Somewhere Drive", start_date=date.today(), end_date=date.today())
     add_opportunity(organiser=o_brian, name="Cleaning", description="Blah, Blah, Blah, Blah Blah.........",
-                    location="Just down the road")
+                    location="Just down the road", start_date=date.today(), end_date=date.today())
     add_opportunity(organiser=o_brian, name="Something Completely Different",
-                    description="You are expected to clean the surface of mars with a toothbrush.", location="Mars")
-    add_opportunity(organiser=o_brian, name="Running Around Shouting at People", description="", location="The moon")
+                    description="You are expected to clean the surface of mars with a toothbrush.", location="Mars", start_date=date.today(), end_date=date.today())
+    add_opportunity(organiser=o_brian, name="Running Around Shouting at People", description="", location="The moon", start_date=date.today(), end_date=date.today())
     add_opportunity(organiser=o_brian, name="Performing Open Heart Surgery",
-                    description="Please do not kill your patients.", location="Not really sure.")
-    add_opportunity(organiser=o_brian, name="Blah", description="Blah", location="4 Privet Drive")
+                    description="Please do not kill your patients.", location="Not really sure.", start_date=date.today(), end_date=date.today())
+    add_opportunity(organiser=o_brian, name="Blah", description="Blah", location="4 Privet Drive", start_date=date.today(), end_date=date.today())
     add_opportunity(organiser=o_brian, name="Shining Spoons", description="--------------------",
-                    location="The land of cutlery")
+                    location="The land of cutlery", start_date=date.today(), end_date=date.today())
     # Print out what we have added to the user.
     for o in Opportunity.objects.all():
         print "- {0}".format(str(o))
@@ -51,10 +51,10 @@ def add_opportunity(organiser, name, description="", location="", start_date=dat
     return o
 
 
-def add_userprofile(username,type,name,email):
+def add_userprofile(user,type,name,email):
     global company_number
     company_number += 1
-    o = User.objects.get_or_create(user=username,type=type, name=name,email=email, contact_number=company_number)[0]
+    o = UserProfile.objects.get_or_create(user=user,type=type, name=name,email=email, contact_number=company_number)[0]
     o.save()
     return o
 

@@ -24,7 +24,7 @@
     <h1> there are no current opportunities using this criteria</h1>
 {% endif %}
 
-<form class="form-inline" id="user_form" method="post" action="{% url 'category'  category.slug %}">
+<form class="form-inline" id="user_form" method="post" action="{% url 'cats'  category.slug %}">
     {% csrf_token %}
     <!-- Display the search form elements here -->
     <input class="form-control" type="text" size="50" name="query" value="" id="query"/>

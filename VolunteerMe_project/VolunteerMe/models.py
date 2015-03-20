@@ -9,14 +9,14 @@ class UserProfile(models.Model):
 
 
     # The additional attributes we wish to include.
-    TYPE_CHOICES = (('v','volunteer'),('o','organiser'))
+    TYPE_CHOICES = (('v', 'volunteer'), ('o', 'organiser'))
     type = models.CharField(max_length=1, choices=TYPE_CHOICES)
-    name =  models.CharField(max_length=128,)
-    email =  models.EmailField()
-    contact_number =  models.CharField(max_length=15)
-    post_code =  models.CharField(max_length=12,blank=True)
-    address =  models.CharField(max_length=128,blank=True)
-    town =  models.CharField(max_length=128,blank=True)
+    name = models.CharField(max_length=128, )
+    email = models.EmailField()
+    contact_number = models.CharField(max_length=15)
+    post_code = models.CharField(max_length=12, blank=True)
+    address = models.CharField(max_length=128, blank=True)
+    town = models.CharField(max_length=128, blank=True)
     picture = models.ImageField(upload_to='profile_images', blank=True)
 
     # Override the __unicode__() method to return out something meaningful!
@@ -33,21 +33,27 @@ class Volunteer(models.Model):
 
 
 class Category(models.Model):
-    CAT_CHOICES = (('A','Administrative / Office Work'),('B','Advice / Information giving'), ('C','Advocacy / Human Rights)'),
-                ('D','Arts ( music/drama/crafts)'), ('E','Befriending / Mentoring'), ('F','Campaigning / Lobbying'),
-                ('G','Care / Support worker'), ('H','Catering'),('I','Charity Event Support'),('J', 'Charity Shops / Retail'),( 'K','Committee Work'),
-                ('L','Community / Economic Development Work'),( 'M','Computing'),('N', 'Conservation / Gardening'),( '14','Counselling'),
-                ('15', 'Disaster / emergency relief'),('16', 'Drivers'),('17', 'Driving / escorting'),('18',
-                'Equal Opportunities / Race relations'),('19','Event Management'),( '20','Event Marshals'),
-                ( '21','Finance / Accountancy'),( '22','Fundraising'),('23','General Event Support'),('24','Homebased Volunteering'),( '25','IT Support'),( 'Justice / Legal assistance'),(
-                 '26','Landscaping/course layout/maintenance'),(
-                 '27','Languages / translating'),('28', 'Library / Information Management'),( '29','Management / Business Skills'),(
-                 '30','Marketing / PR / Media'),( '31','Medical/Physiotherapy'),('32', 'On line Volunteering'),(
-                 '33','Playschemes / Childrens Clubs'),('34',
-                 'Practical /DIY'),( '35','Research / Policy work'),('36', 'Residential volunteering'),( '37','Security'),(
-                 '38','Short term / seasonal working'),( '39','Specialist / Technical'),('40', 'Sports / Outdoor activities'),(
-                 '41','Technical Support'),(
-                 '42','Tutoring / Supporting Learners'),( '43','Volunteering for under 16s'),('44', 'Youth Work'))
+    CAT_CHOICES = (
+        ('A', 'Administrative / Office Work'), ('B', 'Advice / Information giving'), ('C', 'Advocacy / Human Rights)'),
+        ('D', 'Arts ( music/drama/crafts)'), ('E', 'Befriending / Mentoring'), ('F', 'Campaigning / Lobbying'),
+        ('G', 'Care / Support worker'), ('H', 'Catering'), ('I', 'Charity Event Support'),
+        ('J', 'Charity Shops / Retail'),
+        ('K', 'Committee Work'),
+        ('L', 'Community / Economic Development Work'), ( 'M', 'Computing'), ('N', 'Conservation / Gardening'),
+        ('O', 'Counselling'),
+        ('P', 'Disaster / emergency relief'), ('Q', 'Drivers'), ('R', 'Driving / escorting'),
+        ('S', 'Equal Opportunities / Race relations'), ('T', 'Event Management'), ( 'U', 'Event Marshals'),
+        ('V', 'Finance / Accountancy'), ( 'W', 'Fundraising'), ('X', 'General Event Support'),
+        ('Y', 'Homebased Volunteering'), ( 'Z', 'IT Support'), ('t','Justice / Legal assistance'),
+        ('a', 'Landscaping/course layout/maintenance'), ('b', 'Languages / translating'),
+        ('c', 'Library / Information Management'), ('d', 'Management / Business Skills'),
+        ('e', 'Marketing / PR / Media'), ('f', 'Medical/Physiotherapy'), ('g', 'On line Volunteering'),
+        ('h', 'Playschemes / Childrens Clubs'),
+        ('i', 'Practical /DIY'), ('j', 'Research / Policy work'), ('k', 'Residential volunteering'),
+        ('l', 'Security'),
+        ('m', 'Short term / seasonal working'), ( 'n', 'Specialist / Technical'), ('o', 'Sports / Outdoor activities'),
+        ('p', 'Technical Support'), ('q', 'Tutoring / Supporting Learners'), ( 'r', 'Volunteering for under 16s'),
+        ('s', 'Youth Work'))
 
     category = models.CharField(max_length=128, choices=CAT_CHOICES)
     slug = models.SlugField(unique=True)
@@ -68,7 +74,6 @@ class Search(models.Model):
 
     def __unicode__(self):
         return self.name
-
 
 
 class Opportunity(models.Model):
