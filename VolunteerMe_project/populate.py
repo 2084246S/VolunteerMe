@@ -1,6 +1,7 @@
 #!python.exe
 import os
-from datetime import date
+from datetime import date#
+from django.contrib.contenttypes.models import ContentType
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'VolunteerMe_project.settings')
 
@@ -11,6 +12,8 @@ django.setup()
 from VolunteerMe.models import Opportunity, Category, UserProfile
 
 from django.contrib.auth.models import User
+from django.contrib.auth.models import Permission
+from django.contrib.auth.models import Group
 
 
 global company_number
@@ -19,15 +22,19 @@ company_number = 0
 
 def populate():
 
-#<<<<<<< HEAD
-#    o_brian = add_user('brian', 'brian123', 'brian123@test.com', 'pass123')
-    #o_brian = add_organiser(u_brian)
-#    add_opportunity(organiser=o_brian, name="Admin", description="Typing stuff up", location="234 Somewhere Drive")
-#=======
+
+
+    newgroup = Group.objects.create(name='volunteer')
+    newgroup.save()
+    newgroup = Group.objects.create(name='organiser')
+    newgroup.save()
+
+
+
     u_brian = add_user('Brian', 'brian123', 'brian123@test.com', 'pass123')
     o_brian = add_userprofile(u_brian, type='organiser', name='Brian', email='brian123@test.com')
     add_opportunity(organiser=o_brian, name="Admin", description="Typing stuff up", location="234 Somewhere Drive", start_date=date.today(), end_date=date.today())
-#>>>>>>> 7753252c2f205b69df6ee0fc5892027bad6b79d6
+
     add_opportunity(organiser=o_brian, name="Cleaning", description="Blah, Blah, Blah, Blah Blah.........",
                     location="Just down the road", start_date=date.today(), end_date=date.today())
     add_opportunity(organiser=o_brian, name="Something Completely Different",
@@ -68,19 +75,7 @@ def add_user(first_name, username, email, password):
     o.save()
     return o
 
-#<<<<<<< HEAD#
-#
-#def add_category(name):
-#    o = Category.objects.get_or_create(category=name)[0]
-#    o.save()
-#    return o
-#=======
-#def add_cat(name):
-#    c = Category.objects.get_or_create(category=name)[0]
-#    return c
-#>>>>>>> 7753252c2f205b69df6ee0fc5892027bad6b79d6
 
-# Start execution here!
 if __name__ == '__main__':
     print "Starting VolunteerMe population script..."
     populate()
