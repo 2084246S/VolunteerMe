@@ -25,8 +25,7 @@ class Migration(migrations.Migration):
             name='Category',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('job_name', models.CharField(unique=True, max_length=128)),
-                ('slug', models.SlugField(unique=True)),
+                ('category', models.CharField(unique=True, max_length=128)),
             ],
             options={
             },
@@ -43,6 +42,19 @@ class Migration(migrations.Migration):
                 ('description', models.TextField(blank=True)),
                 ('location', models.TextField(default=b'', blank=True)),
                 ('optional', models.TextField(default=b'', blank=True)),
+                ('company', models.OneToOneField(default=None, to=settings.AUTH_USER_MODEL)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Organiser',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('company_name', models.CharField(max_length=128, blank=True)),
+                ('company_number', models.IntegerField(blank=True)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
             },
@@ -73,16 +85,16 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name='User',
+            name='UserProfile',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('type', models.CharField(max_length=1, choices=[(b'v', b'Volunteer'), (b'o', b'organiser')])),
-                ('name', models.CharField(help_text=b'Full Name', max_length=128)),
-                ('email', models.EmailField(help_text=b'Email', max_length=75)),
-                ('contact_number', models.CharField(help_text=b'Contact number', max_length=15)),
-                ('post_code', models.CharField(help_text=b'postcode', max_length=12, blank=True)),
-                ('address', models.CharField(help_text=b'address', max_length=128, blank=True)),
-                ('town', models.TextField(help_text=b'Town', blank=True)),
+                ('name', models.CharField(max_length=128)),
+                ('email', models.EmailField(max_length=75)),
+                ('contact_number', models.CharField(max_length=15)),
+                ('post_code', models.CharField(max_length=12, blank=True)),
+                ('address', models.CharField(max_length=128, blank=True)),
+                ('town', models.CharField(max_length=128, blank=True)),
                 ('picture', models.ImageField(upload_to=b'profile_images', blank=True)),
                 ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
             ],
@@ -100,12 +112,6 @@ class Migration(migrations.Migration):
             options={
             },
             bases=(models.Model,),
-        ),
-        migrations.AddField(
-            model_name='opportunity',
-            name='company',
-            field=models.ForeignKey(default=None, to='VolunteerMe.User'),
-            preserve_default=True,
         ),
         migrations.AddField(
             model_name='application',

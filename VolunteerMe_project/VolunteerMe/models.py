@@ -11,12 +11,12 @@ class UserProfile(models.Model):
     # The additional attributes we wish to include.
     TYPE_CHOICES = (('v','Volunteer'),('o','organiser'))
     type = models.CharField(max_length=1, choices=TYPE_CHOICES)
-    name =  models.CharField(max_length=128,)
-    email =  models.EmailField()
-    contact_number =  models.CharField(max_length=15)
-    post_code =  models.CharField(max_length=12,blank=True)
-    address =  models.CharField(max_length=128,blank=True)
-    town =  models.CharField(max_length=128,blank=True)
+    name = models.CharField(max_length=128,)
+    email = models.EmailField()
+    contact_number = models.CharField(max_length=15)
+    post_code = models.CharField(max_length=12, blank=True)
+    address = models.CharField(max_length=128, blank=True)
+    town = models.CharField(max_length=128, blank=True)
     picture = models.ImageField(upload_to='profile_images', blank=True)
 
     # Override the __unicode__() method to return out something meaningful!
@@ -30,6 +30,15 @@ class Volunteer(models.Model):
 
     def __unicode__(self):
         return self.user.username
+
+
+#class Organiser(models.Model):
+#    company_name = models.CharField(max_length=128, blank=True)
+#    company_number = models.IntegerField(blank=True)
+#    user = models.ForeignKey(User)
+#
+#    def __unicode__(self):
+#        return self.user.username
 
 
 class Category(models.Model):
@@ -55,11 +64,10 @@ class Search(models.Model):
         return self.name
 
 
-
 class Opportunity(models.Model):
     name = models.CharField(max_length=128, unique=True)
     category = models.CharField(max_length=128, default="Other")
-    company = models.ForeignKey(UserProfile, default=None)
+    company = models.ForeignKey(User, default=None)
     start_date = models.DateField(blank=True)
     end_date = models.DateField(blank=True)
     description = models.TextField(blank=True)
