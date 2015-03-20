@@ -117,27 +117,26 @@ def register_organiser(request):
     return render(request, 'Volunteer_Me/organiser/organiser_register.html', {'profile_form': form})
 
 
-
 def show_opportunity(request, company, opportunity_id):
-    #context = dict()
+    context = dict()
 
-    #organiser = Organiser.objects.get(company_name)
-    #opportunity = None
+    organiser = User.objects.get(username=company)
+    opportunity = None
 
-    #if organiser:
-    #    context['company_name'] = organiser.company_name
-    #    opportunity = Opportunity.objects.get(id=opportunity_id)
+    if organiser:
+        context['company_name'] = organiser.first_name
+        opportunity = Opportunity.objects.get(id=opportunity_id)
 
-    #    if opportunity:
-    #        context['opportunity_name'] = opportunity.name
-    #        context['start_date'] = opportunity.start_date.__unicode__()
-    #        context['end_date'] = opportunity.end_date.__unicode__()
-    #        context['description'] = opportunity.description
-    #        context['optional'] = opportunity.optional
-    #        context['location'] = opportunity.location
+        if opportunity:
+            context['opportunity_name'] = opportunity.name
+            context['start_date'] = opportunity.start_date
+            context['end_date'] = opportunity.end_date
+            context['description'] = opportunity.description
+            context['optional'] = opportunity.optional
+            context['location'] = opportunity.location
 
-    #context['opportunity'] = opportunity
-    return render(request, 'Volunteer_Me/opportunity.html', {})
+    context['opportunity'] = opportunity
+    return render(request, 'Volunteer_Me/opportunity.html', context)
 
 
 def dashboard(request):

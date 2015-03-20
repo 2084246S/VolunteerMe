@@ -9,26 +9,46 @@
 {% endif %}
 
 <h1>{{ opportunity_name }}</h1>
-<li><a href="{url ''}">{{ company_name}}</a></li>
+<h2>Organiser</h2>
+<h4><a href="{url ''}">{{ company_name }}</a></h4>
 
+<!-- TODO change this to use CSS & classes -->
+<h2>When?</h2>
+<div class="panel panel-default">
+    <div class="panel-body">
+        {% if time %}
+            <h4>At {{ time }}</h4>
+        {%endif%}
+        {% if start_date %}
+            <h4>from {{ start_date }} </h4>
+        {%endif%}
+        {% if end_date  %}
+            <h4>until</h4>
+            <h4>{{ end_date }}</h4>
+        {% endif %}
+    </div>
+</div>
 
-<h2>When</h2>
-{% if opportunity.time %}
-<h1>{{ time }} from {{ start_date }} </h1>
-{%endif%}
-{% if opportunity.end_date  %}
-<h2>Till</h2>]
-<h1>{{ end_date }}</h1>
-{% endif %}
 
 <h2>About this opportunity</h2>
-<h1>{{ description}}</h1>
-<h1>preferred skills</h1>
-<h1>{{optional}}</h1>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h4>{{description}}</h4>
+        {% if optional  %}
+        <h1>preferred skills</h1>
+        </h4>{{optional}}</h4>
+        {% endif %}
+    </div>
+</div>
+
 
 <h2>Location</h2>
-<h1>{{location}}</h1>
-#put a map in somehow
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h4>{{location}}</h4>
+        #put a map in somehow
+    </div>
+</div>
 
 
 <div class="panel">
