@@ -4,41 +4,50 @@ from django.contrib.auth.models import User
 
 
 class UserProfile(models.Model):
-    # This line is required. Links UserProfile to a User model instance.
+
+
     user = models.OneToOneField(User)
+    is_volunteer = models.BooleanField()
 
-
-    # The additional attributes we wish to include.
-    TYPE_CHOICES = (('v', 'volunteer'), ('o', 'organiser'))
-    type = models.CharField(max_length=1, choices=TYPE_CHOICES)
-    name = models.CharField(max_length=128,)
-    email = models.EmailField()
-    contact_number = models.CharField(max_length=15)
-    post_code = models.CharField(max_length=12, blank=True)
-    address = models.CharField(max_length=128, blank=True)
-    town = models.CharField(max_length=128, blank=True)
-    picture = models.ImageField(upload_to='profile_images', blank=True)
-
-    # Override the __unicode__() method to return out something meaningful!
-    def __unicode__(self):
-        return self.user.username
-
-
-class Volunteer(models.Model):
-    gender = models.CharField(max_length=32, choices=((1, "Male"), (2, "Female"), (3, "Other")))
-    time_available = models.DateField()
 
     def __unicode__(self):
         return self.user.username
 
 
-#class Organiser(models.Model):
-#    company_name = models.CharField(max_length=128, blank=True)
-#    company_number = models.IntegerField(blank=True)
-#    user = models.ForeignKey(User)
-#
-#    def __unicode__(self):
-#        return self.user.username
+
+
+
+class Intern(UserProfile):
+
+    gender = models.ChoiceField(initial=None, help_text='Gender')
+    time_available =models.ChoiceField(initial=None, help_text='times available')
+
+
+    def __unicode__(self):
+
+
+        return self.user.username
+
+
+    class Meta:
+
+
+        ordering = ['user__last_name', 'user__first_name', ]
+
+
+class Recruiter(UserProfile):
+
+
+        company_name = models.CharField(max_length=20, unique=True)
+    company_description = models.CharField(max_length=400)
+    url = models.URLField(max_length=100)
+
+
+    def __unicode__(self):
+
+
+        return self.user.username
+    ordering = ['company_name']
 
 
 class Category(models.Model):
@@ -53,7 +62,7 @@ class Category(models.Model):
         ('P', 'Disaster / emergency relief'), ('Q', 'Drivers'), ('R', 'Driving / escorting'),
         ('S', 'Equal Opportunities / Race relations'), ('T', 'Event Management'), ( 'U', 'Event Marshals'),
         ('V', 'Finance / Accountancy'), ( 'W', 'Fundraising'), ('X', 'General Event Support'),
-        ('Y', 'Homebased Volunteering'), ( 'Z', 'IT Support'), ('t','Justice / Legal assistance'),
+        ('Y', 'Homebased Volunteering'), ( 'Z', 'IT Support'), ('t', 'Justice / Legal assistance'),
         ('a', 'Landscaping/course layout/maintenance'), ('b', 'Languages / translating'),
         ('c', 'Library / Information Management'), ('d', 'Management / Business Skills'),
         ('e', 'Marketing / PR / Media'), ('f', 'Medical/Physiotherapy'), ('g', 'On line Volunteering'),
