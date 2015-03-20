@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.shortcuts import render
 from django.http import HttpResponse
 from VolunteerMe.models import Volunteer, Search, Opportunity
-from VolunteerMe.forms import VolunteerForm, UserProfileForm,OpportuityForm
+from VolunteerMe.forms import VolunteerForm, UserProfileForm,OpportunityForm
 from VolunteerMe.models import Category, Opportunity
 from datetime import datetime
 from django.contrib.auth.models import User,Group
@@ -118,26 +118,48 @@ def register_organiser(request):
 
 
 
-def show_opportunity(request, name, opportunity_id):
+def show_opportunity(request, opportunity_id):
     context = dict()
 
-    organiser = User.objects.get(name)
+    organiser =Opportunity.company
     opportunity = None
 
     if organiser:
-        context['name'] = User.username
+        context['name'] = organiser
         opportunity = Opportunity.objects.get(id=opportunity_id)
 
         if opportunity:
             context['opportunity_name'] = opportunity.name
-            context['start_date'] = opportunity.start_date.__unicode__()
-            context['end_date'] = opportunity.end_date.__unicode__()
+            context['start_date'] = opportunity.start_date
+            context['end_date'] = opportunity.end_date
             context['description'] = opportunity.description
             context['optional'] = opportunity.optional
             context['location'] = opportunity.location
 
+    if request.method == 'POST':
+        profile_form = UserProfileForm(request.POST)
+        if profile_form.is_valid():
+            if request.user.is_authenticated():
+                profile = profile_form.save(commit=False)
+                user = User.objects.get(username=request.user.username)
+                profile.user = user
+                try:
+                    profile.picture = request.FILES['picture']
+                except:
+                    pass
+                profile.save()
+                g = Group.objects.get(name='organiser')
+                g.user_set.add(user)
+
+
+                return index(request)
+    else:
+        form = UserProfileForm(request.GET)
+
+    context['profile_form']=form
     context['opportunity'] = opportunity
-    return render(request, 'Volunteer_Me/opportunity.html', {})
+
+    return render(request, 'Volunteer_Me/opportunity.html', context)
 
 
 def dashboard(request):
@@ -202,7 +224,7 @@ def about(request):
 def get_category_list(max_results=0, starts_with=''):
     cat_list = []
     if starts_with:
-        cat_list = Category.objects.filter(name__istartswith=starts_with)
+        cat_list = Opportunity.objects.filter(name__istartswith=starts_with)
 
     if max_results > 0:
         if len(cat_list) > max_results:

@@ -1,7 +1,9 @@
 {%extends 'base.html'%}
-{% block side_block %}
 
-    <ul class="nav nav-list">
+
+{% block body_block %}
+
+     <ul class="nav nav-list">
         <li class="nav-header">Find a Category</li>
         <form>
             <label></label>
@@ -12,17 +14,11 @@
     <div id="cats">
     </div>
 
-{% endblock %}
 
-{% block body_block %}
-{% if result_list %}
-    {% for opportunity in result_list %}
-        <li><a href="{url''}">{{opportunity.name}}</a></li>
-        <h1>{{opportunity.summary|truncatewords:100}}</h1>
-    {% endfor %}
-{% else %}
-    <h1> there are no current opportunities using this criteria</h1>
-{% endif %}
+
+
+
+
 
 <form class="form-inline" id="user_form" method="post" action="">
     {% csrf_token %}
