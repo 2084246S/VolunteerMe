@@ -54,11 +54,7 @@
             <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
 
-                    {% if user.is_volunteer %}
-                        <li><a heref="{%url 'volunteer_profile' %}">My Dashboard</a></li>
-{#                  {% else %}#}
-{#                        <li><a heref="{%url 'organiser_profile' %}">My Dashboard</a></li>#}
-                    {%endif %}
+                    <li><a href="{%url 'profile' %}">My Dashboard</a></li>
                     <li><a href="{% url 'auth_logout' %}?next=/volunteer-me/">Sign Out</a></li>
                     <li>Signed in as {{ user.username }}!</li>
                 {% else %}
