@@ -5,22 +5,29 @@
         <div class="col-sm-3 col-md-2 sidebar">
 
             {% block side_block %}
-            {% if userprofile.picture %}
-            <!-- Should change the size to css and percentages probably -->
-            <img src="{{ userprofile.picture.url }}" width="128" height="128"/>
-            {% endif %}
+                {% if userprofile.picture %}
+                    <!-- Should change the size to css and percentages probably -->
+                    <img src="{{ userprofile.picture.url }}" width="128" height="128"/>
+                {% endif %}
 
-            <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+                <h1>{{ user.first_name }} {{ user.last_name }}</h1>
 
-            <h3><small>Address:</small><p/>{{userprofile.address}}
-            {{ userprofile.town }}
-            {{ userprofile.county }}
-            {{ userprofile.post_code }}</h3>
+                <h3>
+                    <small>Address:</small>
+                    <p/>{{ userprofile.address }}
+                    {{ userprofile.town }}
+                    {{ userprofile.county }}
+                    {{ userprofile.post_code }}</h3>
 
-            <h3><small>phone number(s):</small><p/>{{ userprofile.contact_number }}</h3>
+                <h3>
+                    <small>phone number(s):</small>
+                    <p/>{{ userprofile.contact_number }}</h3>
 
-            <h3><small>Email address:</small></h3><p/><h4>{{ user.email }}<p/></h4>
-            <a href="{% url 'add_profile' %}">Edit Profile</a>
+                <h3>
+                    <small>Email address:</small>
+                </h3><p/>
+                <h4>{{ user.email }}<p/></h4>
+                <a href="{% url 'add_profile' %}">Edit Profile</a>
             {% endblock %}
 
         </div>
@@ -29,91 +36,103 @@
 
 {% block body_block %}
 
-{% if is_volunteer %}
+    {% if is_volunteer %}
 
-<div class="row placeholders">
-    <div class="col-xs-12 col-sm-6 placeholder">
-        <div class="hero-unit">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <a href="{%url 'applied_opportunities'%}">Opportunities applied for</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="col-xs-12 col-sm-6 placeholder">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <a href="{%url 'replied_opportunities'%}">replies to applications</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="panel">
-    {% if opportunities_list %}
-    <div class="panel-heading">
-        <h3 class="panel-title">10 opportunities you may like..</h3>
-        <!-- Display search opportunitiess in an ordered list -->
-        <div class="panel-body">
-            <div class="list-group">
-                {% for opportunities in opportunities_list %}
-                <div class="list-group-item">
-                    <h4 class="list-group-item-heading"><a href="{{ opportunities.link }}">{{ opportunities.title }}</a>
-                    </h4>
-
-                    <p class="list-group-item-text">{{ opportunities.summary|truncatewords:100 }}</p>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-        {% endif %}
-    </div>
-
-</div>
-</div>
-
-{% else %}
-
-    <div class="panel">
-        <div class="panel-heading">
-            <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                <div class="btn-group" role="group" aria-label="...">
-                    <a class="btn btn-lg btn-default" href="{% url 'create_opportunity' %}">Make a New Opportunity</a>
-                </div>
-                <div class="btn-group" role="group" aria-label="...">
-                    <button type="button" class="btn btn-lg btn-default">Replies to Applications</button>
-                </div>
-            </div>
-            <h3 class="panel-title">your most recent advertisments</h3>
-            {% if opportunities_list %}
-            <h2><a href="{url 'manage_opportunities'}">view all</a></h2>
-            <!-- Display search opportunitiess in an ordered list -->
-            <div class="panel-body">
-                <div class="list-group">
-                    {% for opportunities in opportunities_list %}
-                    <div class="list-group-item">
-                        <h4 class="list-group-item-heading">
-                            <a href="{% url 'opportunity' opportunities.id %}">{{ opportunities.name }}</a>
-                        </h4>
-
-                        <p class="list-group-item-text">{{ opportunities.description|truncatewords:100 }}</p>
-
+        <div class="row placeholders">
+            <div class="col-xs-12 col-sm-6 placeholder">
+                <div class="hero-unit">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <a href="{% url 'applied_opportunities' %}">Opportunities applied for</a>
+                        </div>
                     </div>
-                    {% endfor %}
                 </div>
-            {%else%}
-            <h1>No opportunities</h1>
             </div>
-            {% endif %}
         </div>
 
-    </div>
-</div>
+        {#    <div class="col-xs-12 col-sm-6 placeholder">#}
+        {#        <div class="panel panel-primary">#}
+        {#            <div class="panel-heading">#}
+        {#                <a href="{%url 'my_application'%}">replies to applications</a>#}
+        {#            </div>#}
+        {#        </div>#}
+        {#    </div>#}
+        {#</div>#}
+
+        <hr/>
+        <div class="panel">
+
+            <div class="panel-heading">
+                <h3 class="panel-title">10 opportunities you may like..</h3>
+                <!-- Display search opportunitiess in an ordered list -->
+                {% if opportunities_list %}
+                    <div class="panel-body">
+                        <div class="list-group">
+                            {% for opportunities in opportunities_list %}
+                                <div class="list-group-item">
+                                    <li class="list-group-item"><a
+                                            href="{% url 'opportunity' opportunities.id %}">{{ opportunities.name }}</a>
+                                        <hr/>
+                                        <p class="list-group-item-text">{{ opportunities.description|truncatewords:100 }}</p>
+                                    </li>
+
+                                    <p class="list-group-item-text">{{ opportunities.summary|truncatewords:100 }}</p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        <h1>No opportunites</h1>
+                    </div>
+                {% endif %}
+            </div>
+
+        </div>
+        </div>
+
+    {% else %}
+
+        <div class="panel">
+            <div class="panel-heading">
+                <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                    <div class="btn-group" role="group" aria-label="...">
+                        <a class="btn btn-lg btn-primary" href="{% url 'create_opportunity' %}">Make a New
+                            Opportunity</a>
+                    </div>
+                    <div class="btn-group" role="group" aria-label="...">
+                        <button type="button" class="btn btn-lg btn-primary">Replies to Applications</button>
+                    </div>
+                </div>
+                <h3 class="panel-title">your most recent advertisments</h3>
+                {% if opportunities_list %}
+                    <h2><a href="{url 'manage_opportunities'}">view all</a></h2>
+                    <!-- Display search opportunitiess in an ordered list -->
+                    <div class="panel-body">
+                        <div class="list-group">
+                            {% for opportunities in opportunities_list %}
+                                <div class="list-group-item">
+                                    <h4 class="list-group-item-heading">
+                                        <a href="{% url 'opportunity' opportunities.id %}">{{ opportunities.name }}</a>
+                                    </h4>
+
+                                    <p class="list-group-item-text">{{ opportunities.description|truncatewords:100 }}</p>
+
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <a class="btn btn-primary" aria-label="Right Align" href="{% url 'manage_opportunities' %}">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> View All
+                            </a>
+                        
+                    </div>
+                {% else %}
+                    <h1>No opportunities</h1>
+                    </div>
+                {% endif %}
+        </div>
+
+        </div>
+        </div>
 
 
-{% endif %}
+    {% endif %}
 {% endblock %}

@@ -48,17 +48,18 @@ def profile(request):
 
     try:
         up = UserProfile.objects.get(user=request.user)
-        opportunities_list = Opportunity.objects.filter(company=up).order_by('-start_date')[:10]
-        context_dict['opportunities_list'] = opportunities_list
+
     except:
         up = None
+    opportunities_list = Opportunity.objects.order_by('-start_date')[:10]
+    context_dict['opportunities_list'] = opportunities_list
 
     if u.groups.filter(name='organiser').count():
         organiser = Opportunity.company
-        context_dict['opp'] = Opportunity.objects.filter(company=request.user.username)
-        context_dict['app'] = Application.objects.filter(company=up.name)
+        context_dict['opp'] = Opportunity.objects.filter(company=up)
+        context_dict['app'] = Application.objects.filter(company=up)
     else:
-        context_dict['app'] = Application.objects.filter(name=up.name)
+        context_dict['app'] = Application.objects.filter(volunteer=up)
 
 
        
@@ -69,7 +70,7 @@ def profile(request):
 
 
 def set_group(request,user):
-    if UserProfile.objects.get(type="o"):
+    if UserProfile.objects.get(type="organiser"):
         g = Group.objects.get(name='organiser')
         g.user_set.add(user)
     else:
