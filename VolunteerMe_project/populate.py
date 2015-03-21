@@ -81,7 +81,8 @@ def add_user(first_name, username, email, password):
     return o
 
 def add_application(volunteer,opportunity):
-    a = Application.objects.get_or_create(volunteer = volunteer,opportunity=opportunity)
+    a = Application.objects.get_or_create(volunteer = volunteer,opportunity=opportunity)[0]
+    a.save()
 
     return a
 

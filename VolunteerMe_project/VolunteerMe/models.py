@@ -17,8 +17,8 @@ class UserProfile(models.Model):
     picture = models.ImageField(upload_to='profile_images', blank=True)
 
 # Override the __unicode__() method to return out something meaningful!
-def __unicode__(self):
-    return self.user.username
+    def __unicode__(self):
+        return self.user.username
 
 # class Category(models.Model):
 #     CAT_CHOICES = (

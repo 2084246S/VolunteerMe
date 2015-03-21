@@ -43,15 +43,39 @@ def profile(request):
     u = User.objects.get(username=request.user.username)
 
     context_dict = {}
-    is_volunteer = request.user.groups.filter(name='volunteer').exists()
+    is_volunteer = u.groups.filter(name='volunteer').exists()
+
+
     try:
         up = UserProfile.objects.get(user=request.user)
+        opportunities_list = Opportunity.objects.filter(company=up).order_by('-start_date')[:10]
+        context_dict['opportunities_list'] = opportunities_list
     except:
         up = None
 
+    if u.groups.filter(name='organiser').count():
+        organiser = Opportunity.company
+        context_dict['opp'] = Opportunity.objects.filter(company=request.user.username)
+        context_dict['app'] = Application.objects.filter(company=up.name)
+    else:
+        context_dict['app'] = Application.objects.filter(name=up.name)
+       
     context_dict['user'] = u
     context_dict['userprofile'] = up
+    context_dict['is_volunteer'] = is_volunteer
     return render(request,'Volunteer_Me/profile.html',context_dict)
+
+
+def set_group(request,user):
+    if UserProfile.objects.get(type="o"):
+        g = Group.objects.get(name='organiser')
+        g.user_set.add(user)
+    else:
+        g = Group.objects.get(name='volunteer')
+        g.user_set.add(user)
+
+
+
 
 
 def register_organiser(request):
@@ -67,8 +91,8 @@ def register_organiser(request):
                 except:
                     pass
                 profile.save()
-                g = Group.objects.get(name='organiser')
-                g.user_set.add(user)
+
+                set_group(request,user)
 
 
                 return index(request)
