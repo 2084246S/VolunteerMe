@@ -38,7 +38,7 @@
 
     {% if is_volunteer %}
 
-<<<<<<< HEAD
+
         <div class="row placeholders">
             <div class="col-xs-12 col-sm-6 placeholder">
                 <div class="hero-unit">
@@ -47,17 +47,8 @@
                             <a href="{% url 'applied_opportunities' %}">Opportunities applied for</a>
                         </div>
                     </div>
-=======
-<div class="row placeholders">
-    <div class="col-xs-12 col-sm-6 placeholder">
-        <div class="hero-unit">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <a href="#">Opportunities applied for</a>
->>>>>>> f8fedfa0d580794bec89841f957dc03203ab08e3
-                </div>
-            </div>
-        </div>
+
+
 
         {#    <div class="col-xs-12 col-sm-6 placeholder">#}
         {#        <div class="panel panel-primary">#}
@@ -72,7 +63,7 @@
         <div class="panel">
 
             <div class="panel-heading">
-<<<<<<< HEAD
+
                 <h3 class="panel-title">10 opportunities you may like..</h3>
                 <!-- Display search opportunitiess in an ordered list -->
                 {% if opportunities_list %}
@@ -96,35 +87,13 @@
                 {% endif %}
             </div>
 
-=======
+
                 <a href="#">replies to applications</a>
             </div>
         </div>
     </div>
 </div>
 
-
-<div class="panel">
-    {% if opportunities_list %}
-    <div class="panel-heading">
-        <h3 class="panel-title">10 opportunities you may like...</h3>
-        <!-- Display search opportunitiess in an ordered list -->
-        <div class="panel-body">
-            <div class="list-group">
-                {% for opportunities in opportunities_list %}
-                <div class="list-group-item">
-                    <h4 class="list-group-item-heading"><a href="{% url 'opportunity' opportunities.id %}">{{ opportunities.name }}</a>
-                    </h4>
-
-                    <p class="list-group-item-text">{{ opportunities.description|truncatewords:100 }}</p>
-                </div>
-                {% endfor %}
-            </div>
->>>>>>> f8fedfa0d580794bec89841f957dc03203ab08e3
-        </div>
-        </div>
-
-<<<<<<< HEAD
     {% else %}
 
         <div class="panel">
