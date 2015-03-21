@@ -48,14 +48,16 @@ def profile(request):
 
     try:
         up = UserProfile.objects.get(user=request.user)
-        opportunities_list = Opportunity.objects.filter(company=up).order_by('-start_date')[:10]
-        context_dict['opportunities_list'] = opportunities_list
+
     except:
         up = None
+    opportunities_list = Opportunity.objects.order_by('-start_date')[:10]
+    context_dict['opportunities_list'] = opportunities_list
 
     if u.groups.filter(name='organiser').count():
         organiser = Opportunity.company
         context_dict['opp'] = Opportunity.objects.filter(company=up)
+
         #context_dict['app'] = Application.objects.filter(company=up.name)
     else:
         pass
@@ -68,15 +70,12 @@ def profile(request):
 
 
 def set_group(request,user):
-    if UserProfile.objects.get(type="o"):
+    if UserProfile.objects.get(type="organiser"):
         g = Group.objects.get(name='organiser')
         g.user_set.add(user)
     else:
         g = Group.objects.get(name='volunteer')
         g.user_set.add(user)
-
-
-
 
 
 def register_organiser(request):
@@ -101,6 +100,23 @@ def register_organiser(request):
         form = UserProfileForm(request.GET)
     return render(request, 'Volunteer_Me/organiser/organiser_register.html', {'profile_form': form})
 
+def edit_profile(request):
+     if request.method == 'POST':
+
+        users_profile = UserProfile.objects.get(user=request.user)
+        profile_form = UserProfileForm(request.POST, instance=users_profile)
+        if profile_form.is_valid():
+            profile_to_edit = profile_form.save(commit=False)
+            try:
+                profile_to_edit.picture = request.FILES['picture']
+            except:
+                pass
+            profile_to_edit.save()
+            return profile(request)
+
+        else:
+            form = UserProfileForm(request.GET)
+        return render(request, 'rango/edit_profile.html', {'profile_form': form})
 
 def show_opportunity(request, opportunity_id):
     context = dict()
@@ -152,9 +168,9 @@ def show_opportunity(request, opportunity_id):
     return render(request, 'Volunteer_Me/opportunity.html', context)
 
 
-@login_required
-def dashboard(request):
-    pass
+# @login_required
+# def dashboard(request):
+#     pass
 
 
 @login_required
@@ -189,11 +205,25 @@ def create_opportunity(request):
                 profile = opp_form.save(commit=False)
                 profile.company=company
                 profile.save()
-                return index(request)
+                return profile(request)
     else:
         form = OpportunityForm(request.GET)
     return render(request, 'Volunteer_Me/organiser/new_opportunity.html', {'opportunity_form': form})
 
+def edit_opportunity(request):
+    username = User.objects.get(username=request.user.username)
+    company = UserProfile.objects.get(name=request.user)
+    if request.method == 'POST':
+        opp_form = OpportunityForm(request.POST)
+        if opp_form.is_valid():
+            if request.user.is_authenticated():
+                profile = opp_form.save(commit=False)
+                profile.company=company
+                profile.save()
+                return profile(request)
+    else:
+        form = OpportunityForm(request.GET)
+    return render(request, 'Volunteer_Me/organiser/edit_opportunity.html', {'opportunity_form': form})
 
 @login_required
 def manage_applications(request):
