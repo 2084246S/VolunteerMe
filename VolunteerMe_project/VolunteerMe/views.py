@@ -53,7 +53,14 @@ def profile(request):
     except:
         up = None
 
-    
+    if u.groups.filter(name='organiser').count():
+        organiser = Opportunity.company
+        context_dict['opp'] = Opportunity.objects.filter(company=request.user.username)
+        context_dict['app'] = Application.objects.filter(company=up.name)
+    else:
+        context_dict['app'] = Application.objects.filter(name=up.name)
+
+
        
     context_dict['user'] = u
     context_dict['userprofile'] = up
