@@ -5,7 +5,9 @@ from VolunteerMe import views
 
 urlpatterns = patterns('',
                        url(r'^$', views.index, name='index'),
-                       url(r'^profile/$',views.profile,name='profile'),
+                       url(r'^profile/$',views.profile, name='profile'),
+                       #This is for some pretty jancky AJAX stuff
+                       url(r'^profile_opps_applied_for/$',views.profile_opps_applied_for, name='profile_opps_applied_for'),
                        url(r'^add_profile/', views.register_organiser, name='add_profile'),
 
                        url(r'^opportunity/(?P<opportunity_id>\d+)/$',views.show_opportunity,name='opportunity'),

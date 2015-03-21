@@ -38,7 +38,39 @@ def search(request):
     return render(request, 'Volunteer_Me/search.html', {'result_list': result_list})
 
 
-# stub views
+def profile_opps_applied_for(request):
+    u = User.objects.get(username=request.user.username)
+
+    context_dict = {}
+    is_volunteer = u.groups.filter(name='volunteer').exists()
+
+
+    try:
+        up = UserProfile.objects.get(user=request.user)
+
+    except:
+        up = None
+    applications = Application.objects.filter(volunteer=u)
+    opportunities_list = []
+    for application in applications:
+        opportunities_list.append(application.opportunity)
+
+    context_dict['opportunities_list'] = opportunities_list
+
+    if u.groups.filter(name='organiser').count():
+        organiser = Opportunity.company
+        context_dict['opp'] = Opportunity.objects.filter(company=up)
+
+        #context_dict['app'] = Application.objects.filter(company=up.name)
+    else:
+        pass
+        #context_dict['app'] = Application.objects.filter(name=up.name)
+       
+    context_dict['user'] = u
+    context_dict['userprofile'] = up
+    context_dict['is_volunteer'] = is_volunteer
+    return render(request,'Volunteer_Me/profile_opps_applied_for.html',context_dict)
+
 def profile(request):
     u = User.objects.get(username=request.user.username)
 
