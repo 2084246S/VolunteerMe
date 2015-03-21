@@ -38,6 +38,7 @@
 
     {% if is_volunteer %}
 
+<<<<<<< HEAD
         <div class="row placeholders">
             <div class="col-xs-12 col-sm-6 placeholder">
                 <div class="hero-unit">
@@ -46,6 +47,14 @@
                             <a href="{% url 'applied_opportunities' %}">Opportunities applied for</a>
                         </div>
                     </div>
+=======
+<div class="row placeholders">
+    <div class="col-xs-12 col-sm-6 placeholder">
+        <div class="hero-unit">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <a href="#">Opportunities applied for</a>
+>>>>>>> f8fedfa0d580794bec89841f957dc03203ab08e3
                 </div>
             </div>
         </div>
@@ -63,6 +72,7 @@
         <div class="panel">
 
             <div class="panel-heading">
+<<<<<<< HEAD
                 <h3 class="panel-title">10 opportunities you may like..</h3>
                 <!-- Display search opportunitiess in an ordered list -->
                 {% if opportunities_list %}
@@ -86,9 +96,35 @@
                 {% endif %}
             </div>
 
+=======
+                <a href="#">replies to applications</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="panel">
+    {% if opportunities_list %}
+    <div class="panel-heading">
+        <h3 class="panel-title">10 opportunities you may like...</h3>
+        <!-- Display search opportunitiess in an ordered list -->
+        <div class="panel-body">
+            <div class="list-group">
+                {% for opportunities in opportunities_list %}
+                <div class="list-group-item">
+                    <h4 class="list-group-item-heading"><a href="{% url 'opportunity' opportunities.id %}">{{ opportunities.name }}</a>
+                    </h4>
+
+                    <p class="list-group-item-text">{{ opportunities.description|truncatewords:100 }}</p>
+                </div>
+                {% endfor %}
+            </div>
+>>>>>>> f8fedfa0d580794bec89841f957dc03203ab08e3
         </div>
         </div>
 
+<<<<<<< HEAD
     {% else %}
 
         <div class="panel">
@@ -128,6 +164,48 @@
                     <h1>No opportunities</h1>
                     </div>
                 {% endif %}
+=======
+    <div class="panel">
+        <div class="panel-heading">
+            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                <div class="btn-group" role="group" aria-label="...">
+                    <a class="btn btn-lg btn-primary" href="{% url 'create_opportunity' %}">Make a New Opportunity</a>
+                </div>
+                <div class="btn-group" role="group" aria-label="...">
+                    <button type="button" class="btn btn-lg btn-primary">Replies to Applications</button>
+                </div>
+            </div>
+            <hr/>
+            <!--<h3 class="panel-title">your most recent advertisments</h3>-->
+            {% if opportunities_list %}
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Your Most Recent Advertisments</h4>
+                </div>
+                
+                <!-- Display search opportunitiess in an ordered list -->
+                <div class="panel-body">
+                    <div class="list-group">
+                        {% for opportunities in opportunities_list %}
+                        <div class="list-group-item">
+                            <h4 class="list-group-item-heading">
+                                <a href="{% url 'opportunity' opportunities.id %}">{{ opportunities.name }}</a>
+                            </h4>
+
+                            <p class="list-group-item-text">{{ opportunities.description|truncatewords:100 }}</p>
+
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <a class="btn btn-primary" aria-label="Right Align" href="{% url 'manage_opportunities' %}">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> View All
+                </a>
+            </div>
+            {%else%}
+            <h1>No opportunities</h1>
+            {% endif %}
+>>>>>>> f8fedfa0d580794bec89841f957dc03203ab08e3
         </div>
 
         </div>
