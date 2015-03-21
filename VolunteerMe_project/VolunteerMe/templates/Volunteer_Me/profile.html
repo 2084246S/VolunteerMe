@@ -111,27 +111,31 @@
                         <button type="button" class="btn btn-lg btn-primary">Replies to Applications</button>
                     </div>
                 </div>
-                <h3 class="panel-title">Your most recent advertisments</h3>
+                <hr/>
                 <div id="main-list">
                     {% if opportunities_list %}
-                        <h2><a href="{url 'manage_opportunities'}">view all</a></h2>
-                        <!-- Display search opportunitiess in an ordered list -->
-                        <div class="panel-body">
-                            <div class="list-group">
-                                {% for opportunities in opportunities_list %}
-                                    <div class="list-group-item">
-                                        <h4 class="list-group-item-heading">
-                                            <a href="{% url 'opportunity' opportunities.id %}">{{ opportunities.name }}</a>
-                                        </h4>
-
-                                        <p class="list-group-item-text">{{ opportunities.description|truncatewords:100 }}</p>
-
-                                    </div>
-                                {% endfor %}
+                        <div class="panel panel-primary">
+                            <!-- Display search opportunitiess in an ordered list -->
+                            <div class="panel-heading">
+                                <h4 class="panel-title">Your most recent opportunities</h4>
                             </div>
-                            <a class="btn btn-primary" aria-label="Right Align" href="{% url 'manage_opportunities' %}">
-                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> View All
-                                </a>
+                            <div class="panel-body">
+                                <div class="list-group">
+                                    {% for opportunities in opportunities_list %}
+                                        <div class="list-group-item">
+                                            <h4 class="list-group-item-heading">
+                                                <a href="{% url 'opportunity' opportunities.id %}">{{ opportunities.name }}</a>
+                                            </h4>
+
+                                            <p class="list-group-item-text">{{ opportunities.description|truncatewords:100 }}</p>
+
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <a class="btn btn-primary" aria-label="Right Align" href="{% url 'manage_opportunities' %}">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> View All
+                                    </a>
+                            </div>
                         </div>
                     {% else %}
                         <h1>No opportunities</h1>

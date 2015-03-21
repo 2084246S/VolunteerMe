@@ -50,6 +50,7 @@ def profile_opps_applied_for(request):
 
     except:
         up = None
+
     applications = Application.objects.filter(volunteer=u)
     opportunities_list = []
     for application in applications:
@@ -83,18 +84,18 @@ def profile(request):
 
     except:
         up = None
-    opportunities_list = Opportunity.objects.order_by('-start_date')[:10]
-    context_dict['opportunities_list'] = opportunities_list
 
     if u.groups.filter(name='organiser').count():
-        organiser = Opportunity.company
-        context_dict['opp'] = Opportunity.objects.filter(company=up)
+        opportunities_list = Opportunity.objects.filter(company=up).order_by('-start_date')[:10]
+        #organiser = Opportunity.company
+        #context_dict['opp'] = Opportunity.objects.filter(company=up)
 
         #context_dict['app'] = Application.objects.filter(company=up.name)
     else:
-        pass
+        opportunities_list = Opportunity.objects.order_by('-start_date')[:10]
         #context_dict['app'] = Application.objects.filter(name=up.name)
-       
+
+    context_dict['opportunities_list'] = opportunities_list
     context_dict['user'] = u
     context_dict['userprofile'] = up
     context_dict['is_volunteer'] = is_volunteer
