@@ -44,13 +44,18 @@ def profile(request):
 
     context_dict = {}
     is_volunteer = request.user.groups.filter(name='volunteer').exists()
+
+
     try:
         up = UserProfile.objects.get(user=request.user)
+        opportunities_list = Opportunity.objects.filter(company=up).order_by('-start_date')[:10]
+        context_dict['opportunities_list'] = opportunities_list
     except:
         up = None
 
     context_dict['user'] = u
     context_dict['userprofile'] = up
+    context_dict['is_volunteer'] = is_volunteer
     return render(request,'Volunteer_Me/profile.html',context_dict)
 
 
