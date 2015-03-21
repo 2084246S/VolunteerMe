@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from VolunteerMe.models import Application, Opportunity
 from VolunteerMe.forms import  UserProfileForm,OpportunityForm, UserProfile
+from VolunteerMe.google_address_search import run_query
 from datetime import datetime
 from django.contrib.auth.models import User,Group
 from django.contrib.auth.decorators import login_required, permission_required
@@ -94,6 +95,16 @@ def show_opportunity(request, opportunity_id):
         context['description'] = opportunity.description
         context['optional'] = opportunity.optional
         context['location'] = opportunity.location
+
+        #Querey address to get lat long
+        location_query_result = run_query(opportunity.location)
+
+        if len(location_query_result) > 0:
+            context['latitude'] = location_query_result[0]['lat'];
+            context['longitude'] = location_query_result[0]['lng'];
+        else:
+            context['latitude'] = 0.0;
+            context['longitude'] = 0.0;
 
     if request.method == 'POST':
         profile_form = UserProfileForm(request.POST)

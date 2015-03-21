@@ -5,8 +5,11 @@
 
 {% block headextra %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/map.css' %}" />
+<!--Should not use raw key-->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOuMG57x919jOCt73_ImLEIykZ-_fWkOQ"></script>
 <script src="{% static 'js/map.js' %}"></script>
+<script type='text/javascript'>setLatLng({{ latitude }}, {{ longitude }});</script>
+<!--More temp stuff-->
 {% endblock %}
 
 {% block body_block %}

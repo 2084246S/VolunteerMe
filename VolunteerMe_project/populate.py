@@ -36,7 +36,7 @@ def populate():
     u_ally = add_user('Ally','ally123','ally123@test.com', 'pass456')
     v_ally = add_userprofile(u_ally,type= 'volunteer',name="Ally",email='ally123@test.com')
     add_opportunity(organiser=o_brian, name="Admin", description="Typing stuff up",
-                    location="234 Somewhere Drive", start_date=date.today(), end_date=date.today())
+                    location="23 Stewart Drive, Stornoway", start_date=date.today(), end_date=date.today())
 
     add_opportunity(organiser=o_brian, name="Cleaning", description="Blah, Blah, Blah, Blah Blah.........",
                     location="Just down the road", start_date=date.today(), end_date=date.today())

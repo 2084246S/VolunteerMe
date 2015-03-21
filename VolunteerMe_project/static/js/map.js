@@ -1,7 +1,16 @@
+var latitude;
+var longitude;
+
+function setLatLng(lat, lng) {
+
+    latitude = lat;
+    longitude = lng;
+}
+
 function initialize() {
     var mapOptions = {
-        center: { lat: -34.397, lng: 150.644},
-        zoom: 8
+        center: { lat: latitude, lng: longitude},
+        zoom: 20
     };
     var map = new google.maps.Map(document.getElementById('map-canvas'),
     mapOptions);
