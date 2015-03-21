@@ -86,16 +86,25 @@ def profile(request):
         up = None
 
 
+
     if u.groups.filter(name='organiser').count():
         opportunities_list= Opportunity.objects.filter(company=up).order_by('-start_date')[:10]
+
+
+    if u.groups.filter(name='organiser').count():
+        opportunities_list = Opportunity.objects.filter(company=up).order_by('-start_date')[:10]
         #organiser = Opportunity.company
         #context_dict['opp'] = Opportunity.objects.filter(company=up)
 
         #context_dict['app'] = Application.objects.filter(company=up.name)
     else:
+
         opportunities_list= Opportunity.objects.order_by('-start_date')[:10]
+
+        opportunities_list = Opportunity.objects.order_by('-start_date')[:10]
         #context_dict['app'] = Application.objects.filter(name=up.name)
-       
+
+    context_dict['opportunities_list'] = opportunities_list
     context_dict['user'] = u
     context_dict['userprofile'] = up
     context_dict['is_volunteer'] = is_volunteer

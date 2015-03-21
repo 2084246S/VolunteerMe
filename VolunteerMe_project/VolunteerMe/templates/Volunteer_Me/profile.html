@@ -114,6 +114,7 @@
                 <hr/>
                 <div id="main-list">
                     {% if opportunities_list %}
+<<<<<<< HEAD
                        <div class="panel panel-primary">
                             <!-- Display search opportunitiess in an ordered list -->
                             <div class="panel-heading">
@@ -134,6 +135,30 @@
                                 <a class="btn btn-primary" aria-label="Right Align" href="{% url 'manage_opportunities' %}">
                                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> View All
                                     </a>
+=======
+                        <div class="panel panel-primary">
+                            <!-- Display search opportunitiess in an ordered list -->
+                            <div class="panel-heading">
+                                <h4 class="panel-title">Your most recent opportunities</h4>
+                            </div>
+                            <div class="panel-body">
+                                <div class="list-group">
+                                    {% for opportunities in opportunities_list %}
+                                        <div class="list-group-item">
+                                            <h4 class="list-group-item-heading">
+                                                <a href="{% url 'opportunity' opportunities.id %}">{{ opportunities.name }}</a>
+                                            </h4>
+
+                                            <p class="list-group-item-text">{{ opportunities.description|truncatewords:100 }}</p>
+
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <a class="btn btn-primary" aria-label="Right Align" href="{% url 'manage_opportunities' %}">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> View All
+                                    </a>
+                            </div>
+>>>>>>> 052cce3e571fc8a6921d01e921b5ffb6cd53264a
                         </div>
                     {% else %}
                         <h1>No opportunities</h1>
