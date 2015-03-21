@@ -78,9 +78,6 @@ def set_group(request,user):
         g.user_set.add(user)
 
 
-
-
-
 def register_organiser(request):
     if request.method == 'POST':
         profile_form = UserProfileForm(request.POST)
@@ -103,6 +100,23 @@ def register_organiser(request):
         form = UserProfileForm(request.GET)
     return render(request, 'Volunteer_Me/organiser/organiser_register.html', {'profile_form': form})
 
+def edit_profile(request):
+     if request.method == 'POST':
+
+        users_profile = UserProfile.objects.get(user=request.user)
+        profile_form = UserProfileForm(request.POST, instance=users_profile)
+        if profile_form.is_valid():
+            profile_to_edit = profile_form.save(commit=False)
+            try:
+                profile_to_edit.picture = request.FILES['picture']
+            except:
+                pass
+            profile_to_edit.save()
+            return profile(request)
+
+        else:
+            form = UserProfileForm(request.GET)
+        return render(request, 'rango/edit_profile.html', {'profile_form': form})
 
 def show_opportunity(request, opportunity_id):
     context = dict()
@@ -154,9 +168,9 @@ def show_opportunity(request, opportunity_id):
     return render(request, 'Volunteer_Me/opportunity.html', context)
 
 
-@login_required
-def dashboard(request):
-    pass
+# @login_required
+# def dashboard(request):
+#     pass
 
 
 @login_required
@@ -191,11 +205,25 @@ def create_opportunity(request):
                 profile = opp_form.save(commit=False)
                 profile.company=company
                 profile.save()
-                return index(request)
+                return profile(request)
     else:
         form = OpportunityForm(request.GET)
     return render(request, 'Volunteer_Me/organiser/new_opportunity.html', {'opportunity_form': form})
 
+def edit_opportunity(request):
+    username = User.objects.get(username=request.user.username)
+    company = UserProfile.objects.get(name=request.user)
+    if request.method == 'POST':
+        opp_form = OpportunityForm(request.POST)
+        if opp_form.is_valid():
+            if request.user.is_authenticated():
+                profile = opp_form.save(commit=False)
+                profile.company=company
+                profile.save()
+                return profile(request)
+    else:
+        form = OpportunityForm(request.GET)
+    return render(request, 'Volunteer_Me/organiser/edit_opportunity.html', {'opportunity_form': form})
 
 @login_required
 def manage_applications(request):
