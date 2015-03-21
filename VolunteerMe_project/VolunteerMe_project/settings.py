@@ -87,6 +87,9 @@ STATICFILES_DIRS = (
     STATIC_PATH,
 )
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 ACCOUNT_ACTIVATION_DAYS = 5
 LOGIN_REDIRECT_URL = '/volunteer-me/'
 REGISTRATION_AUTO_LOGIN = False
