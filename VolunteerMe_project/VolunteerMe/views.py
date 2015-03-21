@@ -50,6 +50,7 @@ def profile_opps_applied_for(request):
 
     except:
         up = None
+
     applications = Application.objects.filter(volunteer=u)
     opportunities_list = []
     for application in applications:
@@ -83,16 +84,16 @@ def profile(request):
 
     except:
         up = None
-    opportunities_list = Opportunity.objects.order_by('-start_date')[:10]
-    context_dict['opportunities_list'] = opportunities_list
+
 
     if u.groups.filter(name='organiser').count():
-        organiser = Opportunity.company
-        context_dict['opp'] = Opportunity.objects.filter(company=up)
+        opportunities_list= Opportunity.objects.filter(company=up).order_by('-start_date')[:10]
+        #organiser = Opportunity.company
+        #context_dict['opp'] = Opportunity.objects.filter(company=up)
 
         #context_dict['app'] = Application.objects.filter(company=up.name)
     else:
-        pass
+        opportunities_list= Opportunity.objects.order_by('-start_date')[:10]
         #context_dict['app'] = Application.objects.filter(name=up.name)
        
     context_dict['user'] = u
@@ -206,7 +207,7 @@ def show_opportunity(request, opportunity_id):
 
 
 @login_required
-#volunteer
+
 def manage_opportunities(request,opportunity_id):
     context_dict ={}
 
@@ -218,7 +219,7 @@ def manage_opportunities(request,opportunity_id):
 def manage_opportunity(request, opportunity_id, username):
     opportunity = Opportunity.objects.get(id=opportunity_id).filter(username = username)
     if opportunity:
-        # do stuff
+        edit_opportunity(request)
 
         opportunity.save()
     context = {'opportunity': opportunity}
@@ -229,7 +230,7 @@ def manage_opportunity(request, opportunity_id, username):
 #@permission_required('VolunteerMe.add_opportunity')
 def create_opportunity(request):
     username = User.objects.get(username=request.user.username)
-    company = UserProfile.objects.get(name=request.user)
+    company = User.objects.get(username=request.user.username)
     if request.method == 'POST':
         opp_form = OpportunityForm(request.POST)
         if opp_form.is_valid():

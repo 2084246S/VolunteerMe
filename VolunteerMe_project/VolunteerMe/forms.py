@@ -22,4 +22,4 @@ class UserProfileForm(forms.ModelForm):
 class OpportunityForm(forms.ModelForm):
     class Meta:
         model = Opportunity
-        fields = ('name','category','company','start_date','end_date','description','location','optional')
+        fields = ('name','category','start_date','end_date','description','location','optional')
