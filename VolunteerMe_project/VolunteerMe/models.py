@@ -20,10 +20,6 @@ class UserProfile(models.Model):
 def __unicode__(self):
     return self.user.username
 
-
-
-
-
 # class Category(models.Model):
 #     CAT_CHOICES = (
 #         ('A', 'Administrative / Office Work'), ('B', 'Advice / Information giving'), ('C', 'Advocacy / Human Rights)'),
@@ -58,9 +54,6 @@ def __unicode__(self):
 #         return self.category
 
 
-
-
-
 class Opportunity(models.Model):
     name = models.CharField(max_length=128)
     category = models.CharField(max_length=128,default = "Other")
@@ -73,7 +66,6 @@ class Opportunity(models.Model):
 
     def __unicode__(self):
         return self.name
-
 
 
 class Application(models.Model):

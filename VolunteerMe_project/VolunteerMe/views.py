@@ -35,8 +35,6 @@ def search(request):
 
     result_list = []
 
-
-
     return render(request, 'Volunteer_Me/search.html', {'result_list': result_list})
 
 
@@ -102,9 +100,6 @@ def show_opportunity(request, opportunity_id):
         if len(location_query_result) > 0:
             context['latitude'] = location_query_result[0]['lat'];
             context['longitude'] = location_query_result[0]['lng'];
-        else:
-            context['latitude'] = 0.0;
-            context['longitude'] = 0.0;
 
     if request.method == 'POST':
         profile_form = UserProfileForm(request.POST)

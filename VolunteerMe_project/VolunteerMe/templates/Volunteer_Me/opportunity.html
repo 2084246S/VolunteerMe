@@ -4,12 +4,13 @@
 {% block title %}{{ opportunity_name }}{% endblock %}
 
 {% block headextra %}
+{% if latitude and longitude %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/map.css' %}" />
-<!--Should not use raw key-->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOuMG57x919jOCt73_ImLEIykZ-_fWkOQ"></script>
+<!--Google maps api  doesn't need a key, woo!-->
+<script src="https://maps.googleapis.com/maps/api/js?"></script>
 <script src="{% static 'js/map.js' %}"></script>
 <script type='text/javascript'>setLatLng({{ latitude }}, {{ longitude }});</script>
-<!--More temp stuff-->
+{% endif %}
 {% endblock %}
 
 {% block body_block %}
@@ -25,16 +26,18 @@
 <h2>When?</h2>
 <div class="panel panel-default">
     <div class="panel-body">
+        <h4>
         {% if time %}
-            <h4>At {{ time }}</h4>
+            At {{ time }}
         {%endif%}
         {% if start_date %}
-            <h4>from {{ start_date }} </h4>
+            from {{ start_date }}
         {%endif%}
         {% if end_date  %}
-            <h4>until</h4>
-            <h4>{{ end_date }}</h4>
+            until
+            {{ end_date }}
         {% endif %}
+        </h4>
     </div>
 </div>
 
@@ -43,12 +46,17 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <h4>{{description}}</h4>
-        {% if optional  %}
-        <h1>preferred skills</h1>
-        </h4>{{optional}}</h4>
-        {% endif %}
     </div>
 </div>
+
+{% if optional  %}
+        <h1>Preferred skills</h1>
+<div class="panel panel-default">
+    <div class="panel-body">
+        </h4>{{optional}}</h4>
+    </div>
+</div>
+{% endif %}
 
 <h2>Location</h2>
 <div class="panel panel-default">
