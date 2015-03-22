@@ -20,11 +20,11 @@ def index(request):
     context_dict['categories'] = opp_list
 
     # generate "new Opportunities" list
-    new_opportunities_list = Opportunity.objects.order_by('-start_date')[:10]
+    new_opportunities_list = Opportunity.objects.order_by('-start_date')[:5]
     context_dict['new_opportunities'] = new_opportunities_list
 
     # generate "ending soon" list
-    ending_soon_list = Opportunity.objects.order_by('-end_date')[:10]
+    ending_soon_list = Opportunity.objects.order_by('-end_date')[:5]
     context_dict['ending_soon'] = ending_soon_list
 
     return render(request, 'Volunteer_Me/index.html', context_dict)
