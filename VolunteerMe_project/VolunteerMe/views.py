@@ -76,7 +76,7 @@ def profile(request):
     u = User.objects.get(username=request.user.username)
 
     context_dict = {}
-    is_volunteer = u.groups.filter(name='volunteer').exists()
+
 
 
     try:
@@ -86,33 +86,25 @@ def profile(request):
         up = None
 
 
-
-    if u.groups.filter(name='organiser').count():
-        opportunities_list= Opportunity.objects.filter(company=up).order_by('-start_date')[:10]
-
-
-    if u.groups.filter(name='organiser').count():
+    if up.type == 'o':
         opportunities_list = Opportunity.objects.filter(company=up).order_by('-start_date')[:10]
         #organiser = Opportunity.company
         #context_dict['opp'] = Opportunity.objects.filter(company=up)
 
         #context_dict['app'] = Application.objects.filter(company=up.name)
     else:
-
-        opportunities_list= Opportunity.objects.order_by('-start_date')[:10]
-
         opportunities_list = Opportunity.objects.order_by('-start_date')[:10]
         #context_dict['app'] = Application.objects.filter(name=up.name)
 
     context_dict['opportunities_list'] = opportunities_list
     context_dict['user'] = u
     context_dict['userprofile'] = up
-    context_dict['is_volunteer'] = is_volunteer
+    
     return render(request,'Volunteer_Me/profile.html',context_dict)
 
 
 def set_group(request,user):
-    if UserProfile.objects.get(type="organiser"):
+    if UserProfile.objects.get(type='organiser'):
         g = Group.objects.get(name='organiser')
         g.user_set.add(user)
     else:
@@ -208,12 +200,6 @@ def show_opportunity(request, opportunity_id):
     context['opportunity'] = opportunity
 
     return render(request, 'Volunteer_Me/opportunity.html', context)
-
-
-# @login_required
-# def dashboard(request):
-#     pass
-
 
 @login_required
 

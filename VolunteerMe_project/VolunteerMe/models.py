@@ -6,7 +6,7 @@ class UserProfile(models.Model):
     # This line is required. Links UserProfile to a User model instance.
     user = models.OneToOneField(User)
     # The additional attributes we wish to include.
-    TYPE_CHOICES = (('v','Volunteer'),('o','organiser'))
+    TYPE_CHOICES = (('v','volunteer'),('o','organiser'))
     type = models.CharField(max_length=1, choices=TYPE_CHOICES)
     name = models.CharField(max_length=128,help_text='Full Name')
     email = models.EmailField(help_text='Email')
