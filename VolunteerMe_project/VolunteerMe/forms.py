@@ -17,6 +17,12 @@ class UserProfileForm(forms.ModelForm):
         model = UserProfile
         fields = ('picture', 'name', 'contact_number', 'email','address','town', 'post_code','type')
 
+class EditUserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('picture', 'name', 'contact_number', 'email','address','town', 'post_code',)
+
+
 
 
 class OpportunityForm(forms.ModelForm):

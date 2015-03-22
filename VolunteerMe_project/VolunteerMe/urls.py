@@ -9,6 +9,7 @@ urlpatterns = patterns('',
                        #This is for some pretty jancky AJAX stuff
                        url(r'^profile_opps_applied_for/$',views.profile_opps_applied_for, name='profile_opps_applied_for'),
                        url(r'^add_profile/', views.register_organiser, name='add_profile'),
+                       url(r'^edit_profile/',views.edit_profile,name='edit_profile'),
 
                        url(r'^opportunity/(?P<opportunity_id>\d+)/$',views.show_opportunity,name='opportunity'),
                        # url(r'^dashboard/$',

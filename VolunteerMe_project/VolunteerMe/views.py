@@ -2,8 +2,8 @@ from django.shortcuts import render
 
 from django.shortcuts import render
 from django.http import HttpResponse
-from VolunteerMe.models import Application, Opportunity
-from VolunteerMe.forms import  UserProfileForm,OpportunityForm, UserProfile
+from VolunteerMe.models import Application, Opportunity,EditUserProfile
+from VolunteerMe.forms import  UserProfileForm,OpportunityForm, UserProfile,EditUserProfileForm
 from VolunteerMe.google_address_search import run_query
 from datetime import datetime
 from django.contrib.auth.models import User,Group
@@ -66,7 +66,7 @@ def profile_opps_applied_for(request):
     else:
         pass
         #context_dict['app'] = Application.objects.filter(name=up.name)
-       
+
     context_dict['user'] = u
     context_dict['userprofile'] = up
     context_dict['is_volunteer'] = is_volunteer
@@ -99,7 +99,7 @@ def profile(request):
     context_dict['opportunities_list'] = opportunities_list
     context_dict['user'] = u
     context_dict['userprofile'] = up
-    
+
     return render(request,'Volunteer_Me/profile.html',context_dict)
 
 
@@ -135,10 +135,10 @@ def register_organiser(request):
     return render(request, 'Volunteer_Me/organiser/organiser_register.html', {'profile_form': form})
 
 def edit_profile(request):
-     if request.method == 'POST':
+    if request.method == 'POST':
 
-        users_profile = UserProfile.objects.get(user=request.user)
-        profile_form = UserProfileForm(request.POST, instance=users_profile)
+        users_profile = EditUserProfile.objects.get(user=request.user)
+        profile_form = EditUserProfileForm(request.POST, instance=users_profile)
         if profile_form.is_valid():
             profile_to_edit = profile_form.save(commit=False)
             try:
@@ -146,11 +146,14 @@ def edit_profile(request):
             except:
                 pass
             profile_to_edit.save()
+
             return profile(request)
 
-        else:
-            form = UserProfileForm(request.GET)
-        return render(request, 'rango/edit_profile.html', {'profile_form': form})
+    else:
+        form = EditUserProfileForm(request.GET)
+
+
+    return render(request, 'Volunteer_Me/edit_profile.html', {'profile_form': form})
 
 def show_opportunity(request, opportunity_id):
     context = dict()
