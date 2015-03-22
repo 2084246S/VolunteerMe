@@ -10,7 +10,8 @@ from django.contrib.auth.models import User,Group
 from django.contrib.auth.decorators import login_required, permission_required
 
 
-# Create your views here.
+# Homepage
+# shows a list of newest and urgent placements
 def index(request):
     # Make new context dictionary
     context_dict = dict()
@@ -30,7 +31,7 @@ def index(request):
     return render(request, 'Volunteer_Me/index.html', context_dict)
 
 
-# Placeholder!!
+# search page
 def search(request):
 
     result_list = []
@@ -40,11 +41,7 @@ def search(request):
 
 def profile_opps_applied_for(request):
     u = User.objects.get(username=request.user.username)
-
     context_dict = {}
-    is_volunteer = u.groups.filter(name='volunteer').exists()
-
-
     try:
         up = UserProfile.objects.get(user=request.user)
 
@@ -58,7 +55,7 @@ def profile_opps_applied_for(request):
 
     context_dict['opportunities_list'] = opportunities_list
 
-    if u.groups.filter(name='organiser').count():
+    if up.type == 'o':
         organiser = Opportunity.company
         context_dict['opp'] = Opportunity.objects.filter(company=up)
 
@@ -69,15 +66,14 @@ def profile_opps_applied_for(request):
 
     context_dict['user'] = u
     context_dict['userprofile'] = up
-    context_dict['is_volunteer'] = is_volunteer
-    return render(request,'Volunteer_Me/profile_opps_applied_for.html',context_dict)
 
+    return render(request,'Volunteer_Me/profile_opps_applied_for.html',context_dict)
+#user profile page
 def profile(request):
+    # get user information
     u = User.objects.get(username=request.user.username)
 
     context_dict = {}
-
-
 
     try:
         up = UserProfile.objects.get(user=request.user)
@@ -85,16 +81,19 @@ def profile(request):
     except:
         up = None
 
-
+    #if user is an organiser give back their jobs and
+    # applications for their jobs
     if up.type == 'o':
         opportunities_list = Opportunity.objects.filter(company=up).order_by('-start_date')[:10]
         #organiser = Opportunity.company
         #context_dict['opp'] = Opportunity.objects.filter(company=up)
 
         #context_dict['app'] = Application.objects.filter(company=up.name)
+    #else give back jobs that are urgent and opportuinities applied for
     else:
         opportunities_list = Opportunity.objects.order_by('-start_date')[:10]
         #context_dict['app'] = Application.objects.filter(name=up.name)
+
 
     context_dict['opportunities_list'] = opportunities_list
     context_dict['user'] = u
@@ -102,16 +101,16 @@ def profile(request):
 
     return render(request,'Volunteer_Me/profile.html',context_dict)
 
-
+# place users into one of two groups
 def set_group(request,user):
-    if UserProfile.objects.get(type='organiser'):
+    if UserProfile.objects.get(type='o'):
         g = Group.objects.get(name='organiser')
         g.user_set.add(user)
     else:
         g = Group.objects.get(name='volunteer')
         g.user_set.add(user)
 
-
+# register
 def register_organiser(request):
     if request.method == 'POST':
         profile_form = UserProfileForm(request.POST)
@@ -134,6 +133,7 @@ def register_organiser(request):
         form = UserProfileForm(request.GET)
     return render(request, 'Volunteer_Me/organiser/organiser_register.html', {'profile_form': form})
 
+#edit profile details
 def edit_profile(request):
     if request.method == 'POST':
 
@@ -155,6 +155,7 @@ def edit_profile(request):
 
     return render(request, 'Volunteer_Me/edit_profile.html', {'profile_form': form})
 
+#shows opportunity details
 def show_opportunity(request, opportunity_id):
     context = dict()
 
@@ -225,7 +226,7 @@ def manage_opportunity(request, opportunity_id, username):
 
 
 @login_required
-#@permission_required('VolunteerMe.add_opportunity')
+#create an opportunity
 def create_opportunity(request):
     username = User.objects.get(username=request.user.username)
     company = User.objects.get(username=request.user.username)
@@ -241,6 +242,7 @@ def create_opportunity(request):
         form = OpportunityForm(request.GET)
     return render(request, 'Volunteer_Me/organiser/new_opportunity.html', {'opportunity_form': form})
 
+#edit current opportunities
 def edit_opportunity(request):
     username = User.objects.get(username=request.user.username)
     company = UserProfile.objects.get(name=request.user)
@@ -288,14 +290,14 @@ def get_job_list(max_results=0, contains=''):
     return job_list
 
 
-
-def suggest_category(request):
+# Retrieves the list of jobs that contain the string from the search box in their name
+def suggest_job(request):
     cat_list = []
     contains = ''
     if request.method == 'GET':
-        contains = request.GET['suggestion']
-
+        contains = request.GET['suggestion']#get the sting to search for
+    #get 8 placements which contain the string
     cat_list = get_job_list(8, contains)
-
+    #render in list
     return render(request, 'Volunteer_Me/cats.html', {'cat_list': cat_list})
 
