@@ -1,89 +1,90 @@
-{%extends 'base.html'%}
+{% extends 'base.html' %}
 {% load staticfiles %}
 
 {% block title %}{{ opportunity_name }}{% endblock %}
 
 {% block headextra %}
-{% if latitude and longitude %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/map.css' %}" />
-<!--Google maps api  doesn't need a key, woo!-->
-<script src="https://maps.googleapis.com/maps/api/js?"></script>
-<script src="{% static 'js/map.js' %}"></script>
-<script type='text/javascript'>setLatLng({{ latitude }}, {{ longitude }});</script>
-{% endif %}
+    {% if latitude and longitude %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/map.css' %}"/>
+        <!--Google maps api  doesn't need a key, woo!-->
+        <script src="https://maps.googleapis.com/maps/api/js?"></script>
+        <script src="{% static 'js/map.js' %}"></script>
+        <script type='text/javascript'>setLatLng({{ latitude }}, {{ longitude }});</script>
+    {% endif %}
 {% endblock %}
 
 {% block body_block %}
 
-<h1>{{ opportunity_name }}</h1>
-<h2>Organiser</h2>
-<h4><a href="{url ''}">{{ company_name }}</a></h4>
-<!--<script src="{% static 'js/map.js' %}"></script>-->
-<!-- TODO change this to use CSS & classes -->
-<h2>When?</h2>
-<div class="panel panel-default">
-    <div class="panel-body">
-        <h4>
-        {% if time %}
-            At {{ time }}
-        {%endif%}
-        {% if start_date %}
-            from {{ start_date }}
-        {%endif%}
-        {% if end_date  %}
-            until
-            {{ end_date }}
-        {% endif %}
-        </h4>
-    </div>
-</div>
-
-
-<h2>About this opportunity</h2>
-<div class="panel panel-default">
-    <div class="panel-body">
-        <h4>{{description}}</h4>
-    </div>
-</div>
-
-{% if optional  %}
-        <h1>Preferred skills</h1>
-<div class="panel panel-default">
-    <div class="panel-body">
-        <h4>{{optional}}</h4>
-    </div>
-</div>
-{% endif %}
-
-<h2>Location</h2>
-<div class="panel panel-default">
-    <div class="panel-body">
-        <h4>{{location}}</h4>
-        <div id="map-canvas"></div>
-    </div>
-</div>
-
-    {% if authenticated %}
-<li><a href="{url ''}">Apply now</a></li>
-{% else %}
-<div class="panel">
-    <div class="panel-heading">
-        <h3 class="panel-title">Apply Now</h3>
-
+    <h1>{{ opportunity_name }}</h1>
+    <h2>Organiser</h2>
+    <h4><a href="{url ''}">{{ company_name }}</a></h4>
+    <!--<script src="{% static 'js/map.js' %}"></script>-->
+    <!-- TODO change this to use CSS & classes -->
+    <h2>When?</h2>
+    <div class="panel panel-default">
         <div class="panel-body">
-            <form id="profile_form" method="post" action="/VolunteerMe/apply/"
-                  enctype="multipart/form-data">
-
-                {% csrf_token %}
-
-                {{ profile_form.as_p }}
-
-                <input type="submit" name="submit" value="Apply now"/>
-            </form>
+            <h4>
+                {% if time %}
+                    At {{ time }}
+                {% endif %}
+                {% if start_date %}
+                    from {{ start_date }}
+                {% endif %}
+                {% if end_date %}
+                    until
+                    {{ end_date }}
+                {% endif %}
+            </h4>
         </div>
     </div>
-</div>
-    {%endif%}
+
+
+    <h2>About this opportunity</h2>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <h4>{{ description }}</h4>
+        </div>
+    </div>
+
+    {% if optional %}
+        <h1>Preferred skills</h1>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h4>{{ optional }}</h4>
+            </div>
+        </div>
+    {% endif %}
+
+    <h2>Location</h2>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <h4>{{ location }}</h4>
+
+            <div id="map-canvas"></div>
+        </div>
+    </div>
+
+    {% if user.is_authenticated %}
+        <li><a href="{url 'volunteer_application'}">Apply now</a></li>
+    {% else %}
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">Apply Now</h3>
+
+                <div class="panel-body">
+                    <form id="profile_form" method="post" action="/VolunteerMe/apply/"
+                          enctype="multipart/form-data">
+
+                        {% csrf_token %}
+
+                        {{ profile_form.as_p }}
+
+                        <input type="submit" name="submit" value="Apply now"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 
 {% endblock %}
 

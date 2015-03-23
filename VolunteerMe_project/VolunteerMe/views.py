@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 from django.shortcuts import render
 from django.http import HttpResponse
-from VolunteerMe.models import Application, Opportunity, EditUserProfile
+from VolunteerMe.models import Application, Opportunity, EditUserProfile,Reply
 from VolunteerMe.forms import UserProfileForm, OpportunityForm, UserProfile, EditUserProfileForm
 from VolunteerMe.google_address_search import run_query
 from datetime import datetime
@@ -202,6 +202,36 @@ def show_opportunity(request, opportunity_id):
 
     return render(request, 'Volunteer_Me/opportunity.html', context)
 
+
+@login_required
+def volunteer_replies(request):
+
+    u = User.objects.get(username=request.user.username)
+    context_dict = {}
+    try:
+        up = UserProfile.objects.get(user=request.user)
+
+    except:
+        up = None
+    applications = Application.objects.filter(volunteer=u)
+    replies = Reply.objects.filter(answer=True,id=applications)
+    opportunities_list = []
+    for reply in replies:
+        opportunities_list.append(reply.application)
+
+    context_dict['opportunities_list'] = opportunities_list
+
+    if up.type == 'o':
+        organiser = Opportunity.company
+        context_dict['opp'] = Opportunity.objects.filter(company=up)
+
+    else:
+        pass
+
+    context_dict['user'] = u
+    context_dict['userprofile'] = up
+
+    return render(request,'Volunteer_Me/volunteer/volunteer_replies.html',context_dict)
 
 @login_required
 def manage_opportunities(request, opportunity_id):

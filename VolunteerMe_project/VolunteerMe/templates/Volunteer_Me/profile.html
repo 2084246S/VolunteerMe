@@ -22,6 +22,43 @@
         xmlhttp.open("GET", "{% url 'profile_opps_applied_for' %}", true);
         xmlhttp.send();
     }
+
+
+function loadXMLDoc2()
+    {
+        var xmlhttp;
+        if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp=new XMLHttpRequest();
+        }
+        else {// code for IE6, IE5
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange=function() {
+            if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+                document.getElementById("main-list").innerHTML=xmlhttp.responseText;
+            }
+        }
+        xmlhttp.open("GET", "{% url 'volunteer_replies' %}", true);
+        xmlhttp.send();
+    }
+
+function loadXMLDoc3()
+    {
+        var xmlhttp;
+        if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp=new XMLHttpRequest();
+        }
+        else {// code for IE6, IE5
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange=function() {
+            if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+                document.getElementById("main-list").innerHTML=xmlhttp.responseText;
+            }
+        }
+        xmlhttp.open("GET", "{% url 'organiser_replies' %}", true);
+        xmlhttp.send();
+    }
 </script>
 {% endblock %}
 
@@ -69,7 +106,7 @@
                     <button type="button" class="btn btn-lg btn-primary" onclick="loadXMLDoc()">Opportunities Applied For</button>
                 </div>
                 <div class="btn-group" role="group" aria-label="...">
-                    <button type="button" class="btn btn-lg btn-primary">Replies to Applications</button>
+                    <button type="button" class="btn btn-lg btn-primary" onclick ="loadXMLDoc2()">Replies to Applications</button>
                 </div>
             </div>
             <hr/>
@@ -109,7 +146,7 @@
                             Opportunity</a>
                     </div>
                     <div class="btn-group" role="group" aria-label="...">
-                        <button type="button" class="btn btn-lg btn-primary">Replies to Applications</button>
+                        <button type="button" class="btn btn-lg btn-primary" onclick ="loadXMLDoc3()">Reply to Applications</button>
                     </div>
                 </div>
                 <hr/>
