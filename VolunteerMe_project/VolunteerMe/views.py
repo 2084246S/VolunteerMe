@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.shortcuts import render
 from django.http import HttpResponse
 from VolunteerMe.models import Application, Opportunity, EditUserProfile,Reply
-from VolunteerMe.forms import UserProfileForm, OpportunityForm, UserProfile, EditUserProfileForm
+from VolunteerMe.forms import UserProfileForm, OpportunityForm, UserProfile, EditUserProfileForm,ApplicationForm
 from VolunteerMe.google_address_search import run_query
 from datetime import datetime
 from django.contrib.auth.models import User, Group
@@ -134,23 +134,23 @@ def register_organiser(request):
 #edit profile details
 def edit_profile(request):
     if request.method == 'POST':
-
-        users_profile = EditUserProfile.objects.get(user=request.user)
-        profile_form = EditUserProfileForm(request.POST, instance=users_profile)
+        profile_form = UserProfileForm(request.POST)
         if profile_form.is_valid():
-            profile_to_edit = profile_form.save(commit=False)
-            try:
-                profile_to_edit.picture = request.FILES['picture']
-            except:
-                pass
-            profile_to_edit.save()
-
-            return profile(request)
-
+            if request.user.is_authenticated():
+                profile = profile_form.save(commit=False)
+                user = User.objects.get(username=request.user.username)
+                profile.user = user
+                profile.type = user.type
+                try:
+                    profile.picture = request.FILES['picture']
+                except:
+                    pass
+                profile.save()
+                set_group(request, user)
+                return index(request)
     else:
-        form = EditUserProfileForm(request.GET)
-
-    return render(request, 'Volunteer_Me/edit_profile.html', {'profile_form': form})
+        form = UserProfileForm()
+    return render(request, 'Volunteer_Me/organiser/organiser_register.html', {'profile_form': form})
 
 
 #shows opportunity details
@@ -235,11 +235,10 @@ def volunteer_replies(request):
 
 @login_required
 def manage_opportunities(request, opportunity_id):
-   return render()
+    return render()
 
 @login_required
 #edit specific opportunites
-#organiser?
 def manage_opportunity(request, opportunity_id, username):
     opportunity = Opportunity.objects.get(id=opportunity_id).filter(username=username)
     if opportunity:
@@ -263,7 +262,7 @@ def create_opportunity(request):
                 profile.save()
                 return profile(request)
     else:
-        form = OpportunityForm(request.GET)
+        form = OpportunityForm()
     return render(request, 'Volunteer_Me/organiser/new_opportunity.html', {'opportunity_form': form})
 
 
@@ -286,7 +285,13 @@ def edit_opportunity(request):
 #organiser replies from volunteers
 @login_required
 def manage_applications(request):
-    pass
+    context_dict = {}
+    company = u = User.objects.get(username=request.user.username)
+
+    application = Application.objects.filter()
+
+    return render(request, 'Volunteer_Me/organiser_replies.html', context_dict)
+
 
 #mange reply to volunteer
 @login_required
@@ -329,3 +334,20 @@ def suggest_job(request):
     #render in list
     return render(request, 'Volunteer_Me/cats.html', {'cat_list': cat_list})
 
+def application_form(request, opportunity_id):
+    if request.method == 'POST':
+        application_form = ApplicationForm(request.POST)
+        if application_form.is_valid():
+            if request.user.is_authenticated():
+                application = application_form.save(commit=False)
+                application.opportunity = Opportunity.objects.get(id=opportunity_id)
+                try:
+                    profile.picture = request.FILES['picture']
+                except:
+                    pass
+                profile.save()
+
+                return index(request)
+    else:
+        form = ApplicationForm(request.GET)
+    return render(request, 'Volunteer_Me/volunteer/applications_form.html', {'profile_form': form})

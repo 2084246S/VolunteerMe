@@ -29,6 +29,7 @@ urlpatterns = patterns('',
                            name='my_application'),
                        url(r'^volunteer/application_replies/$',views.volunteer_replies,name = "volunteer_replies"),
                        url(r'^organiser/reply_applications/$',views.manage_applications,name="reply_applications"),
+                       url(r'^application/(?P<opportunity_id>\d+)/$',views.application_form,name="application_form"),
                        # link to a basic key word search view.
                        url(r'^suggest_job/$', views.suggest_job, name='suggest_job'),
                        )
