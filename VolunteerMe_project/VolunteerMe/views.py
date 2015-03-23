@@ -288,7 +288,7 @@ def get_job_list(max_results=0, contains=''):
 
 # Retrieves the list of jobs that contain the string
 # from the search box in their name
-def suggest_job(request):
+def suggest_category(request):
     cat_list = []
     contains = ''
     if request.method == 'GET':
