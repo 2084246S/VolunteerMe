@@ -99,8 +99,8 @@ def profile(request):
 
 
 # place users into one of two groups
-def set_group(request, user):
-    if UserProfile.objects.get(type='o'):
+def set_group(request, user, user_profile):
+    if user_profile.type == 'o':
         g = Group.objects.get(name='organiser')
         g.user_set.add(user)
     else:
@@ -111,7 +111,7 @@ def set_group(request, user):
 # register
 def register_organiser(request):
     if request.method == 'POST':
-        profile_form = UserProfileForm(request.POST)
+        profile_form = UserProfileForm(data=request.POST)
         if profile_form.is_valid():
             if request.user.is_authenticated():
                 profile = profile_form.save(commit=False)
@@ -123,12 +123,12 @@ def register_organiser(request):
                     pass
                 profile.save()
 
-                set_group(request, user)
+                set_group(request, user, profile)
 
                 return index(request)
     else:
-        form = UserProfileForm(request.GET)
-    return render(request, 'Volunteer_Me/organiser/organiser_register.html', {'profile_form': form})
+        form = UserProfileForm(data=request.GET)
+        return render(request, 'Volunteer_Me/organiser/organiser_register.html', {'profile_form': form})
 
 
 #edit profile details
@@ -328,4 +328,3 @@ def suggest_job(request):
     cat_list = get_job_list(8, contains)
     #render in list
     return render(request, 'Volunteer_Me/cats.html', {'cat_list': cat_list})
-
