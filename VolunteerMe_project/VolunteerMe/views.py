@@ -291,8 +291,11 @@ def manage_applications(request):
 
     up = UserProfile.objects.filter(user = u)
     opportunites = Opportunity.objects.filter(company=up)
+    app_list = []
     for opportunity in opportunites:
-        
+        applications = Application.objects.filter(opportunity =opportunity)
+        for app in applications:
+            app_list.append(app.volunteer)
 
     return render(request, 'Volunteer_Me/organiser_replies.html', context_dict)
 
