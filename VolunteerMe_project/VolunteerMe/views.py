@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from VolunteerMe.models import Application, Opportunity, EditUserProfile,Reply
 from VolunteerMe.forms import UserProfileForm, OpportunityForm, UserProfile, EditUserProfileForm,ApplicationForm
@@ -350,19 +350,24 @@ def suggest_job(request):
     return render(request, 'Volunteer_Me/cats.html', {'cat_list': cat_list})
 
 def application_form(request, opportunity_id):
+    if request.user.is_authenticated():
+        application = Application()
+        application.volunteer = request.user
+        application.opportunity= Opportunity.objects.get(id=opportunity_id)
+        application.save()
+        return redirect('profile')
     if request.method == 'POST':
         application_form = ApplicationForm(request.POST)
         if application_form.is_valid():
-            if request.user.is_authenticated():
-                application = application_form.save(commit=False)
-                application.opportunity = Opportunity.objects.get(id=opportunity_id)
-                try:
-                    profile.picture = request.FILES['picture']
-                except:
-                    pass
-                profile.save()
+            application = application_form.save(commit=False)
+            application.opportunity = Opportunity.objects.get(id=opportunity_id)
+            try:
+                profile.picture = request.FILES['picture']
+            except:
+                pass
+            profile.save()
 
-                return index(request)
+            return index(request)
     else:
         form = ApplicationForm(request.GET)
     return render(request, 'Volunteer_Me/volunteer/applications_form.html', {'profile_form': form})

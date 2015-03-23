@@ -55,8 +55,6 @@ class Application(models.Model):
     opportunity = models.ForeignKey(Opportunity)
 
 
-
-
 class Reply(models.Model):
     answer = models.BooleanField(blank=True,default=None)
     application = models.ForeignKey(Application)
