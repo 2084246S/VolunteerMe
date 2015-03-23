@@ -100,7 +100,8 @@ def profile(request):
 
 # place users into one of two groups
 def set_group(request, user):
-    if UserProfile.objects.get(type='o'):
+
+    if UserProfile.objects.filter(user=user).type == 'o':
         g = Group.objects.get(name='organiser')
         g.user_set.add(user)
     else:
@@ -286,9 +287,12 @@ def edit_opportunity(request):
 @login_required
 def manage_applications(request):
     context_dict = {}
-    company = u = User.objects.get(username=request.user.username)
+    u = User.objects.get(username=request.user.username)
 
-    application = Application.objects.filter()
+    up = UserProfile.objects.filter(user = u)
+    opportunites = Opportunity.objects.filter(company=up)
+    for opportunity in opportunites:
+        
 
     return render(request, 'Volunteer_Me/organiser_replies.html', context_dict)
 
