@@ -292,16 +292,18 @@ def edit_opportunity(request):
 @login_required
 def manage_applications(request):
     context_dict = {}
-    u = User.objects.get(username=request.user.username)
+    u = request.user
 
     up = UserProfile.objects.filter(user = u)
-    opportunites = Opportunity.objects.filter(company=up)
+    opportunities = Opportunity.objects.filter(company=up)
     app_list = []
-    for opportunity in opportunites:
-        applications = Application.objects.filter(opportunity =opportunity)
+    for opportunity in opportunities:
+        applications = Application.objects.filter(opportunity=opportunity)
         for app in applications:
-            app_list.append(app.volunteer)
+            app_list.append(app)
 
+    context_dict['opportunities'] = opportunities
+    context_dict['applications'] = app_list
     return render(request, 'Volunteer_Me/organiser/organiser_replies.html', context_dict)
 
 
