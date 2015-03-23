@@ -301,7 +301,7 @@ def manage_applications(request):
     for opportunity in opportunities:
         applications = Application.objects.filter(opportunity=opportunity)
         for app in applications:
-            app_list.append({'app':app, 'up':UserProfile.objects.filter(user=app.volunteer)[0]})
+            app_list.append({'app':app, 'up':UserProfile.objects.filter(user=app.volunteer)[0], 'reply':Reply.objects.filter(application=app)[0]})
 
     context_dict['opportunities'] = opportunities
     context_dict['applications'] = app_list

@@ -56,7 +56,7 @@ class Application(models.Model):
 
 
 class Reply(models.Model):
-    answer = models.BooleanField(blank=True,default=None)
+    answer = models.BooleanField(blank=True, default=None)
     application = models.ForeignKey(Application)
 
     class Meta:

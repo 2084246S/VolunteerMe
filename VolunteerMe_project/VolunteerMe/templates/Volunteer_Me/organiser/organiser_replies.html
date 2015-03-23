@@ -19,8 +19,26 @@
     <h3>
         <small>phone number(s):</small>{{ application.up.contact_number }}</h3>
     <h3>
-        <small>Email address:</small>
+        <small>Email address:</small>{{ application.up.email }}
     </h3>
     <h4>{{ application.volunteer.email }}<p/></h4>
+
+    <div class="btn-group" role="group" aria-label="...">
+        <button type="button" class="btn {% if application.reply and application.reply.answer == True %}
+            btn-success
+        {% else %}
+            btn-default
+        {% endif %}" onclick="loadXMLDoc3()">Accepted</button>
+        <button type="button" class="btn {% if application.reply %}
+            btn-default
+        {% else %}
+            btn-primary
+        {% endif %}" onclick="loadXMLDoc3()">Undecided</button>
+        <button type="button" class="btn {% if application.reply and application.reply.answer == False %}
+            btn-danger
+        {% else %}
+            btn-default
+        {% endif %}" onclick="loadXMLDoc3()">Declined</button>
+    </div>
 {%endfor%}
 {% endif %}
