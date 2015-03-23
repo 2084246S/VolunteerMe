@@ -71,7 +71,7 @@ def profile_opps_applied_for(request):
 #user profile page
 def profile(request):
     # get user information
-    u = User.objects.get(username=request.user.username)
+    u = request.user
 
     context_dict = {}
 
