@@ -1,0 +1,42 @@
+{%  extends 'base.html' %}
+{% block body_block %}
+{% if user.is_authenticated %}
+    <div class="panel">
+        <div class="panel-heading">
+            <h3 class="panel-title">Apply Now</h3>
+
+            <div class="panel-body">
+                <form id="profile_form" method="post" action="/VolunteerMe/profile/"
+                      enctype="multipart/form-data">
+
+                    {% csrf_token %}
+
+                    {{ profile_form.as_p }}
+
+                    <input type="submit" name="submit" value="Apply now"/>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% else %}
+    <div class="panel">
+        <div class="panel-heading">
+            <h3 class="panel-title">Apply Now</h3>
+
+            <div class="panel-body">
+                <form id="profile_form" method="post" action="/VolunteerMe/index/"
+                      enctype="multipart/form-data">
+
+                    {% csrf_token %}
+
+                    {{ profile_form.as_p }}
+
+                    <input type="submit" name="submit" value="Apply now"/>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% endblock %}
