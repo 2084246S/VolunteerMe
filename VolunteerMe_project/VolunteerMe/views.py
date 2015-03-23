@@ -297,10 +297,11 @@ def manage_applications(request):
     up = UserProfile.objects.filter(user = u)
     opportunities = Opportunity.objects.filter(company=up)
     app_list = []
+    app_up = {}
     for opportunity in opportunities:
         applications = Application.objects.filter(opportunity=opportunity)
         for app in applications:
-            app_list.append(app)
+            app_list.append({'app':app, 'up':UserProfile.objects.filter(user=app.volunteer)[0]})
 
     context_dict['opportunities'] = opportunities
     context_dict['applications'] = app_list
@@ -358,7 +359,10 @@ def application_form(request, opportunity_id):
         application.opportunity= Opportunity.objects.get(id=opportunity_id)
         application.save()
         return redirect('profile')
+    else:
+        return redirect('auth_login')
     if request.method == 'POST':
+        return redirect('auth-login')
         application_form = ApplicationForm(request.POST)
         if application_form.is_valid():
             application = application_form.save(commit=False)
