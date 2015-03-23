@@ -32,9 +32,9 @@ def populate():
 
 
     u_brian = add_user('Brian', 'brian123', 'brian123@test.com', 'pass123')
-    o_brian = add_userprofile(u_brian, type='organiser', name='Brian', email='brian123@test.com')
+    o_brian = add_userprofile(u_brian, type='o', name='Brian', email='brian123@test.com')
     u_ally = add_user('Ally','ally123','ally123@test.com', 'pass456')
-    v_ally = add_userprofile(u_ally,type= 'volunteer',name="Ally",email='ally123@test.com')
+    v_ally = add_userprofile(u_ally,type= 'v',name="Ally",email='ally123@test.com')
     add_opportunity(organiser=o_brian, name="Admin", description="Typing stuff up",
                     location="23 Stewart Drive, Stornoway", start_date=date.today(), end_date=date.today())
 

@@ -302,7 +302,7 @@ def manage_applications(request):
         for app in applications:
             app_list.append(app.volunteer)
 
-    return render(request, 'Volunteer_Me/organiser_replies.html', context_dict)
+    return render(request, 'Volunteer_Me/organiser/organiser_replies.html', context_dict)
 
 
 #mange reply to volunteer

@@ -54,8 +54,7 @@ class Application(models.Model):
     volunteer = models.ForeignKey(User)
     opportunity = models.ForeignKey(Opportunity)
 
-    def __unicode__(self):
-        return self.id
+
 
 
 class Reply(models.Model):
@@ -64,5 +63,3 @@ class Reply(models.Model):
 
     class Meta:
         verbose_name_plural = 'Replies'
-    def __unicode__(self):
-        return self.id
