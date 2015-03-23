@@ -277,7 +277,7 @@ def about(request):
 def get_job_list(max_results=0, contains=''):
     job_list = []
     if contains:
-        job_list = Opportunity.objects.filter(oppertunity_name__contains=contains)
+        job_list = Opportunity.objects.filter(name__contains=contains)
     else:
         job_list = Opportunity.objects.all()
     if max_results > 0:
@@ -288,11 +288,12 @@ def get_job_list(max_results=0, contains=''):
 
 # Retrieves the list of jobs that contain the string
 # from the search box in their name
-def suggest_category(request):
-    cat_list = []
+def suggest_job(request):
     contains = ''
     if request.method == 'GET':
-        contains = request.GET['suggestion']  #get the sting to search for
+        if 'suggestion' in request.GET:
+            contains = request.GET['suggestion']  #get the sting to search for
+
     #get 8 placements which contain the string
     cat_list = get_job_list(8, contains)
     #render in list
