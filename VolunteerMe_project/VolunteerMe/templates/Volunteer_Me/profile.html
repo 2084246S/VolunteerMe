@@ -56,7 +56,7 @@ function loadXMLDoc3()
                 document.getElementById("main-list").innerHTML=xmlhttp.responseText;
             }
         }
-        xmlhttp.open("GET", "{% url 'organiser_replies' %}", true);
+        xmlhttp.open("GET", "{% url 'reply_applications' %}", true);
         xmlhttp.send();
     }
 </script>
