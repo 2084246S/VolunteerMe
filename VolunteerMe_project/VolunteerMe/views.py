@@ -251,8 +251,10 @@ def manage_opportunities(request):
 
 @login_required
 # edit specific opportunites
-def manage_opportunity(request, opportunity_id, username):
-    opportunity = Opportunity.objects.get(id=opportunity_id).filter(username=username)
+# was there a particular reason for passing username?
+# can't get it to work
+def manage_opportunity(request, opportunity_id):
+    opportunity = Opportunity.objects.get(id=opportunity_id)
     if opportunity:
         edit_opportunity(request)
 

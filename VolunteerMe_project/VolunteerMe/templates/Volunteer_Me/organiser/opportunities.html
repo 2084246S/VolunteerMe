@@ -30,8 +30,8 @@
 {% block body_block %}
 {% if opportunites %}
 {% for opportunity in opportunites %}
-    <li><a href="{url 'opportunity' opportunity.id}">{{opportunity.name}}</a>
-    <a href="{url 'edit_opportunity' }">Edit opportunity</a></li>
+    <li><a href="{%url 'opportunity' opportunity.id%}">{{opportunity.name}}</a>
+    <a href="{% url 'manage_opportunity' opportunity.id%}">Edit opportunity</a></li>
 {% endfor %}
 {% endif %}
 {% endblock %}
