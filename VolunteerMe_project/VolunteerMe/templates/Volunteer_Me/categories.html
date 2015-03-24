@@ -1,5 +1,7 @@
 {% if cats %}
+    <ul class="nav nav-sidebar">
     {% for category in cats %}
-        <a href="{% url 'search' %}?category={% category.slug %}">{% category.name %}</a>
+        <li><a href="{% url 'search' %}?category={{ category.slug }}">{{ category.name }}</a></li>
     {% endfor %}
+    </ul>
 {% endif %}

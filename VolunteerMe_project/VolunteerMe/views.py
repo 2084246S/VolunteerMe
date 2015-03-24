@@ -1,10 +1,8 @@
 from django.shortcuts import render, redirect
-
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required
 
 from VolunteerMe.models import Application, Opportunity, Reply
-
 from VolunteerMe.forms import UserProfileForm, OpportunityForm, UserProfile
 from VolunteerMe.google_address_search import run_query
 
@@ -32,16 +30,15 @@ def index(request):
 
 # search page
 def search(request):
-    final_result_list = []
-    result_list = Opportunity.objects.all()
     query = request.GET.get('suggestion', '')
+    category = request.GET.get('category', '')
 
-    for result in result_list:
-        if query != "" and query in result.name:
-            final_result_list.append(result)
+    result_list = Opportunity.objects.filter(name__contains=query)\
+                                     .filter(category__contains=category)\
+                                     .order_by('-end_date', 'name')
 
     print("Hello", result_list)
-    return render(request, 'Volunteer_Me/search.html', {'result_list': final_result_list})
+    return render(request, 'Volunteer_Me/search.html', {'result_list': result_list})
 
 
 # volunteer opps applied for
@@ -279,7 +276,7 @@ def create_opportunity(request):
 @login_required
 def edit_opportunity(request):
     # never write:
-    #   username = User.objects.get(username=request.user.username)
+    # username = User.objects.get(username=request.user.username)
     # instead write:
     username = request.user
     company = UserProfile.objects.get(name=request.user)
@@ -356,7 +353,7 @@ def about(request):
 
 
 # jobs list
-def get_job_list(max_results=0, contains=''):
+def get_job_list(max_results=0, contains='', category=''):
     if contains != '':
         job_list = Opportunity.objects.filter(name__icontains=contains)
     else:
@@ -370,15 +367,18 @@ def get_job_list(max_results=0, contains=''):
 # from the search box in their name
 def suggest_job(request):
     contains = ''
+    category = ''
     if request.method == 'GET':
         if 'suggestion' in request.GET:
             contains = request.GET['suggestion']  # get the sting to search for
+        if 'category' in request.GET:
+            category = request.GET['category']
 
     # get 8 placements which contain the string
-    cat_list = get_job_list(8, contains)
+    job_list = get_job_list(8, contains, category)
     # render in list
 
-    return render(request, 'Volunteer_Me/cats.html', {'cat_list': cat_list})
+    return render(request, 'Volunteer_Me/cats.html', {'job_list': job_list})
 
 
 @login_required
