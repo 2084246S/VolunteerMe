@@ -9,9 +9,10 @@
                 {% for opportunities in opportunities_list %}
                 <div class="list-group-item">
                     <h4 class="list-group-item-heading">
-                        <a href="{% url 'opportunity' opportunities.id %}">{{ opportunities.name }}</a>
+                        <a href="{% url 'opportunity' opportunities.opp.id %}">{{ opportunities.opp.name }}</a>
                     </h4>
-                    <p class="list-group-item-text">{{ opportunities.description|truncatewords:100 }}</p>
+                    <p class="list-group-item-text">{{ opportunities.opp.description|truncatewords:100 }}</p>
+                    <h2>{% if opportunities.reply.answer %}Accepted!{% else %}Rejected{% endif %}</h2>
                 </div>
                 {% endfor %}
             </div>

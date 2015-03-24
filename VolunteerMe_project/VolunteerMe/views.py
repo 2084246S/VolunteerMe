@@ -212,28 +212,27 @@ def show_opportunity(request, opportunity_id):
 @login_required
 def volunteer_replies(request):
 
-    u = User.objects.get(username=request.user.username)
+    # get user information
+    u = request.user
+
     context_dict = {}
+
     try:
         up = UserProfile.objects.get(user=request.user)
 
     except:
         up = None
-    applications = Application.objects.filter(volunteer=u)
-    replies = Reply.objects.filter(answer=True,id=applications)
+
     opportunities_list = []
-    for reply in replies:
-        opportunities_list.append(reply.application)
+    applications = Application.objects.filter(volunteer=u)
+    for application in applications:
+        if(len(Reply.objects.filter(application=application)) > 0):
+            opportunities_list.append({'opp':application.opportunity, 'reply':Reply.objects.filter(application=application)[0]})
+
+    #opportunities_list =Opportunity.objects.order_by('-start_date')[:10]
+    #context_dict['app'] = Application.objects.filter(name=up.name)
 
     context_dict['opportunities_list'] = opportunities_list
-
-    if up.type == 'o':
-        organiser = Opportunity.company
-        context_dict['opp'] = Opportunity.objects.filter(company=up)
-
-    else:
-        pass
-
     context_dict['user'] = u
     context_dict['userprofile'] = up
 
