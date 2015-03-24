@@ -33,9 +33,18 @@ def index(request):
 
 # search page
 def search(request):
-    result_list = []
 
-    return render(request, 'Volunteer_Me/search.html', {'result_list': result_list})
+    result_list = []
+    final_result_list = []
+    result_list = Opportunity.objects.all()
+    query = request.GET.get('suggestion', '')
+
+    for result in result_list:
+        if query != "" and query in result.name:
+            final_result_list.append(result)
+
+    print("Hello", result_list)
+    return render(request, 'Volunteer_Me/search.html', {'result_list': final_result_list})
 
 
 # volunteer opps applied for

@@ -14,10 +14,19 @@
 
     <hr/>
     <div id="cats" class="nav nav-list">
+        {% if result_list %}
+            {% for result in result_list%}
+                <li>
+                <h3>{{ result.name }}</h3>
+                <h4>{{ result.description|truncatewords:100 }}</h4>
+                </li>
+            {% endfor %}
+        {% else %}
         <div class="col-lg-7">
             <label> Please search for the volunteer opportunity above. </label>
 
         </div>
+        {% endif %}
     </div>
 </div>
 
