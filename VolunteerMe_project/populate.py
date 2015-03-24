@@ -9,7 +9,7 @@ import django
 
 django.setup()
 
-from VolunteerMe.models import Opportunity, UserProfile, Application
+from VolunteerMe.models import Opportunity, UserProfile, Application, Category
 
 from django.contrib.auth.models import User
 
@@ -19,8 +19,28 @@ from django.contrib.auth.models import Group
 global company_number
 company_number = 0
 
+global category_list
+category_list = ['Administrative / Office Work', 'Advice / Information giving', 'Advocacy / Human Rights',
+                 'Arts ( music/drama/crafts)', 'Befriending / Mentoring', 'Campaigning / Lobbying',
+                 'Care / Support worker', 'Catering', 'Charity Event Support', 'Charity Shops / Retail',
+                 'Committee Work', 'Community / Economic Development Work', 'Computing', 'Conservation / Gardening',
+                 'Counselling', 'Disaster / emergency relief', 'Drivers', 'Driving / escorting',
+                 'Equal Opportunities / Race relations', 'Event Management', 'Event Marshals', 'Finance / Accountancy',
+                 'Fundraising', 'General Event Support', 'Homebased Volunteering', 'IT Support',
+                 'Justice / Legal assistance', 'Landscaping/course layout/maintenance', 'Languages / translating',
+                 'Library / Information Management', 'Management / Business Skills', 'Marketing / PR / Media',
+                 'Medical/Physiotherapy', 'On line Volunteering', 'Playschemes / Childrens Clubs', 'Practical /DIY',
+                 'Research / Policy work', 'Residential volunteering', 'Security', 'Short term / seasonal working',
+                 'Specialist / Technical', 'Sports / Outdoor activities', 'Technical Support',
+                 'Tutoring / Supporting Learners', 'Volunteering for under 16s', 'Youth Work', 'Other']
+
 
 def populate():
+
+    #populate category list
+    for category in category_list:
+        add_category(category)
+
     newgroup = Group.objects.get_or_create(name='volunteer')[0]
     newgroup.save()
     newgroup = Group.objects.get_or_create(name='organiser')[0]
@@ -94,6 +114,10 @@ def add_application(volunteer, opportunity):
 
     return a
 
+def add_category(name):
+    cat = Category.objects.get_or_create(name=name)[0]
+    cat.save()
+    return cat
 
 if __name__ == '__main__':
     print "Starting VolunteerMe population script..."
