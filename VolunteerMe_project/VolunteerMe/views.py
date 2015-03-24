@@ -301,12 +301,34 @@ def manage_applications(request):
     for opportunity in opportunities:
         applications = Application.objects.filter(opportunity=opportunity)
         for app in applications:
-            app_list.append({'app':app, 'up':UserProfile.objects.filter(user=app.volunteer)[0], 'reply':Reply.objects.filter(application=app)[0]})
+            app_dict = {'app':app, 'up':UserProfile.objects.filter(user=app.volunteer)[0]}
+            if Reply.objects.filter(application=app):
+                app_dict['reply'] = Reply.objects.filter(application=app)[0]
+            app_list.append(app_dict)
 
     context_dict['opportunities'] = opportunities
     context_dict['applications'] = app_list
     return render(request, 'Volunteer_Me/organiser/organiser_replies.html', context_dict)
 
+def send_reply(request):
+    
+    if request.method == 'POST':
+        application_id = request.POST.get('app_id', '')
+
+        application = Application.objects.get(id=application_id)
+        if request.POST.get('undecided') and Reply.objects.get(application=application):
+            Reply.objects.get(application=application).delete()
+            return redirect('profile')
+
+        reply = Reply.objects.get_or_create(application=application, answer=False)[0]
+        if request.POST.get('accept'):
+            print(reply)
+            reply.answer = True
+        elif request.POST.get('decline'):
+            reply.answer = False
+        reply.save()
+
+    return redirect('profile')
 
 #mange reply to volunteer
 @login_required

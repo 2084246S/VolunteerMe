@@ -23,22 +23,26 @@
     </h3>
     <h4>{{ application.volunteer.email }}<p/></h4>
 
+    <form action="{% url 'send_reply' %}" method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="app_id" value = "{{application.app.id}}" />
     <div class="btn-group" role="group" aria-label="...">
-        <button type="button" class="btn {% if application.reply and application.reply.answer == True %}
+        <button type="button submit" name="accept" class="btn {% if application.reply and application.reply.answer == True %}
             btn-success
         {% else %}
             btn-default
-        {% endif %}" onclick="loadXMLDoc3()">Accepted</button>
-        <button type="button" class="btn {% if application.reply %}
+        {% endif %}" value="t">Accepted</button>
+        <button type="button submit" name="undecided" class="btn {% if application.reply %}
             btn-default
         {% else %}
             btn-primary
-        {% endif %}" onclick="loadXMLDoc3()">Undecided</button>
-        <button type="button" class="btn {% if application.reply and application.reply.answer == False %}
+        {% endif %}" value="u">Undecided</button>
+        <button type="button submit" name="decline" class="btn {% if application.reply and application.reply.answer == False %}
             btn-danger
         {% else %}
             btn-default
-        {% endif %}" onclick="loadXMLDoc3()">Declined</button>
+        {% endif %}" value="f">Declined</button>
     </div>
+    </form>
 {%endfor%}
 {% endif %}
