@@ -243,7 +243,9 @@ def manage_opportunities(request):
     up = UserProfile.objects.get(user=u)
     opportunity = Opportunity.objects.filter(company=up)
 
-    context_dict['opportunity'] = opportunity
+    context_dict['opportunites'] = opportunity
+    context_dict['user'] = u
+    context_dict['userprofile'] = up
     return render(request, 'Volunteer_Me/organiser/opportunities.html', context_dict)
 
 
