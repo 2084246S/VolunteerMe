@@ -237,9 +237,12 @@ def volunteer_replies(request):
 
 @login_required
 def manage_opportunities(request):
-    u = User.objects.get(user=request.user)
-    opportunity = Opportunity.objects.filter(company=u)
-    context_dict = []
+    u = request.user
+
+    context_dict = {}
+    up = UserProfile.objects.get(user=u)
+    opportunity = Opportunity.objects.filter(company=up)
+
     context_dict['opportunity'] = opportunity
     return render(request, 'Volunteer_Me/organiser/opportunities.html', context_dict)
 
