@@ -160,7 +160,9 @@ def edit_profile(request):
                     profile.picture = request.FILES['picture']
                 except:
                     pass
+                UserProfile.objects.get(user=user).delete()
                 profile.save()
+
                 set_group(request, user)
                 return index(request)
     else:
