@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+{% load volunteerme_extras %}
 
 {% block body_block %}
 <form id="profile_form" method="post" action="{% url 'create_opportunity' %}"
@@ -7,9 +8,33 @@
 
     {% csrf_token %}
 
+    <!-- 'name','category','start_date','end_date','description','location','optional' -->
+    <label for="id_name">Title:</label>
+    <input class="form-control" placeholder="name" id="id_name" maxlength="128" name="name" type="text" required autofocus/>
+    <label for="id_category">Area of work:</label>
+    <select class="form-control" id="id_category" name="category" >
+        {% get_category_choices %}
+    </select>
+    <label for="id_start_date">Start date (dd/mm/YY):</label>
+    <input class="form-control" type="date" id="id_start_date" name="start_date" min="{% today %}" required/>
+    <label for="id_end_date">End date (dd/mm/YY):</label>
+    <input class="form-control" type="date" id="id_end_date" name="end_date" min="{% today %}" required/>
+    <label for="id_description">Opportunity description:</label>
+    <textarea placeholder="Enter a full description of your advertised opportunity."
+    class="form-control" id="id_description" name="description" rows="7">
+    </textarea>
+    <label for="id_location">Address:</label>
+    <textarea class="form-control" id="id_location" name="location" rows="5"
+        placeholder="Address line 1
+                     Address line 2
+                     city
+                     county
+                     post code">
+    </textarea>
+    <label for="id_optional">Extra information:</label>
+    <textarea class="form-control" id="id_optional" name="optional" rows="3">
 
-    {{ opportunity_form.as_p }}
-
+    </textarea>
 
     <!-- Provide a button to click to submit the form. -->
     <input type="submit" name="submit" value="Submit"/>

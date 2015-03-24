@@ -1,0 +1,5 @@
+{% if cats %}
+    {% for category in cats %}
+        <option value="{{ category.slug }}">{{ category.name }}</option>
+    {% endfor %}
+{% endif %}

@@ -1,0 +1,5 @@
+{% if cats %}
+    {% for category in cats %}
+        <a href="{% url 'search' %}?category={% category.slug %}">{% category.name %}</a>
+    {% endfor %}
+{% endif %}

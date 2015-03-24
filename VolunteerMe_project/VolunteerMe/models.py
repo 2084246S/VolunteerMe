@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.template.defaultfilters import slugify
 
 
 class UserProfile(models.Model):
@@ -40,7 +41,7 @@ class EditUserProfile(models.Model):
 
 class Opportunity(models.Model):
     name = models.CharField(max_length=128)
-    category = models.CharField(max_length=128, default="Other")
+    category = models.CharField(max_length=128, default='other')
     company = models.ForeignKey(UserProfile, default=None)
     start_date = models.DateField(blank=True)
     end_date = models.DateField(blank=True)
@@ -65,3 +66,18 @@ class Reply(models.Model):
 
     class Meta:
         verbose_name_plural = 'Replies'
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=30)
+    slug = models.SlugField(max_length=30, unique=True)
+
+    def __unicode__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Category, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name_plural = 'Categories'
