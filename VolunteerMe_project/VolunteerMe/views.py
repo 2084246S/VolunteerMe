@@ -25,7 +25,7 @@ def index(request):
     context_dict['new_opportunities'] = new_opportunities_list
 
     # generate "ending soon" list
-    ending_soon_list = Opportunity.objects.order_by('-end_date')[:5]
+    ending_soon_list = Opportunity.objects.order_by('end_date')[:5]
     context_dict['ending_soon'] = ending_soon_list
 
     return render(request, 'Volunteer_Me/index.html', context_dict)
@@ -108,14 +108,9 @@ def profile(request):
 
 
 # place users into one of two groups
-#<<<<<<< HEAD
+
 def set_group(request, user, user_profile):
     if user_profile.type == 'o':
-#=======
-#def set_group(request, user):
-#
-#    if UserProfile.objects.filter(user=user).type == 'o':
-#>>>>>>> 90b3f256309fd946fd4c234b7d70919e254330da
         g = Group.objects.get(name='organiser')
         g.user_set.add(user)
     else:
@@ -250,8 +245,12 @@ def volunteer_replies(request):
     return render(request,'Volunteer_Me/volunteer/volunteer_replies.html',context_dict)
 
 @login_required
-def manage_opportunities(request, opportunity_id):
-    return render()
+def manage_opportunities(request):
+    u = User.objects.get(user=request.user)
+    opportunity = Opportunity.objects.filter(company=u)
+    context_dict=[]
+    context_dict['opportunity']=opportunity
+    return render(request,'Volunteer_Me/organiser/opportunities.html',context_dict)
 
 @login_required
 #edit specific opportunites
@@ -380,9 +379,7 @@ def suggest_job(request):
     #get 8 placements which contain the string
     cat_list = get_job_list(8, contains)
     #render in list
-#<<<<<<< HEAD
-#    return render(request, 'Volunteer_Me/cats.html', {'cat_list': cat_list})
-#=======
+
     return render(request, 'Volunteer_Me/cats.html', {'cat_list': cat_list})
 
 def application_form(request, opportunity_id):
@@ -410,4 +407,3 @@ def application_form(request, opportunity_id):
     else:
         form = ApplicationForm(request.GET)
     return render(request, 'Volunteer_Me/volunteer/applications_form.html', {'profile_form': form})
-#>>>>>>> 90b3f256309fd946fd4c234b7d70919e254330da
