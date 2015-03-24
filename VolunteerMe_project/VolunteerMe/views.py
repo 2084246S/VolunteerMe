@@ -258,17 +258,19 @@ def manage_opportunity(request, opportunity_id, username):
 @login_required
 #create an opportunity
 def create_opportunity(request):
-    company = User.objects.get(username=request.user.username)
+    company = request.user
     if request.method == 'POST':
-        opp_form = OpportunityForm(request.POST)
+        opp_form = OpportunityForm(data=request.POST)
+        print("Hello")
         if opp_form.is_valid():
             if request.user.is_authenticated():
                 profile = opp_form.save(commit=False)
-                profile.company = company
+                profile.company = UserProfile.objects.filter(user=company)[0]
                 profile.save()
-                return profile(request)
-    else:
-        form = OpportunityForm()
+                
+                return redirect('profile')
+
+    form = OpportunityForm()
     return render(request, 'Volunteer_Me/organiser/new_opportunity.html', {'opportunity_form': form})
 
 
@@ -322,7 +324,6 @@ def send_reply(request):
 
         reply = Reply.objects.get_or_create(application=application, answer=False)[0]
         if request.POST.get('accept'):
-            print(reply)
             reply.answer = True
         elif request.POST.get('decline'):
             reply.answer = False

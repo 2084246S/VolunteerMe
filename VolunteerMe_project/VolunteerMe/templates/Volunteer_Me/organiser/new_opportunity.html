@@ -2,7 +2,7 @@
 
 
 {% block body_block %}
-<form id="profile_form" method="post" action="/volunteer-me/"
+<form id="profile_form" method="post" action="{% url 'create_opportunity' %}"
       enctype="multipart/form-data">
 
     {% csrf_token %}
