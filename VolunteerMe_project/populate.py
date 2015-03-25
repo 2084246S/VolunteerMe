@@ -54,22 +54,22 @@ def populate():
     u_test = add_user('test', 'test', 'test@test.com', 'test')
 
     add_opportunity(organiser=o_brian, name="Admin", description="Typing stuff up",
-                    location="23 Stewart Drive, Stornoway", start_date=date.today(), end_date=date.today())
+                    location="23 Stewart Drive, Stornoway", start_date=date.today(), end_date=2015/03/23)
 
-    add_opportunity(organiser=o_brian, name="Cleaning", description="Blah, Blah, Blah, Blah Blah.........",
-                    location="Just down the road", start_date=date.today(), end_date=date.today())
+    add_opportunity(organiser=o_brian, name="Cleaning", description="Janitorial duties ",
+                    location="Just down the road", start_date=date.today(), end_date=2015/04/23)
     add_opportunity(organiser=o_brian, name="Something Completely Different",
                     description="You are expected to clean the surface of mars with a toothbrush.", location="Mars",
                     start_date=date.today(), end_date=date.today())
-    add_opportunity(organiser=o_brian, name="Running Around Shouting at People", description="", location="The moon",
+    add_opportunity(organiser=o_brian, name="Running Around Shouting at People", description="Command position on new space mission", location="The moon",
                     start_date=date.today(), end_date=date.today())
     add_opportunity(organiser=o_brian, name="Performing Open Heart Surgery",
-                    description="Please do not kill your patients.", location="Not really sure.",
+                    description="Please do not kill your patients.", location="84 Castle Street, Glasgow",
                     start_date=date.today(), end_date=date.today())
-    add_opportunity(organiser=o_brian, name="Blah", description="Blah", location="4 Privet Drive",
-                    start_date=date.today(), end_date=date.today())
-    add_opportunity(organiser=o_brian, name="Shining Spoons", description="--------------------",
-                    location="The land of cutlery", start_date=date.today(), end_date=date.today())
+    add_opportunity(organiser=o_brian, name="Child mentoring", description="Helping children", location="4 Privet Drive,Surrey",
+                    start_date=date.today(), end_date=2015/05/07)
+    add_opportunity(organiser=o_brian, name="Shining Spoons", description="Cleaning cutlery",
+                    location="The land of cutlery", start_date=date.today(), end_date=2015/06/04)
     # Print out what we have added to the user.
     for o in Opportunity.objects.all():
         print "- {0}".format(str(o))

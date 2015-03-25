@@ -16,7 +16,7 @@
 
             <h2>{{userprofile.county}}</h2>
 
-            <h2>{{ userrofile.post_code}}</h2>
+            <h2>{{ userprofile.post_code}}</h2>
 
             <h2>phone number(s):{{userprofile.phone_number}}</h2>
 
@@ -30,8 +30,8 @@
 {% block body_block %}
 {% if opportunites %}
 {% for opportunity in opportunites %}
-<li><a href="{url 'opportunity' opportunity.id}">{{opportunity_name}}</a></li>
-    <li><a href="{url 'edit_opportunity'}">Edit opportunity</a></li>
+    <li><a href="{%url 'opportunity' opportunity.id%}">{{opportunity.name}}</a>
+    <a href="{% url 'manage_opportunity' opportunity.id%}">Edit opportunity</a></li>
 {% endfor %}
 {% endif %}
 {% endblock %}

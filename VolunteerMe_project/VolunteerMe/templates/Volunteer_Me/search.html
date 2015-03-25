@@ -16,8 +16,7 @@
     <div id="cats" class="nav nav-list">
         {% if result_list %}
             {% for result in result_list%}
-                <li>
-                <h3>{{ result.name }}</h3>
+                <li><a href="{ url 'opportunity' result.id}">{{ result.name }}</a>
                 <h4>{{ result.description|truncatewords:100 }}</h4>
                 </li>
             {% endfor %}

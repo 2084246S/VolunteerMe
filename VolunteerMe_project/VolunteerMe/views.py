@@ -56,7 +56,6 @@ def profile_opps_applied_for(request):
     context_dict['opportunities_list'] = opportunities_list
 
     if user_profile.type == 'o':
-        organiser = Opportunity.company
         context_dict['opp'] = Opportunity.objects.filter(company=user_profile)
 
     else:
@@ -234,17 +233,24 @@ def volunteer_replies(request):
 
 @login_required
 def manage_opportunities(request):
-    u = User.objects.get(user=request.user)
-    opportunity = Opportunity.objects.filter(company=u)
-    context_dict = []
-    context_dict['opportunity'] = opportunity
+    u = request.user
+
+    context_dict = {}
+    up = UserProfile.objects.get(user=u)
+    opportunity = Opportunity.objects.filter(company=up)
+
+    context_dict['opportunites'] = opportunity
+    context_dict['user'] = u
+    context_dict['userprofile'] = up
     return render(request, 'Volunteer_Me/organiser/opportunities.html', context_dict)
 
 
 @login_required
 # edit specific opportunites
-def manage_opportunity(request, opportunity_id, username):
-    opportunity = Opportunity.objects.get(id=opportunity_id).filter(username=username)
+# was there a particular reason for passing username?
+# can't get it to work
+def manage_opportunity(request, opportunity_id):
+    opportunity = Opportunity.objects.get(id=opportunity_id)
     if opportunity:
         edit_opportunity(request)
 
@@ -260,19 +266,12 @@ def create_opportunity(request):
     if request.method == 'POST':
         opp_form = OpportunityForm(data=request.POST)
         if opp_form.is_valid():
-            print 'good form'
             if request.user.is_authenticated():
                 new_opportunity = opp_form.save(commit=False)
                 new_opportunity.company = UserProfile.objects.get(user=request.user)
                 new_opportunity.save()
-                print 'successful'
 
                 return redirect('profile')
-            else:
-                print 'user not authenticated'
-        else:
-            print 'bad form'
-            print opp_form.errors
 
     form = OpportunityForm()
     return render(request, 'Volunteer_Me/organiser/new_opportunity.html', {'opportunity_form': form})
@@ -281,10 +280,7 @@ def create_opportunity(request):
 # edit current opportunities
 @login_required
 def edit_opportunity(request):
-    # never write:
-    # username = User.objects.get(username=request.user.username)
-    # instead write:
-    username = request.user
+
     company = UserProfile.objects.get(name=request.user)
     if request.method == 'POST':
         opp_form = OpportunityForm(request.POST)
@@ -359,7 +355,7 @@ def about(request):
 
 
 # jobs list
-def get_job_list(max_results=0, contains='', category=''):
+def get_job_list(max_results=0, contains=''):
     if contains != '':
         job_list = Opportunity.objects.filter(name__icontains=contains)
     else:
@@ -395,21 +391,3 @@ def application_form(request, opportunity_id):
     application.opportunity = Opportunity.objects.get(id=opportunity_id)
     application.save()
     return redirect('profile')
-    # else:
-    # return redirect('auth_login')
-    # if request.method == 'POST':
-    # return redirect('auth-login')
-    # application_form = ApplicationForm(request.POST)
-    # if application_form.is_valid():
-    # application = application_form.save(commit=False)
-    # application.opportunity = Opportunity.objects.get(id=opportunity_id)
-    # try:
-    # profile.picture = request.FILES['picture']
-    # except:
-    # pass
-    # profile.save()
-    #
-    # return index(request)
-    # else:
-    # form = ApplicationForm(request.GET)
-    # return render(request, 'Volunteer_Me/volunteer/applications_form.html', {'profile_form': form})
