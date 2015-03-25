@@ -54,22 +54,22 @@ def populate():
     u_test = add_user('test', 'test', 'test@test.com', 'test')
 
     add_opportunity(organiser=o_brian, name="Admin", description="Typing stuff up",
-                    location="23 Stewart Drive, Stornoway", start_date=date.today(), end_date=2015/03/23)
+                    location="23 Stewart Drive, Stornoway",category = 'Administrative / Office Work', start_date=date.today(), end_date=date(2015,03,23))
 
     add_opportunity(organiser=o_brian, name="Cleaning", description="Janitorial duties ",
-                    location="Just down the road", start_date=date.today(), end_date=2015/04/23)
+                    location="Just down the road", category = 'Community / Economic Development Work' ,start_date=date.today(), end_date=date(2015,04,23))
     add_opportunity(organiser=o_brian, name="Something Completely Different",
                     description="You are expected to clean the surface of mars with a toothbrush.", location="Mars",
-                    start_date=date.today(), end_date=date.today())
+                    category = 'Other' ,start_date=date.today(), end_date=date(2016,03,07))
     add_opportunity(organiser=o_brian, name="Running Around Shouting at People", description="Command position on new space mission", location="The moon",
-                    start_date=date.today(), end_date=date.today())
+                    category = 'Management / Business Skills' ,start_date=date.today(), end_date=date(2016,05,07))
     add_opportunity(organiser=o_brian, name="Performing Open Heart Surgery",
                     description="Please do not kill your patients.", location="84 Castle Street, Glasgow",
-                    start_date=date.today(), end_date=date.today())
+                    category = 'Medical/Physiotherapy' ,start_date=date.today(), end_date=date(2015,12,07))
     add_opportunity(organiser=o_brian, name="Child mentoring", description="Helping children", location="4 Privet Drive,Surrey",
-                    start_date=date.today(), end_date=2015/05/07)
-    add_opportunity(organiser=o_brian, name="Shining Spoons", description="Cleaning cutlery",
-                    location="The land of cutlery", start_date=date.today(), end_date=2015/06/04)
+                    category = 'Befriending / Mentoring' ,start_date=date.today(), end_date=date(2015,05,07))
+    add_opportunity(organiser=o_brian, name="Shining Spoons", description="Cleaning cutlery for the holidays",
+                    location="The land of cutlery",category = 'Short term / seasonal working', start_date=date.today(), end_date=date(2015,06,04))
     # Print out what we have added to the user.
     for o in Opportunity.objects.all():
         print "- {0}".format(str(o))
@@ -77,8 +77,9 @@ def populate():
     add_application(u_ally, Opportunity.objects.get(name="Admin"))
 
 
-def add_opportunity(organiser, name, description="", location="", start_date=date.today(), end_date=date.today()):
+def add_opportunity(organiser, name, description="", location="", category='', start_date=date.today(), end_date=date.today()):
     o = Opportunity.objects.get_or_create(company=organiser, name=name, start_date=start_date, end_date=end_date)[0]
+    o.category = category
     o.description = description
     o.location = location
     o.start_date = start_date.today()
