@@ -259,14 +259,20 @@ def create_opportunity(request):
     company = request.user
     if request.method == 'POST':
         opp_form = OpportunityForm(data=request.POST)
-        print("Hello")
         if opp_form.is_valid():
+            print 'good form'
             if request.user.is_authenticated():
                 new_opportunity = opp_form.save(commit=False)
-                new_opportunity.company = UserProfile.objects.filter(user=company)[0]
+                new_opportunity.company = UserProfile.objects.get(user=request.user)
                 new_opportunity.save()
+                print 'successful'
 
                 return redirect('profile')
+            else:
+                print 'user not authenticated'
+        else:
+            print 'bad form'
+            print opp_form.errors
 
     form = OpportunityForm()
     return render(request, 'Volunteer_Me/organiser/new_opportunity.html', {'opportunity_form': form})

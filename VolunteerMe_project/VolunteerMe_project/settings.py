@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -94,4 +95,6 @@ ACCOUNT_ACTIVATION_DAYS = 5
 LOGIN_REDIRECT_URL = '/volunteer-me/'
 REGISTRATION_AUTO_LOGIN = False
 
-DATE_INPUT_FORMATs = ['%d/%m/%Y', '%d/%m/%y']
+DATE_INPUT_FORMATS = (
+    '%d/%m/%y',
+)
