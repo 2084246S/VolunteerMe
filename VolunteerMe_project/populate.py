@@ -45,7 +45,7 @@ def populate():
     newgroup.save()
     newgroup = Group.objects.get_or_create(name='organiser')[0]
     newgroup.save()
-
+    add_admin()
     u_brian = add_user('Brian', 'brian123', 'brian123@test.com', 'pass123')
     o_brian = add_userprofile(u_brian, profile_type='o', name='Brian', email='brian123@test.com')
     u_ally = add_user('Ally', 'ally123', 'ally123@test.com', 'pass456')
@@ -111,6 +111,11 @@ def add_user(first_name, username, email, password):
     user.save()
     return user
 
+def add_admin():
+    user = User.objects.create_user('volunteer', 'volunteer@hotmail.com', 'volunteer')
+    user.is_staff = True
+    user.is_superuser = True
+    user.save()
 
 def add_application(volunteer, opportunity):
     a = Application.objects.get_or_create(volunteer=volunteer, opportunity=opportunity)[0]
