@@ -20,6 +20,10 @@ profile details:
 organiser : brian123, password = pass123
 volunteer : ally123, password = pass456
 
+Testing:
+to run test's
+- from VolunteerMe/VolunteerMe_project
+- python manage.py test VolunteerMe
 
 
 Authors:
