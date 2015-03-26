@@ -251,7 +251,7 @@ def manage_opportunities(request):
 
 def manage_opportunity(request, opportunity_id):
     opportunity = Opportunity.objects.get(id=opportunity_id)
-    company = UserProfile.objects.get(name=request.user)
+    company = UserProfile.objects.get(name=user)
     if request.method == 'POST':
         opp_form = OpportunityForm(request.POST)
         if opp_form.is_valid():
