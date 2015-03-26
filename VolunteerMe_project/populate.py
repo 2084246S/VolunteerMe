@@ -100,13 +100,16 @@ def add_userprofile(user, profile_type, name, email):
 
 
 def add_user(first_name, username, email, password):
-    o = User.objects.get_or_create(username=username)[0]
-    o.first_name = first_name
-    o.last_name = ''
-    o.email = email
-    o.password = password
-    o.save()
-    return o
+    user = User.objects.create_user(username,email,password)
+
+    #o = User.objects.get_or_create(username=username)[0]
+    user.first_name = first_name
+    user.last_name = ''
+    #o.last_name = ''
+    #o.email = email
+    #o.password = password
+    user.save()
+    return user
 
 
 def add_application(volunteer, opportunity):

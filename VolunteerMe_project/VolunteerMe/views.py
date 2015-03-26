@@ -33,9 +33,9 @@ def search(request):
     query = request.GET.get('suggestion', '')
     category = request.GET.get('category', '')
 
-    result_list = Opportunity.objects.filter(name__contains=query)\
-                                     .filter(category__contains=category)\
-                                     .order_by('-end_date', 'name')
+    result_list = Opportunity.objects.filter(name__contains=query) \
+        .filter(category__contains=category) \
+        .order_by('-end_date', 'name')
 
     print("Hello", result_list)
     return render(request, 'Volunteer_Me/search.html', {'result_list': result_list})
@@ -131,6 +131,7 @@ def register_organiser(request):
 # edit profile details
 @login_required
 def edit_profile(request):
+
     if request.method == 'POST':
         profile_form = UserProfileForm(request.POST)
         if profile_form.is_valid():
@@ -145,7 +146,7 @@ def edit_profile(request):
                 current_profile.save()
 
                 set_group(user, current_profile)
-                return index(request)
+                return redirect('profile')
     else:
         form = UserProfileForm()
     return render(request, 'Volunteer_Me/organiser/organiser_register.html', {'profile_form': form})
@@ -247,16 +248,21 @@ def manage_opportunities(request):
 
 @login_required
 # edit specific opportunites
-# was there a particular reason for passing username?
-# can't get it to work
+
 def manage_opportunity(request, opportunity_id):
     opportunity = Opportunity.objects.get(id=opportunity_id)
-    if opportunity:
-        edit_opportunity(request)
-
-        opportunity.save()
-    context = {'opportunity': opportunity}
-    return render(request, 'Volunteer_Me/organiser/edit_opportunity.html', context)
+    company = UserProfile.objects.get(name=request.user)
+    if request.method == 'POST':
+        opp_form = OpportunityForm(request.POST)
+        if opp_form.is_valid():
+            if request.user.is_authenticated():
+                new_opportunity = opp_form.save(commit=False)
+                new_opportunity.company = company
+                new_opportunity.save()
+                return new_opportunity(request)
+    else:
+        form = OpportunityForm(request.GET)
+    return render(request, 'Volunteer_Me/organiser/edit_opportunity.html', {'opportunity_form': form})
 
 
 @login_required
