@@ -1,12 +1,12 @@
 {% extends 'base.html %}
 
 {% block body_block %}
-<form id="profile_form" method="post" action="/VolunteerMe/edit_o/"
-      enctype="multipart/form-data">
+    <form id="profile_form" method="post" action="/VolunteerMe/edit_o/"
+          enctype="multipart/form-data">
 
-    {% csrf_token %}
-    {{ opportunity_form.as_p }}
+        {% csrf_token %}
+        {{ opportunity_form.as_p }}
 
-    <input type="submit" name="submit" value="Submit"/>
-</form>
+        <input type="submit" name="submit" value="Submit"/>
+    </form>
 {% endblock %}

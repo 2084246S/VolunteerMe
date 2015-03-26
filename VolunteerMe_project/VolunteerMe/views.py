@@ -7,6 +7,7 @@ from VolunteerMe.forms import UserProfileForm, OpportunityForm, UserProfile
 from VolunteerMe.google_address_search import run_query
 
 
+
 # Homepage
 # shows a list of newest and urgent placements
 def index(request):
@@ -131,7 +132,6 @@ def register_organiser(request):
 # edit profile details
 @login_required
 def edit_profile(request):
-
     if request.method == 'POST':
         profile_form = UserProfileForm(request.POST)
         if profile_form.is_valid():
@@ -251,7 +251,7 @@ def manage_opportunities(request):
 
 def manage_opportunity(request, opportunity_id):
     opportunity = Opportunity.objects.get(id=opportunity_id)
-    company = UserProfile.objects.get(name=user)
+    company = UserProfile.objects.get(name=request.user)
     if request.method == 'POST':
         opp_form = OpportunityForm(request.POST)
         if opp_form.is_valid():
@@ -286,7 +286,6 @@ def create_opportunity(request):
 # edit current opportunities
 @login_required
 def edit_opportunity(request):
-
     company = UserProfile.objects.get(name=request.user)
     if request.method == 'POST':
         opp_form = OpportunityForm(request.POST)

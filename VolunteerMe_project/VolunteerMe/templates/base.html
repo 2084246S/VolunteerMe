@@ -38,28 +38,30 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-left">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Volunteers<span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Volunteers<span
+                            class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="{% url 'search' %}">Search Opportunities</a></li>
                         <!--<li><a href="#">My Saved Searches</a></li>-->
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Organisers<span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Organisers<span
+                            class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="{% url 'create_opportunity' %}">Create New Opportunities</a></li>
-                        <li><a href="{%url 'manage_opportunities' %}">Manage My Opportunities</a></li>
+                        <li><a href="{% url 'manage_opportunities' %}">Manage My Opportunities</a></li>
                     </ul>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
 
-                    <li><a href="{%url 'profile' %}">My Dashboard</a></li>
+                    <li><a href="{% url 'profile' %}">My Dashboard</a></li>
                     <li><h5 class="text-success">Signed in as {{ user.username }}!</h5></li>
                     <li><a href="{% url 'auth_logout' %}?next=/volunteer-me/">Sign Out</a></li>
                 {% else %}
-                     <li><a href="{% url 'registration_register' %}">Register Here</a></li>
+                    <li><a href="{% url 'registration_register' %}">Register Here</a></li>
                     <li><a href="{% url 'auth_login' %}">Sign In</a></li>
                     <li><a href="{% url 'about' %}">About</a></li>
                 {% endif %}
@@ -73,7 +75,7 @@
         <div class="col-sm-3 col-md-2 sidebar">
 
             {% block side_block %}
-            {% get_category_list %}
+                {% get_category_list %}
             {% endblock %}
 
         </div>

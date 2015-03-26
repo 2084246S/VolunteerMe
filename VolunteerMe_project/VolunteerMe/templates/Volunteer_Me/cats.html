@@ -1,15 +1,18 @@
 <ul class="nav nav-list">
     {% if cat_list %}
-    <table class="table table-striped">
-        <tr><th>Placement Name</th><th>Company</th></tr>
-        {% for opp in cat_list %}
-        <tr>
-            <td><a href="/opportunity/{{ opp.id }}">{{ opp.name }}</a> </td>
-            <h1>{{opp.summary|truncatewords:100}}</h1>
-        </tr>
-        {% endfor %}
-    </table>
+        <table class="table table-striped">
+            <tr>
+                <th>Placement Name</th>
+                <th>Company</th>
+            </tr>
+            {% for opp in cat_list %}
+                <tr>
+                    <td><a href="/opportunity/{{ opp.id }}">{{ opp.name }}</a></td>
+                    <h1>{{ opp.summary|truncatewords:100 }}</h1>
+                </tr>
+            {% endfor %}
+        </table>
     {% else %}
-    <li>No jobs found.</li>
+        <li>No jobs found.</li>
     {% endif %}
 </ul>

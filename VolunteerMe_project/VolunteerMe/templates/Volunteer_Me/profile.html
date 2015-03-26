@@ -5,18 +5,17 @@
 {% block headextra %}
     <!--Should make this static-->
     <script type="text/javascript">
-        function loadXMLDoc()
-        {
+        function loadXMLDoc() {
             var xmlhttp;
             if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
-                xmlhttp=new XMLHttpRequest();
+                xmlhttp = new XMLHttpRequest();
             }
             else {// code for IE6, IE5
-                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
             }
-            xmlhttp.onreadystatechange=function() {
-                if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-                    document.getElementById("main-list").innerHTML=xmlhttp.responseText;
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    document.getElementById("main-list").innerHTML = xmlhttp.responseText;
                 }
             }
             xmlhttp.open("GET", "{% url 'profile_opps_applied_for' %}", true);
@@ -24,50 +23,47 @@
         }
 
 
-        function loadXMLDoc2()
-        {
+        function loadXMLDoc2() {
             var xmlhttp;
             if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
-                xmlhttp=new XMLHttpRequest();
+                xmlhttp = new XMLHttpRequest();
             }
             else {// code for IE6, IE5
-                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
             }
-            xmlhttp.onreadystatechange=function() {
-                if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-                    document.getElementById("main-list").innerHTML=xmlhttp.responseText;
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    document.getElementById("main-list").innerHTML = xmlhttp.responseText;
                 }
             }
             xmlhttp.open("GET", "{% url 'volunteer_replies' %}", true);
             xmlhttp.send();
         }
 
-        function loadXMLDoc3()
-        {
+        function loadXMLDoc3() {
             var xmlhttp;
             if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
-                xmlhttp=new XMLHttpRequest();
+                xmlhttp = new XMLHttpRequest();
             }
             else {// code for IE6, IE5
-                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
             }
-            xmlhttp.onreadystatechange=function() {
-                if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-                    document.getElementById("main-list").innerHTML=xmlhttp.responseText;
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    document.getElementById("main-list").innerHTML = xmlhttp.responseText;
                 }
             }
             xmlhttp.open("GET", "{% url 'reply_applications' %}", true);
             xmlhttp.send();
         }
 
-        function sendReply(application_id, answer)
-        {
+        function sendReply(application_id, answer) {
             var xmlhttp;
             if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
-                xmlhttp=new XMLHttpRequest();
+                xmlhttp = new XMLHttpRequest();
             }
             else {// code for IE6, IE5
-                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
             }
             xmlhttp.open("POST", "{% url 'send_reply' %}", true);
             xmlhttp.send("app_id=" + application_id + "&answer=" + answer);
@@ -116,10 +112,14 @@
             <div class="panel-heading">
                 <div class="btn-group btn-group-justified" role="group" aria-label="...">
                     <div class="btn-group" role="group" aria-label="...">
-                        <button type="button" class="btn btn-lg btn-primary" onclick="loadXMLDoc()">Opportunities Applied For</button>
+                        <button type="button" class="btn btn-lg btn-primary" onclick="loadXMLDoc()">Opportunities
+                            Applied For
+                        </button>
                     </div>
                     <div class="btn-group" role="group" aria-label="...">
-                        <button type="button" class="btn btn-lg btn-primary" onclick ="loadXMLDoc2()">Replies to Applications</button>
+                        <button type="button" class="btn btn-lg btn-primary" onclick="loadXMLDoc2()">Replies to
+                            Applications
+                        </button>
                     </div>
                 </div>
                 <hr/>
@@ -137,13 +137,14 @@
                                             <h4 class="list-group-item-heading">
                                                 <a href="{% url 'opportunity' opportunities.id %}">{{ opportunities.name }}</a>
                                             </h4>
+
                                             <p class="list-group-item-text">{{ opportunities.description|truncatewords:100 }}</p>
                                         </div>
                                     {% endfor %}
                                 </div>
                             </div>
                         </div>
-                    {%else%}
+                    {% else %}
                         <h1>No opportunities</h1>
                     {% endif %}
                 </div>
@@ -159,7 +160,9 @@
                             Opportunity</a>
                     </div>
                     <div class="btn-group" role="group" aria-label="...">
-                        <button type="button" class="btn btn-lg btn-primary" onclick="loadXMLDoc3()">Reply to Applications</button>
+                        <button type="button" class="btn btn-lg btn-primary" onclick="loadXMLDoc3()">Reply to
+                            Applications
+                        </button>
                     </div>
                 </div>
                 <hr/>
@@ -183,7 +186,8 @@
                                         </div>
                                     {% endfor %}
                                 </div>
-                                <a class="btn btn-primary" aria-label="Right Align" href="{% url 'manage_opportunities' %}">
+                                <a class="btn btn-primary" aria-label="Right Align"
+                                   href="{% url 'manage_opportunities' %}">
                                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> View All
                                 </a>
 

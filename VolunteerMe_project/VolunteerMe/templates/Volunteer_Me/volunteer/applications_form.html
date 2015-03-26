@@ -1,42 +1,42 @@
-{%  extends 'base.html' %}
+{% extends 'base.html' %}
 {% block body_block %}
-{% if user.is_authenticated %}
-    <div class="panel">
-        <div class="panel-heading">
-            <h3 class="panel-title">Apply Now</h3>
+    {% if user.is_authenticated %}
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">Apply Now</h3>
 
-            <div class="panel-body">
-                <form id="profile_form" method="post" action="/volunteer-me/profile/"
-                      enctype="multipart/form-data">
+                <div class="panel-body">
+                    <form id="profile_form" method="post" action="/volunteer-me/profile/"
+                          enctype="multipart/form-data">
 
-                    {% csrf_token %}
+                        {% csrf_token %}
 
-                    {{ profile_form.as_p }}
+                        {{ profile_form.as_p }}
 
-                    <button class="btn btn-default"type="submit" name="submit">Apply Now</button>
-                </form>
+                        <button class="btn btn-default" type="submit" name="submit">Apply Now</button>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
 
-{% else %}
-    <div class="panel">
-        <div class="panel-heading">
-            <h3 class="panel-title">Apply Now</h3>
+    {% else %}
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">Apply Now</h3>
 
-            <div class="panel-body">
-                <form id="profile_form" method="post" action="/volunteer-me/index/"
-                      enctype="multipart/form-data">
+                <div class="panel-body">
+                    <form id="profile_form" method="post" action="/volunteer-me/index/"
+                          enctype="multipart/form-data">
 
-                    {% csrf_token %}
+                        {% csrf_token %}
 
-                    {{ profile_form.as_p }}
+                        {{ profile_form.as_p }}
 
-                    <button class="btn btn-default" type="submit" name="submit">Apply Now</button>
-                </form>
+                        <button class="btn btn-default" type="submit" name="submit">Apply Now</button>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-{% endif %}
+    {% endif %}
 
 {% endblock %}

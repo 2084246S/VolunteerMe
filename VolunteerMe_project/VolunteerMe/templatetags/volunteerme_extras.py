@@ -1,10 +1,14 @@
 __author__ = '2063602t'
 
-from django import template
-from VolunteerMe.models import Category
 from datetime import date
 
+from django import template
+
+from VolunteerMe.models import Category
+
+
 register = template.Library()
+
 
 @register.inclusion_tag('Volunteer_Me/category-choices.html')
 def get_category_choices():

@@ -2,16 +2,16 @@
 
 
 {% block body_block %}
-<form id="profile_form" method="post" action="/VolunteerMe/edit_o_profile/"
-      enctype="multipart/form-data">
+    <form id="profile_form" method="post" action="/VolunteerMe/edit_o_profile/"
+          enctype="multipart/form-data">
 
-    {% csrf_token %}
+        {% csrf_token %}
 
 
-    {{ profile_form.as_p }}
+        {{ profile_form.as_p }}
 
-    <p><a href="{% url 'password_change_form' %}">Password change</a></p>
+        <p><a href="{% url 'password_change_form' %}">Password change</a></p>
 
-    <input type="submit" name="submit" value="Submit"/>
-</form>
+        <input type="submit" name="submit" value="Submit"/>
+    </form>
 {% endblock %}

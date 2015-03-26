@@ -1,9 +1,9 @@
 {% if cats %}
     <ul class="nav nav-sidebar">
         <li><a href="{% url 'search' %}">All Categories</a></li>
-    {% for category in cats %}
-        <li><a href="{% url 'search' %}?category={{ category.slug }}">{{ category.name }}</a></li>
-    {% endfor %}
+        {% for category in cats %}
+            <li><a href="{% url 'search' %}?category={{ category.slug }}">{{ category.name }}</a></li>
+        {% endfor %}
     </ul>
 {% else %}
     <ul class="nav nav-sidebar">

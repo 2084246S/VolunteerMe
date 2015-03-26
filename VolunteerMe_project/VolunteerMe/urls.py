@@ -1,7 +1,9 @@
 __author__ = '2063602T'
 
 from django.conf.urls import patterns, url
+
 from VolunteerMe import views
+
 
 urlpatterns = patterns('',
                        url(r'^$', views.index, name='index'),
@@ -17,7 +19,7 @@ urlpatterns = patterns('',
 
                        url(r'^opportunity/(?P<opportunity_id>\d+)/$', views.show_opportunity, name='opportunity'),
                        # url(r'^dashboard/$',
-                       #     views.dashboard,
+                       # views.dashboard,
                        #     name='dashboard'),
                        url(r'^search/$', views.search, name='search'),
                        url(r'^about/$', views.about, name='about'),
@@ -30,9 +32,9 @@ urlpatterns = patterns('',
                        url(r'^volunteer/my_applications/$', views.manage_applications, name='applied_opportunities'),
                        url(r'^volunteer/my_applications/(?P<application_id>[\w\-]+/$)', views.manage_application,
                            name='my_application'),
-                       url(r'^volunteer/application_replies/$',views.volunteer_replies,name = "volunteer_replies"),
-                       url(r'^organiser/reply_applications/$',views.manage_applications,name="reply_applications"),
-                       url(r'^application/(?P<opportunity_id>\d+)/$',views.application_form,name="application_form"),
+                       url(r'^volunteer/application_replies/$', views.volunteer_replies, name="volunteer_replies"),
+                       url(r'^organiser/reply_applications/$', views.manage_applications, name="reply_applications"),
+                       url(r'^application/(?P<opportunity_id>\d+)/$', views.application_form, name="application_form"),
                        # link to a basic key word search view.
                        url(r'^suggest_job/$', views.suggest_job, name='suggest_job'),
                        )
