@@ -133,22 +133,22 @@ def register_organiser(request):
 @login_required
 def edit_profile(request):
     if request.method == 'POST':
-        profile_form = UserProfileForm(request.POST)
+        user = request.user
+        users_profile = UserProfile.objects.get(user=request.user)
+        profile_form = UserProfileForm(request.POST, instance=users_profile)
         if profile_form.is_valid():
-            if request.user.is_authenticated():
-                user = request.user
-                current_profile = UserProfile.objects.get(user=user)
-                current_profile.type = user.type
-                if request.FILES:
-                    if 'picture' in request.FILES:
-                        current_profile.picture = request.FILES['picture']
-
-                current_profile.save()
-
-                set_group(user, current_profile)
-                return redirect('profile')
+            profile_to_edit = profile_form.save(commit=False)
+            profile_to_edit.type = user.type
+            try:
+                profile_to_edit.picture = request.FILES['picture']
+            except:
+                pass
+            profile_to_edit.save()
+            set_group(user, profile_to_edit.type)
+            return redirect('profile')
     else:
-        form = UserProfileForm()
+        form = UserProfileForm(request.GET)
+        
     return render(request, 'Volunteer_Me/organiser/organiser_register.html', {'profile_form': form})
 
 
