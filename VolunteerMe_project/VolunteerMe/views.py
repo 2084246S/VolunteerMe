@@ -138,7 +138,7 @@ def edit_profile(request):
         profile_form = UserProfileForm(request.POST, instance=users_profile)
         if profile_form.is_valid():
             profile_to_edit = profile_form.save(commit=False)
-            profile_to_edit.type = user.type
+            profile_to_edit.type = users_profile.type
             try:
                 profile_to_edit.picture = request.FILES['picture']
             except:
