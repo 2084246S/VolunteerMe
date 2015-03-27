@@ -161,6 +161,7 @@ def show_opportunity(request, opportunity_id):
     if opportunity:
 
         organiser = opportunity.company.user
+        context['company'] = organiser
         context['company_name'] = organiser.first_name
 
         context['opportunity_name'] = opportunity.name
