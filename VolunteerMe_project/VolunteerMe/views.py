@@ -148,8 +148,8 @@ def edit_profile(request):
             return redirect('profile')
     else:
         form = UserProfileForm(request.GET)
-        
-    return render(request, 'Volunteer_Me/organiser/organiser_register.html', {'profile_form': form})
+
+    return render(request, 'Volunteer_Me/edit_profile.html', {'profile_form': form})
 
 
 # shows opportunity details
