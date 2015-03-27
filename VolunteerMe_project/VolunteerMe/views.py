@@ -144,7 +144,7 @@ def edit_profile(request):
             except:
                 pass
             profile_to_edit.save()
-            
+
             return redirect('profile')
     else:
         form = UserProfileForm(request.GET)
@@ -252,7 +252,9 @@ def manage_opportunities(request):
 
 def manage_opportunity(request, opportunity_id):
     opportunity = Opportunity.objects.get(id=opportunity_id)
-    company = UserProfile.objects.get(name=request.user)
+    user = request.user
+    userprofile = UserProfile.objects.get(user =user)
+    company = UserProfile.objects.get(name=userprofile)
     if request.method == 'POST':
         opp_form = OpportunityForm(request.POST)
         if opp_form.is_valid():
