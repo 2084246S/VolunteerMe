@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Index{% endblock %}
+
+{% block body_block %}
+
+    <div class="row placeholders">
+        <div class="col-xs-12 col-sm-6 placeholder">
+
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">5 Newest opportunities</h3>
+                </div>
+            </div>
+            {% if new_opportunities %}
+                <ul class="list-group">
+                    {% for new_opportunity in new_opportunities %}
+                        <li class="list-group-item"><a
+                                href="{% url 'opportunity' new_opportunity.id %}">{{ new_opportunity.name }}</a>
+                            <hr/>
+                            <p class="list-group-item-text">{{ new_opportunity.description|truncatewords:100 }}</p></li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <strong>There are no new opportunities present.</strong>
+            {% endif %}
+        </div>
+
+
+        <div class="col-xs-12 col-sm-6 placeholder">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">5 Urgent Opportunities</h3>
+                </div>
+            </div>
+            {% if ending_soon %}
+                <ul class="list-group">
+                    {% for ending in ending_soon %}
+                        <li class="list-group-item"><a href="{% url 'opportunity' ending.id %}">{{ ending.name }}</a>
+                            <hr/>
+                            <p class="list-group-item-text">{{ ending.description|truncatewords:100 }}</p></li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <strong>There are no urgent opportunities.</strong>
+            {% endif %}
+        </div>
+    </div>
+
+
+{% endblock %}
