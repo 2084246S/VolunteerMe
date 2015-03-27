@@ -396,3 +396,18 @@ def application_form(request, opportunity_id):
     application.opportunity = Opportunity.objects.get(id=opportunity_id)
     application.save()
     return redirect('profile')
+
+def users(request):
+    context_dict = {}
+    profiles = UserProfile.objects.filter(type='o')
+    context_dict['profiles'] = profiles
+    return render(request, 'rango/users.html', context_dict)
+
+
+def view_profile(request, profile_name):
+    context_dict = {}
+    user = User.objects.get(username=profile_name)
+    context_dict['user'] = user
+    profile = UserProfile.objects.get(user=user)
+    context_dict['profile'] = profile
+    return render(request, 'rango/view_profile.html', context_dict)
