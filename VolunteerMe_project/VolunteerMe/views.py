@@ -15,7 +15,7 @@ def index(request):
     context_dict = dict()
 
     # Generate category list
-    opp_list = Opportunity.objects.order_by('job_name')
+    opp_list = Opportunity.objects.order_by('category')
     context_dict['categories'] = opp_list
 
     # generate "new Opportunities" list
