@@ -1,7 +1,7 @@
-{% extends 'base.html %}
+{% extends 'base.html' %}
 
 {% block body_block %}
-    <form id="profile_form" method="post" action="/VolunteerMe/edit_o/"
+    <form id="profile_form" method="post" action="/VolunteerMe/organiser/edit_opportunity/"
           enctype="multipart/form-data">
 
         {% csrf_token %}
