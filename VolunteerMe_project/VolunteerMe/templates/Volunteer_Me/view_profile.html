@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}View Profile{% endblock %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+
+            {% block side_block %}
+                {% if userprofile.picture %}
+                    <!-- Should change the size to css and percentages probably -->
+                    <img src="{{ userprofile.picture.url }}" width="128" height="128"/>
+                {% endif %}
+
+                <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+
+                <h3>
+                    <small>Address:</small>
+                    <p/>{{ userprofile.address }}
+                    {{ userprofile.town }}
+                    {{ userprofile.county }}
+                    {{ userprofile.post_code }}</h3>
+
+                <h3>
+                    <small>phone number(s):</small>
+                    <p/>{{ userprofile.contact_number }}</h3>
+                <h3>
+                    <small>Email address:</small>
+                </h3><p/>
+                <h4>{{ user.email }}<p/></h4>
+
+                <a href="{% url 'edit_profile' %}">Edit Profile</a>
+            {% endblock %}
+        </div>
+    </div>
+</div>
+
+{% block body_block%}
+{% if opportunites %}
+        {% for opportunity in opportunites %}
+            <li><a href="{% url 'opportunity' opportunity.id %}">{{ opportunity.name }}</a>
+                <a href="{% url 'manage_opportunity' opportunity.id %}">Edit opportunity</a></li>
+        {% endfor %}
+    {% endif %}
+{%endblock%}

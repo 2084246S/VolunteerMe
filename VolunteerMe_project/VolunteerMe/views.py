@@ -410,4 +410,6 @@ def view_profile(request, profile_name):
     context_dict['user'] = user
     profile = UserProfile.objects.get(user=user)
     context_dict['profile'] = profile
+    opps = Opportunity.objects.filter(company = profile)
+    context_dict['opportunites'] = opps
     return render(request, 'Volunteer_Me/view_profile.html', context_dict)
