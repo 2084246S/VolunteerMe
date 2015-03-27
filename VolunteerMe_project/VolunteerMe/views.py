@@ -254,13 +254,13 @@ def manage_opportunity(request, opportunity_id):
     opportunity = Opportunity.objects.get(id=opportunity_id)
     user = request.user
     userprofile = UserProfile.objects.get(user =user)
-    company = UserProfile.objects.get(name=userprofile)
+
     if request.method == 'POST':
         opp_form = OpportunityForm(request.POST)
         if opp_form.is_valid():
             if request.user.is_authenticated():
                 new_opportunity = opp_form.save(commit=False)
-                new_opportunity.company = company
+                new_opportunity.company = userprofile
                 new_opportunity.save()
                 return new_opportunity(request)
     else:
