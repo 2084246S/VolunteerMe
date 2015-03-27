@@ -401,7 +401,7 @@ def users(request):
     context_dict = {}
     profiles = UserProfile.objects.filter(type='o')
     context_dict['profiles'] = profiles
-    return render(request, 'rango/users.html', context_dict)
+    return render(request, 'Volunteer_Me/users.html', context_dict)
 
 
 def view_profile(request, profile_name):
@@ -410,4 +410,4 @@ def view_profile(request, profile_name):
     context_dict['user'] = user
     profile = UserProfile.objects.get(user=user)
     context_dict['profile'] = profile
-    return render(request, 'rango/view_profile.html', context_dict)
+    return render(request, 'Volunteer_Me/view_profile.html', context_dict)
