@@ -144,7 +144,7 @@ def edit_profile(request):
             except:
                 pass
             profile_to_edit.save()
-            set_group(user, profile_to_edit.type)
+            
             return redirect('profile')
     else:
         form = UserProfileForm(request.GET)
